@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+            <div class="col-12">
+                <nav>
+                    <div class="nav-wrapper">
+                        <div class="col-12">
+                            <a href="{{url_for('get_clients')}}" class="breadcrumb">All Clients</a>
+                            <a class="breadcrumb">Second</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-12">
+                <h3>Create A New Client</h3>
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-10">
+            <form action="{{url_for('insert_client')}}" method="POST">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col">
+                            First Name: 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Last Name: 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="client_first" name="first" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="client_last" name="last">
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Age:
+                </div>
+                <div class="col-6">
+                    <input type="number" id="client_age" name="age" min="1" max="99">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Location:
+                </div>
+                <div class="col-6">
+                    <input type="text" id="client_location" name="location">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Email:
+                </div>
+                <div class="col-6">
+                    <input type="email" id="client_email" name="client_email" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Telephone:
+                </div>
+                <div class="col-6">
+                    <input type="text" id="client_tel" name="client_tel">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Additional Information:
+                </div>
+                <div class="col-6">
+                    <textarea name="additional_information" id="additional_information" class="materialize-textarea"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn waves-effect waves-light" type="submit">
+                        <a href="{{url_for('insert_client')}}">Save Client
+                            <i class="material-icons right">save_alt</i>
+                        </a>
+                    </button>
+                    <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
+                        <i class="material-icons right">cancel_presentation</i>
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="cancel-save-modal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure with you this cancel this action and return to the Home Page?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{url_for('get_clients')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+            </div>
+    </div>
+{% endblock %}

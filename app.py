@@ -80,9 +80,16 @@ def update_appointment(appt_id):
 
 
 @app.route('/delete_appointment/<appt_id>')
-def delete_task(appt_id):
+def delete_appointment(appt_id):
     mongo.db.appointments.remove({'_id': ObjectId(appt_id)})
     return redirect(url_for('get_appointments'))
+
+
+@app.route('/get_clients')
+def get_clients():
+    all_clients = mongo.db.clients.find()
+    return render_template('all-clients.html',
+                           clients=all_clients)
 
 
 @app.route('/see_client/<client_id>')
@@ -91,6 +98,48 @@ def see_client(client_id):
     return render_template('client-details.html',
                            client=the_client,
                            appointments=mongo.db.appointments.find())
+
+
+@app.route('/create_client')
+def create_client():
+    return render_template('new-client.html')
+
+
+@app.route('/insert_client', methods=['POST'])
+def insert_client():
+    clients = mongo.db.clients
+    clients.insert_one(request.form.to_dict())
+    return redirect(url_for('get_clients'))
+
+
+@app.route('/edit_client/<client_id>')
+def edit_client(client_id):
+    the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
+    return render_template('edit-client.html',
+                           client=the_client,
+                           appointments=mongo.db.appointments.find())
+
+
+@app.route('/update_client/<client_id>', methods=["POST"])
+def update_client(client_id):
+    clients = mongo.db.clients
+    clients.update({'_id': ObjectId(client_id)},
+                   {
+        'first': request.form.get('first'),
+        'last': request.form.get('last'),
+        'age': request.form.get('age'),
+        'location': request.form.get('location'),
+        'client_email': request.form.get('client_email'),
+        'client_tel': request.form.get('client_tel'),
+        'additional_notes': request.form.get('additional_notes')
+    })
+    return redirect(url_for('get_clients'))
+
+
+@app.route('/delete_client/<client_id>')
+def delete_client(client_id):
+    mongo.db.clients.remove({'_id': ObjectId(client_id)})
+    return redirect(url_for('get_clients'))
 
 
 if __name__ == '__main__':

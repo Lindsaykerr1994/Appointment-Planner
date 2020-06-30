@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h3>Clients List</h3>
+                <a href="{{url_for('create_client')}}" class="btn-floating btn waves-effect waves-light red" data-position="left" data-tooltip="Create a new client">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-10">
+                {% for client in clients %}
+                <div class="row">
+                    <div class="col-4">
+                        <a href="{{url_for('see_client', client_id=client._id)}}">{{client.first}} {{client.last}}</a>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-4">
+                        <button class="btn waves-effect waves-light modal-trigger" >
+                            <a href="{{url_for('edit_client', client_id=client._id)}}">Edit
+                                <i class="material-icons right">cancel_presentation</i>
+                            </a>
+                        </button>
+                        <button class="btn waves-effect waves-light modal-trigger delete-button" href="#delete-client-modal" data-client-id="{{client._id}}">Remove
+                            <i class="material-icons right">cancel_presentation</i>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div id="delete-client-modal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you wish this remove this client and all associated appointments?</p>
+        </div>
+        <div class="modal-footer">
+            <a id="delete-client-btn" href="" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+        </div>
+    </div>
+{% endblock %}

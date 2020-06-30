@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-md-center">
+            <div class="col-12">
+                <nav>
+                    <div class="nav-wrapper">
+                        <div class="col-12">
+                            <a href="{{url_for('get_clients')}}" class="breadcrumb">All Clients</a>
+                            <a class="breadcrumb">Second</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-12">
+                <h3>Edit A Client</h3>
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-10">
+            <form action="{{url_for('update_client', client_id=client._id)}}" method="POST">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col">
+                            First Name: 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Last Name: 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="client_first" name="first" value="{{client.first}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="client_last" name="last" value="{{client.last}}">
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Age:
+                </div>
+                <div class="col-6">
+                    <input type="number" id="client_age" name="age" min="1" max="99" value="{{client.age}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Location:
+                </div>
+                <div class="col-6">
+                    <input type="text" id="client_location" name="location" value="{{client.location}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Email:
+                </div>
+                <div class="col-6">
+                    <input type="email" id="client_email" name="client_email" value="{{client.client_email}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Client Telephone:
+                </div>
+                <div class="col-6">
+                    <input type="text" id="client_tel" name="client_tel" value="{{client.client_tel}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Additional Information:
+                </div>
+                <div class="col-6">
+                    <textarea name="additional_notes" id="additional_notes" class="materialize-textarea">{{client.additional_notes}}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn waves-effect waves-light" type="submit">
+                        <a href="{{url_for('update_client', client_id=client._id)}}">Save Changes
+                            <i class="material-icons right">save_alt</i>
+                        </a>
+                    </button>
+                    <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
+                        <i class="material-icons right">cancel_presentation</i>
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="cancel-save-modal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure with you this cancel this action and return to the Home Page?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{url_for('see_client', client_id=client._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+            </div>
+    </div>
+{% endblock %}
