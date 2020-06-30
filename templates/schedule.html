@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+        <div class="data-container">
+            <div class="appointment-data-container">
+                {% for app in appointments %}
+                <div>{{app._id}} {{app.client_id}} {{app.start_time}} {{app.appointment_duration}} {{app.start_date}} <span class="app_notes">{{app.appointment_notes}}</span></div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    
+{% endblock %}

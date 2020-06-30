@@ -1,19 +1,24 @@
 import os
 import pymongo
-from flask import Flask
+from flask import Flask, render_template, redirect, request, url_for
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
 
 app = Flask(__name__)
-MONGO_URI = os.environ.get("MONGO_URI")
-DATABASE = "appointmentPlanner"
-COLLECTION = "appointments"
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["DATABASE"] = "appointmentPlanner"
+
+mongo = PyMongo(app)
 
 
 @app.route('/')
-def hello_world():
-    return "Hello World"
+@app.route('/get_apppointments')
+def get_appointments():
+    return render_template('schedule.html',
+                           appointments=mongo.db.appointments.find())
 
 
 if __name__ == '__main__':
