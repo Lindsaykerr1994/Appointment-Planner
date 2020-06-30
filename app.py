@@ -21,9 +21,27 @@ def get_appointments():
                            appointments=mongo.db.appointments.find(),
                            clients=mongo.db.clients.find())
 
+
 @app.route('/create_appointment')
 def create_appointment():
-    return render_template('new-app.html')
+    return render_template('new-app.html',
+                           clients=mongo.db.clients.find())
+
+
+@app.route('/insert_appointment', methods=['POST'])
+def insert_appointment():
+    appointments = mongo.db.appointments
+    startTimeHour = request.form.get('start_time_hour')
+    startTimeMinute = request.form.get('start_time_minute')
+    startTime = startTimeHour+":"+startTimeMinute
+    appointments.insert_one({
+        'client_id': request.form.get('client_id'),
+        'start_time': startTime,
+        'appointment_duration': request.form.get('appointment_duration'),
+        'start_date': request.form.get('start_date'),
+        'appointment_notes': request.form.get('appointment_notes')
+    })
+    return redirect(url_for('get_appointments'))
 
 
 if __name__ == '__main__':

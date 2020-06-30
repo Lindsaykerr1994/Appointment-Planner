@@ -3,6 +3,9 @@
 .display-none{
     display: none;
 }
+.inline-block{
+    display:inline-block;
+}
 /* Schedule Styling Specifications */
 .schedule-column-day{
     border-left:1px solid #000;
