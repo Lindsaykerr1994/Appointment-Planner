@@ -18,7 +18,12 @@ mongo = PyMongo(app)
 @app.route('/get_apppointments')
 def get_appointments():
     return render_template('schedule.html',
-                           appointments=mongo.db.appointments.find())
+                           appointments=mongo.db.appointments.find(),
+                           clients=mongo.db.clients.find())
+
+@app.route('/create_appointment')
+def create_appointment():
+    return render_template('new-app.html')
 
 
 if __name__ == '__main__':

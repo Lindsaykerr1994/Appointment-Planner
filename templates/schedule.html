@@ -1,13 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
-    
-        <div class="data-container">
-            <div class="appointment-data-container">
-                {% for app in appointments %}
-                <div>{{app._id}} {{app.client_id}} {{app.start_time}} {{app.appointment_duration}} {{app.start_date}} <span class="app_notes">{{app.appointment_notes}}</span></div>
-                {% endfor %}
+<div class="data-container display-none">
+    <div class="appointment-data-container">
+        {% for app in appointments %}
+        <div>{{app._id}} {{app.client_id}} {{app.start_time}} {{app.appointment_duration}} {{app.start_date}} {{app.appointment_notes}}</div>
+{% endfor %}
+    </div>
+    <div class="client-data-container">
+        {% for client in clients %}
+        <div>{{client._id}} {{client.first}} {{client.last}} {{client.client_email}} {{client.client_tel}}</div>
+        {% endfor %}
+    </div>
+</div>
+<div class="main-schedule-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light red"><i class="material-icons">add</i></a>
             </div>
         </div>
-        
-    
+        <div class="row justify-content-md-center">
+            <div id="timeline-col" class="col-1">
+                <div class="schedule-column-header">&emsp;</div>
+                <div>
+                    <ul></ul>
+                </div>
+            </div>
+            <div id="sunday-col" class="col-1">
+                <div class="schedule-column-header">Sunday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+            <div id="monday-col" class="col-1">
+                <div class="schedule-column-header">Monday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+            <div id="tuesday-col" class="col-1">
+                <div class="schedule-column-header">Tuesday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+            <div id="wednesday-col" class="col-1">
+                <div class="schedule-column-header">Wednesday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+            <div id="thursday-col" class="col-1">
+                <div class="schedule-column-header">Thursday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+            <div id="friday-col" class="col-1">
+                <div class="schedule-column-header">Friday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+            <div id="saturday-col" class="col-1">
+                <div class="schedule-column-header">Saturday&emsp;<span class="sch-col-header-date"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
