@@ -322,7 +322,7 @@ function createThisWeeksEvents(eventList){
         var cardStyleHeight = setHeight*eventBlock 
         var cardStyle = `style='top:${cardStyleTop}px;height:${cardStyleHeight}px;'`;
         var cardContent =`<span>${eventStartTime}-${eventEndTime}</span></br><span>${clientName}</span>`;
-        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit">${cardContent}</div>`;
+        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger" data-target="event-dropdown">${cardContent}</div>`;
         $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`)
     }
 }

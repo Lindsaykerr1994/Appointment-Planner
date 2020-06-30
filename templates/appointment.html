@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-12">
+                <h3>See Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                    <div class="row">
+                        <div class="col-6">
+                            Client Name:
+                        </div>
+                        <div class="col-6">
+                            {% for client in clients %}
+                                {% if appointment.client_id == client._id %}
+                                <p>{{client.first}} {{client.last}}</p>
+                                {% endif %}
+                            {% endfor %}                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            Appointment Time:
+                        </div>
+                        <div class="col-6">
+                            {{appointment.start_time}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            Appointment Duration:
+                        </div>
+                        <div class="col-6">
+                            {{appointment.appointment_duration}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            Appointment Date:
+                        </div>
+                        <div class="col-6d">
+                            {{appointment.start_date}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            Appointment Notes:
+                        </div>
+                        <div class="col-6">
+                            {{appointment.appointment_notes}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn waves-effect waves-light">
+                                <a href="{{url_for('edit_appointment', appointment_id=appointment._id)}}">Edit Appointment 
+                                    <i class="material-icons right">save_alt</i>
+                                </a>
+                            </button>
+                            <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
+                                <i class="material-icons right">cancel_presentation</i>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div id="cancel-save-modal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure with you this cancel this action and return to the Home Page?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{url_for('get_appointments')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+            </div>
+        </div>
+{% endblock %}

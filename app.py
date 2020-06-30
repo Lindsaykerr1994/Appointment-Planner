@@ -44,6 +44,47 @@ def insert_appointment():
     return redirect(url_for('get_appointments'))
 
 
+@app.route('/see_appt_details/<appt_id>')
+def see_appt_details(appt_id):
+    the_appt = mongo.db.appointments.find_one({"_id": ObjectId(appt_id)})
+    all_clients = mongo.db.clients.find()
+    return render_template('appointment.html',
+                           appointment=the_appt,
+                           clients=all_clients)
+
+
+@app.route('/edit_appointment/<appt_id>')
+def edit_appointment(appt_id):
+    the_appt = mongo.db.appointments.find_one({"_id": ObjectId(appt_id)})
+    all_clients = mongo.db.clients.find()
+    return render_template('edit-app.html',
+                           appointment=the_appt,
+                           clients=all_clients)
+
+
+@app.route('/update_appointment/<appt_id>', methods=["POST"])
+def update_appointment(appt_id):
+    appointments = mongo.db.appointments
+    startTimeHour = request.form.get('start_time_hour')
+    startTimeMinute = request.form.get('start_time_minute')
+    startTime = startTimeHour+":"+startTimeMinute
+    appointments.update({'_id': ObjectId(appt_id)},
+                        {
+        'client_id': request.form.get('client_id'),
+        'start_time': startTime,
+        'appointment_duration': request.form.get('appointment_duration'),
+        'start_date': request.form.get('start_date'),
+        'appointment_notes': request.form.get('appointment_notes')
+    })
+    return redirect(url_for('get_appointments'))
+
+
+@app.route('/delete_appointment/<appt_id>')
+def delete_task(appt_id):
+    mongo.db.appointments.remove({'_id': ObjectId(appt_id)})
+    return redirect(url_for('get_appointments'))
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
