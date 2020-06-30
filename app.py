@@ -85,6 +85,14 @@ def delete_task(appt_id):
     return redirect(url_for('get_appointments'))
 
 
+@app.route('/see_client/<client_id>')
+def see_client(client_id):
+    the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
+    return render_template('client-details.html',
+                           client=the_client,
+                           appointments=mongo.db.appointments.find())
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),

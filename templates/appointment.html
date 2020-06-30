@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row justify-content-md-center">
             <div class="col-12">
-                <h3>See Details</h3>
+                <h3>See Appointment Details</h3>
             </div>
         </div>
         <div class="row">
@@ -14,8 +14,8 @@
                         </div>
                         <div class="col-6">
                             {% for client in clients %}
-                                {% if appointment.client_id == client._id %}
-                                <p>{{client.first}} {{client.last}}</p>
+                                {% if appointment.client_id|string() == client._id|string() %}
+                                    <a href="{{url_for('see_client', client_id=client._id)}}">{{client.first}} {{client.last}}</a>
                                 {% endif %}
                             {% endfor %}                            
                         </div>
@@ -40,7 +40,7 @@
                         <div class="col-6">
                             Appointment Date:
                         </div>
-                        <div class="col-6d">
+                        <div class="col-6">
                             {{appointment.start_date}}
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-6">
                             <button class="btn waves-effect waves-light">
-                                <a href="{{url_for('edit_appointment', appointment_id=appointment._id)}}">Edit Appointment 
+                                <a href="{{url_for('edit_appointment', appt_id=appointment._id)}}">Edit Appointment 
                                     <i class="material-icons right">save_alt</i>
                                 </a>
                             </button>
