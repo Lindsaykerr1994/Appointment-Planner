@@ -1,0 +1,22 @@
+import os
+import pymongo
+from flask import Flask
+if os.path.exists("env.py"):
+    import env
+
+
+app = Flask(__name__)
+MONGO_URI = os.environ.get("MONGO_URI")
+DATABASE = "appointmentPlanner"
+COLLECTION = "appointments"
+
+
+@app.route('/')
+def hello_world():
+    return "Hello World"
+
+
+if __name__ == '__main__':
+    app.run(host=os.environ.get('IP'),
+            port=int(os.environ.get('PORT')),
+            debug=True)
