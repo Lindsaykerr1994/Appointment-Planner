@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="col-2 offset-2 text-center">
-                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped add-button" data-position="left" data-tooltip="CREATE A NEW APPOINTMENT">
+                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button" data-position="left" data-tooltip="CREATE A NEW APPOINTMENT">
                     <i class="material-icons">add</i>
                 </a>
             </div>
@@ -63,9 +63,11 @@
     </div>
 </div>
 <ul id="event-dropdown" class="dropdown-content">
-    <li id="see-app-details"><a>See Details</a></li>
-    <li id="modify-app"><a>Edit App.</a></li>
-    <li id="delete-app"><a>Delete App.</a></li>
+    <li id="see-app-details"><a class="text-green uppercase font-12">Details</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li id="modify-app"><a class="text-green uppercase font-12">Edit</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li id="delete-app"><a class="text-green uppercase font-12">Delete</a></li>
 
 </ul>
 {% endblock %}

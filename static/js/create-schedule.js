@@ -197,7 +197,6 @@ function getThisWeeksDate(requestDate){
         }
         for (i=1;i<(dayToday+1);i++){
             var prevDate = dateToday-i;
-            console.log(monthToday)
             if (prevDate<1){//We must go back one month
                 if(monthToday == 3){//If the month is March and the date is less that 1
                     var prevDateMonth = `0${28 + prevDate}`; //We use '+' because prevDate value will be negative

@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container-fluid">
-        <div class="row justify-content-md-center">
-            <div class="col-12">
-                <h3>Edit An Appointment</h3>
-            </div>
+        <div class="row margin-top-25">
+                    <div class="col-4">
+                        <h5 class="uppercase margin-left-25">Appointment Details</h5>
+                    </div>
+                    <div class="col-2 offset-6 text-center">
+                        <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button" data-position="left" data-tooltip="Schedule a new appointment">
+                            <i class="material-icons">add</i>
+                        </a>
+                    </div>   
         </div>
-        <div class="row">
-            <div class="col-10">
+        <div class="row justify-content-md-center">
+            <div class="col-8 form-container padding-tab-15">
                 <form action="{{ url_for('update_appointment', appt_id=appointment._id)}}" method="POST">
                     <div class="row">
                         <div class="col-6 input-field">
@@ -22,10 +27,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 input-field">
+                        <div id="start-time-container" class="col-6 input-field">
                             <span id="modify-appt-start-time" class="display-none">{{appointment.start_time}}</span>
-                            <div class="inline-block input-field">
-                                <select id="start_time_hour" name="start_time_hour" class="inline-block" required>
+                                <select id="start_time_hour" name="start_time_hour" required>
                                     <option value="09">09</option>
                                     <option value="10">10</option>
                                     <option value="11">11</option>
@@ -36,15 +40,11 @@
                                     <option value="16">16</option>
                                     <option value="17">17</option>
                                 </select>
-                                <label for="start_time_hour">Appointment Time</label>
-                            </div>
-                            <div class="inline-block input-field">
-                                <select id="start_time_minute" name="start_time_minute" class="inline-block" required>
+                                <select id="start_time_minute" name="start_time_minute" required>
                                     <option value="00" selected>00</option>
                                     <option value="30">30</option>
                                 </select>
-                                
-                            </div>
+                            <label for="start-time-container">Appointment Time</label>
                         </div>
                     </div>
                     <div class="row">

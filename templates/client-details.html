@@ -1,28 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container-fluid">
-    <div class="row justify-content-md-center">
-            <div class="col-12">
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-12">
-                <div class="row">
+        <div class="row margin-top-25 ">
                     <div class="col-4">
-                        <h3>{{client.first}} {{client.last}}</h3>
+                        <h5 class="uppercase margin-left-25">{{client.first}} {{client.last}}</h5>
                     </div>
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Create a new appointment">
+                    <div class="col-2 offset-6 text-center">
+                        <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button" data-position="left" data-tooltip="Schedule a new appointment">
                             <i class="material-icons">add</i>
                         </a>
                     </div>
-                </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-10">
-                    <div class="row">
+        <div class="row justify-content-md-center">
+            <div class="col-8 list-container padding-tab-15">
+                    <div class="row lh-50">
                         <div class="col-6">
                             Client Name:
                         </div>
@@ -30,7 +21,7 @@
                             {{client.first}} {{client.last}}                    
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row lh-50">
                         <div class="col-6">
                             Client Age:
                         </div>
@@ -38,7 +29,7 @@
                             {{client.age}}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row lh-50">
                         <div class="col-6">
                             Client Location:
                         </div>
@@ -46,7 +37,7 @@
                             {{client.location}}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row lh-50">
                         <div class="col-6">
                             Client Email:
                         </div>
@@ -54,7 +45,7 @@
                             {{client.client_email}}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row lh-50">
                         <div class="col-6">
                             Client Telephone:
                         </div>
@@ -62,7 +53,7 @@
                             {{client.client_tel}}
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row lh-50">
                         <div class="col-6">
                             Additional Information:
                         </div>
@@ -70,15 +61,17 @@
                             {{client.additional_notes}}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <button class="btn waves-effect waves-light">
-                                <a href="{{url_for('edit_client', client_id=client._id)}}">Edit Client Info. 
-                                    <i class="material-icons right">save_alt</i>
+                    <div class="row lh-50">
+                        <div class="col-6 offset-6 text-right">
+                            <button class="btn waves-effect waves-light clanker-button action-button">
+                                <a href="{{url_for('edit_client', client_id=client._id)}}" class="text-white no-hover">Edit 
+                                    <i class="material-icons right">mode_edit</i>
                                 </a>
                             </button>
-                            <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Remove Client
-                                <i class="material-icons right">cancel_presentation</i>
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">
+                                <a class="text-white">Delete
+                                    <i class="material-icons right">delete_forever</i>
+                                </a>
                             </button>
                         </div>
                     </div>

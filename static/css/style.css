@@ -12,17 +12,10 @@ body{
 nav{
     height:75px;
     background-color: #414b3b;
+    border-bottom: 2px solid #ab8742
 }
 nav .brand-logo{
     font-family: Hussar, 'sans-serif';
-    text-decoration: underline;
-    color:#ab8742; 
-}
-.brand-logo:hover{
-    color: #c3a365;
-}
-nav ul a{
-    color: #fff9f3;
 }
 nav ul a:hover{
     color: #d8c39a;
@@ -32,12 +25,17 @@ a {
     text-decoration: none;
 }
 /* General Styling Specifications */
-
+.underline{
+    text-decoration: underline;
+}
 .uppercase{
     text-transform: uppercase;
 }
 .font-12{
     font-size:12px;
+}
+.font-18{
+    font-size:18px;
 }
 .text-center{
     text-align: center;
@@ -45,10 +43,37 @@ a {
 .text-left{
     text-align: left;
 }
+.text-right{
+    text-align: right;
+}
+.text-green{
+    color: #414b3b !important;
+}
+a.text-green:hover{
+    color: #515e4a !important;
+}
+.text-gold{
+    color:#ab8742 !important; 
+}
+.text-gold:hover{
+    color: #c3a365 !important; 
+}
+.text-white{
+    color:#fff9f3 !important;
+}
+.lh-50{
+    line-height: 50px;
+}
+.no-hover:hover{
+    text-decoration: none;
+}
 /* General Spacing Specifications */
 .row .col{
     padding-left: 0px;
     padding-right: 0px;
+}
+.width-50{
+    width:50%;
 }
 .display-none{
     display: none;
@@ -67,6 +92,8 @@ a {
 }
 .margin-top-25{
     margin-top: 25px;
+}.padding-tab-15{
+    padding: 15px 0;
 }
 /* Schedule Styling Specifications */
 #welcome-div{
@@ -106,11 +133,38 @@ a {
 .event-card-unit:hover{
     background-color: #414b3b;
 }
+.dropdown-content li>a{
+    background-color:#fff9f3;
+}
 /* Button Styling Specifications */
-.add-button{
+.clanker-button{
     background-color: #414b3b;
     color: #fff9f3;
 }
-.add-button:hover{
+.clanker-button:hover{
     background-color: #65765d;
+}
+.action-button{
+    min-width:125px;
+}
+/* Secondary Pages Specifications */
+.list-container{
+    background-color:#fff;
+}
+.list-container .row{
+    height:50px;
+    margin-bottom:0px;
+}
+.list-container .row:nth-child(even){
+    background-color:#f9f9f9;
+}
+.form-container{
+    background-color:#fff;
+}
+.form-container .row{
+    height:85px;
+    margin-bottom:0px;
+}
+.form-container .row:nth-child(even){
+    background-color:#f9f9f9;
 }

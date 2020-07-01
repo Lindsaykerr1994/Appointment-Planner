@@ -53,4 +53,6 @@ function updateSelectOptions(){
             $("#appointment_duration-select option").eq(i).attr("selected","selected");
         };
     };
+    $("select").css("display","none");
+    $("#start-time-container div.select-wrapper").css("background-color","red");
 }
