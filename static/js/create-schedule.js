@@ -18,9 +18,12 @@ $(document).ready(function(){
     applyDatesToSchedule(thisWeeksDate);
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
+    setWelcomeMessage(profileInfo["firstName"]);
 })
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
+var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 function getProfileInfo(){
     var profileSpan = $(".profile-data-container div").text();
     var profileSingle = profileSpan.split(" ")
@@ -410,4 +413,11 @@ function calculateCardTop(eventStart){
     var cardStyleTop = ((((eventStartFloat-timelineStartFloat)*2)*50)+50);
     return cardStyleTop;
 
+}
+//The following functions set the welcome message at the top of schedule.html
+function setWelcomeMessage(firstName){
+    $("#welcome-client-name").text(firstName);
+    var todaysDate = getTodaysDate();
+    var welcomeDate = `${dayNames[todaysDate[0]]}, ${todaysDate[1]} ${monthNames[todaysDate[2]]} ${todaysDate[3]}`;
+    $("#todays-date-span").text(welcomeDate);
 }
