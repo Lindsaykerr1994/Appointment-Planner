@@ -18,6 +18,7 @@ mongo = PyMongo(app)
 @app.route('/get_schedule')
 def get_schedule():
     return render_template('schedule.html',
+                           profiles=mongo.db.profiles.find(),
                            appointments=mongo.db.appointments.find(),
                            clients=mongo.db.clients.find())
 

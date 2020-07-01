@@ -1,21 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row justify-content-md-center">
-            <div class="col-12">
-                
-            </div>
+    <div class="row margin-top-25">
+            <div class="col-4">
+                        <h5 class="uppercase margin-left-25">Edit Client</h5>
+            </div>   
     </div>
     <div class="row justify-content-md-center">
-        <div class="col-12">
-                <h3>Edit A Client</h3>
-        </div>
-     </div>
-    <div class="row">
-        <div class="col-10">
+        <div class="col-8 form-container padding-tab-15">
             <form action="{{url_for('update_client', client_id=client._id)}}" method="POST">
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 margin-left-25">
                     <div class="input-field inline-block">
                         <input type="text" id="client_first" name="first" value="{{client.first}}">
                         <label for="client_first">First Name</label>
@@ -27,47 +22,45 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 input-field">
+                <div class="col-6 input-field margin-left-25">
                     <input type="number" id="client_age" name="age" min="1" max="99" value="{{client.age}}">
                     <label for="client_age">Client Age</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 input-field">
+                <div class="col-6 input-field margin-left-25">
                     <input type="text" id="client_location" name="location" value="{{client.location}}">
                     <label for="client_location">Client Location</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 input-field">
+                <div class="col-6 input-field margin-left-25">
                     <input type="email" id="client_email" name="client_email" value="{{client.client_email}}">
                     <label for="client_email">Email Address</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 input-field">
+                <div class="col-6 input-field margin-left-25">
                     <input type="text" id="client_tel" name="client_tel" value="{{client.client_tel}}">
                     <label for="client_tel">Telephone Number</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 input-field">
+                <div class="col-6 input-field margin-left-25">
                     <textarea name="additional_notes" id="additional_notes" class="materialize-textarea">{{client.additional_notes}}</textarea>
                     <label for="additional_notes">Additional Notes</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <button class="btn waves-effect waves-light" type="submit">
-                        <a>Save Changes
-                            <i class="material-icons right">save_alt</i>
-                        </a>
-                    </button>
-                    <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
-                        <i class="material-icons right">cancel_presentation</i>
-                    </button>
+                <div class="row lh-85">
+                        <div class="col-6 offset-6 text-right">
+                            <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
+                                <i class="material-icons right">save_alt</i>
+                            </button>
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
+                                <i class="material-icons right">cancel_presentation</i>
+                            </button>
+                        </div>
                 </div>
-            </div>
             </form>
         </div>
     </div>
@@ -76,9 +69,9 @@
             <div class="modal-content">
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer text-center">
                 <a href="{{url_for('see_client', client_id=client._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
-    </div>
+        </div>
 {% endblock %}

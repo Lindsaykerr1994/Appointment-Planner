@@ -1,6 +1,13 @@
 $(document).ready(function(){
     $(".event-card-unit").click(updateEventDropdownLinks);
     updateSelectOptions();
+    $(".event-button").mouseenter(function(){
+        $(".event-button i").text("event");
+    })
+    $(".event-button").mouseleave(function(){
+        $(".event-button i").text("add");
+    })
+    console.log(timelineStart);
 });
 function updateEventDropdownLinks(){
     var eventId = $(this).attr("data-event-id");
@@ -54,4 +61,7 @@ function updateSelectOptions(){
         };
     };
     $("select").css("display","none");
+}
+function changeEventIconsOnHover(){
+
 }

@@ -1,83 +1,78 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container-fluid">
-        <div class="row justify-content-md-center">
-            <div class="col-12">
-                <h3>Create New Appointment</h3>
-            </div>
+        <div class="row margin-top-25">
+                    <div class="col-4">
+                        <h5 class="uppercase margin-left-25">Appointment Details</h5>
+                    </div> 
         </div>
-        <div class="row">
-            <div class="col-10">
+        <div class="row justify-content-md-center">
+            <div class="col-8 form-container padding-tab-15">
                 <form action="{{ url_for('insert_appointment') }}" method="POST">
                     <div class="row">
-                        <div class="col-6">
-                            Client:
-                        </div>
-                        <div class="col-6 input-field">
-                            <select id="client_id" name="client_id" required>
-                                <option value="" disabled selected>Choose Client</option>
+                        <div class="col-6 input-field margin-left-25">
+                            <select id="client-id-select" name="client_id" required>
+                                <option value="" disabled>Choose Client</option>
                                 {% for client in clients %}
                                 <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
                                 {% endfor %}
                             </select>
+                            <label for="client-id-select">Client Name</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Time:
-                        </div>
-                        <div class="col-6 input-field">
-                            <select id="start_time_hour" name="start_time_hour" class="inline-block" required>
-                                <option value="09" selected>09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                
-                            </select>
-                            <select id="start_time_minute" name="start_time_minute" class="inline-block" required>
-                                <option value="00" selected>00</option>
-                                <option value="30">30</option>
-                            </select>
+                        <div id="start-time-container" class="col-6 input-field margin-left-25">
+                                <div>
+                                    <div class="inline-block">
+                                        <select id="start_time_hour" name="start_time_hour" required>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                        </select>
+                                    </div>:
+                                    <div class="inline-block">
+                                        <select id="start_time_minute" name="start_time_minute" required>
+                                            <option value="00" selected>00</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <label for="start-time-container" class="that-one-label">Appointment Time</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Duration:
-                        </div>
-                        <div class="col-6 input-field">
-                            <select id="appointment_duration" name="appointment_duration" required>
+                        <div class="col-6 input-field margin-left-25">
+                            <select id="appointment_duration-select" name="appointment_duration" required>
                                 <option value="1" selected>30 minutes</option>
                                 <option value="2">1 hour</option>
                             </select>
+                            <label for="appointment_duration-select">Appointment Duration</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Date:
-                        </div>
-                        <div class="col-6 input-field">
+                        <div class="col-6 input-field margin-left-25">
                             <input id="start_date" name="start_date" type="text" class="datepicker" required>
+                            <label for="start_date">Appointment Date</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Notes:
-                        </div>
-                        <div class="col-6">
+                        <div class="col-6 input-field margin-left-25">
                             <textarea name="appointment_notes" id="appointment_notes" class="materialize-textarea"></textarea>
+                            <label for="appointment_notes">Additional Notes</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <button class="btn waves-effect waves-light" type="submit">Save
+                    <div class="row lh-85">
+                        <div class="col-6 offset-6 text-right">
+                            <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
                             </button>
-                            <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
                                 <i class="material-icons right">cancel_presentation</i>
                             </button>
                         </div>
@@ -90,9 +85,9 @@
             <div class="modal-content">
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer text-center">
                 <a href="{{url_for('get_schedule')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
-    </div>
+        </div>
 {% endblock %}

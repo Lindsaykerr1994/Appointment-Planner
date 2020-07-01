@@ -64,6 +64,9 @@ a.text-green:hover{
 .lh-50{
     line-height: 50px;
 }
+.lh-85{
+    line-height: 85px;
+}
 .no-hover:hover{
     text-decoration: none;
 }
@@ -92,7 +95,11 @@ a.text-green:hover{
 }
 .margin-top-25{
     margin-top: 25px;
-}.padding-tab-15{
+}
+.margin-bot-50{
+    margin-bottom:50px;
+}
+.padding-tab-15{
     padding: 15px 0;
 }
 /* Schedule Styling Specifications */
@@ -103,8 +110,6 @@ a.text-green:hover{
     background:#fff;
 }
 #schedule-container{
-    max-height: 800px;
-    overflow: scroll;
     border:4px solid #ab8742;
     background:#fff;
     border-radius: 5px;
@@ -180,4 +185,9 @@ a.text-green:hover{
 }
 .datepicker-cancel, .datepicker-done, .is-today{
     color: #65765d;
+}
+/* Modal Styling Specifications */
+#cancel-save-modal{
+    height: 175px;
+    width: 20%;
 }

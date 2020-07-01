@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="data-container display-none">
+    <div class="profile-data-container">
+        {% for profile in profiles %}
+        <div>{{profile.profile_first}} {{profile.profile_last}} {{profile.start_time}} {{profile.end_time}}</div>
+        {% endfor %}
+    </div>
     <div class="appointment-data-container">
         {% for app in appointments %}
         <div>{{app._id}} {{app.client_id}} {{app.start_time}} {{app.appointment_duration}} {{app.start_date}} {{app.appointment_notes}}</div>
-{% endfor %}
+        {% endfor %}
     </div>
     <div class="client-data-container">
         {% for client in clients %}
@@ -17,17 +22,17 @@
         <div class="row margin-top-25">
             <div id="welcome-div" class="col-4 offset-4">
                 <p class="margin-bot-0">
-                    Welcome, <span id="welcome-client-name"></span>! 
+                    Welcome, <span id="welcome-client-name"></span>! Today is <span id="todays-date-span"></span><br>
                     Your next appointment is: <span id="welcome-appt-date"></span> at: <span id="welcome-appt-time"></span> with: <span id="welcome-appt-name"></span>
                 </p>
             </div>
             <div class="col-2 offset-2 text-center">
-                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button" data-position="left" data-tooltip="CREATE A NEW APPOINTMENT">
+                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
                     <i class="material-icons">add</i>
                 </a>
             </div>
         </div>
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center margin-bot-50">
             <div class="col-8">
                 <div id="schedule-container" class="row no-gutters text-center uppercase">
                     <div id="timeline-col" class="col-1 day-col">

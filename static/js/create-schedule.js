@@ -1,11 +1,19 @@
 $(document).ready(function(){
     //First, generate/retrieve all relevant data for events and clients.
+    var profileInfo = getProfileInfo();
     var allEvents = getAppointmentInfo();
     var allClients = getClientInfo();
     var allEventsWithNames = addClientToEventInfo(allEvents,allClients);
     var thisWeeksDate = getThisWeeksDate(getTodaysDate());
     var thisWeeksEvents = getThisWeeksEvents(allEventsWithNames,thisWeeksDate);
     //Second, create the schedule layout as necessary.
+    if(typeof profileInfo["startTime"]==='undefined' || typeof profileInfo["endTime"]==='undefined'){
+        window.timelineStart = "09:00";
+        window.timelineEnd = "17:00";
+    } else {
+       window.timelineStart = profileInfo["startTime"];
+       window.timelineEnd = profileInfo["endTime"]
+    }
     applyTimeline(timelineStart,timelineEnd);
     applyDatesToSchedule(thisWeeksDate);
     //Third, apply events to schedule.
@@ -13,6 +21,17 @@ $(document).ready(function(){
 })
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
+function getProfileInfo(){
+    var profileSpan = $(".profile-data-container div").text();
+    var profileSingle = profileSpan.split(" ")
+    var profileInfo = {
+        firstName: profileSingle.shift(),
+        lastName: profileSingle.shift(),
+        startTime: profileSingle.shift(),
+        endTime: profileSingle.shift()
+    };
+    return profileInfo;
+};
 function getAppointmentInfo(){
     var count = $(".appointment-data-container div").length;
     var allEvents = [];
