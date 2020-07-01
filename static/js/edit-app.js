@@ -54,5 +54,4 @@ function updateSelectOptions(){
         };
     };
     $("select").css("display","none");
-    $("#start-time-container div.select-wrapper").css("background-color","red");
 }

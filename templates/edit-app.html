@@ -15,7 +15,7 @@
             <div class="col-8 form-container padding-tab-15">
                 <form action="{{ url_for('update_appointment', appt_id=appointment._id)}}" method="POST">
                     <div class="row">
-                        <div class="col-6 input-field">
+                        <div class="col-6 input-field margin-left-25">
                             <span id="client-id-span" class="display-none">{{appointment.client_id}}</span>
                             <select id="client-id-select" name="client_id" required>
                                 <option value="" disabled>Choose Client</option>
@@ -27,28 +27,34 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div id="start-time-container" class="col-6 input-field">
+                        <div id="start-time-container" class="col-6 input-field margin-left-25">
                             <span id="modify-appt-start-time" class="display-none">{{appointment.start_time}}</span>
-                                <select id="start_time_hour" name="start_time_hour" required>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                </select>
-                                <select id="start_time_minute" name="start_time_minute" required>
-                                    <option value="00" selected>00</option>
-                                    <option value="30">30</option>
-                                </select>
-                            <label for="start-time-container">Appointment Time</label>
+                                <div>
+                                    <div class="inline-block">
+                                        <select id="start_time_hour" name="start_time_hour" required>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                        </select>
+                                    </div>:
+                                    <div class="inline-block">
+                                        <select id="start_time_minute" name="start_time_minute" required>
+                                            <option value="00" selected>00</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <label for="start-time-container" class="that-one-label">Appointment Time</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 input-field">
+                        <div class="col-6 input-field margin-left-25">
                             <span id="appt-duration-span" class="display-none">{{appointment.appointment_duration}}</span>
                             <select id="appointment_duration-select" name="appointment_duration" required>
                                 <option value="1" selected>30 minutes</option>
@@ -58,23 +64,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 input-field">
+                        <div class="col-6 input-field margin-left-25">
                             <input id="start_date" name="start_date" type="text" class="datepicker" value="{{appointment.start_date}}" required>
                             <label for="start_date">Appointment Date</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 input-field">
+                        <div class="col-6 input-field margin-left-25">
                             <textarea name="appointment_notes" id="appointment_notes" class="materialize-textarea">{{appointment.appointment_notes}}</textarea>
                             <label for="appointment_notes">Additional Notes</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <button class="btn waves-effect waves-light" type="submit">Save
+                    <div class="row lh-50">
+                        <div class="col-6 offset-6 text-right">
+                            <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
                             </button>
-                            <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
                                 <i class="material-icons right">cancel_presentation</i>
                             </button>
                         </div>

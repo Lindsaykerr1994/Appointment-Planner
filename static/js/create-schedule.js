@@ -204,9 +204,7 @@ function getThisWeeksDate(requestDate){
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else if (monthToday == 5 || monthToday == 7 || monthToday == 10|| monthToday == 12){//If month is May, July, Oct. or Dec. and date is less than 1
-                    console.log(prevDate)
                     var prevDateMonth = `${30 + prevDate}`; //We use '+' because prevDate value will be negative
-                    console.log(prevDateMonth)
                     var monthPrev = monthToday - 1;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
