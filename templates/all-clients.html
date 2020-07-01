@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
+        <div class="row justify-content-between">
+            <div class="col-4">
                 <h3>Clients List</h3>
-                <a href="{{url_for('create_client')}}" class="btn-floating btn waves-effect waves-light red" data-position="left" data-tooltip="Create a new client">
+            </div>
+            <div class="col-4">
+                <a href="{{url_for('create_client')}}" class="btn-floating btn waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Create a new client">
                     <i class="material-icons">add</i>
                 </a>
             </div>

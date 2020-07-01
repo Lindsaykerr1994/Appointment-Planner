@@ -3,19 +3,21 @@
     <div class="container-fluid">
     <div class="row justify-content-md-center">
             <div class="col-12">
-                <nav>
-                    <div class="nav-wrapper">
-                        <div class="col-12">
-                            <a href="{{url_for('get_clients')}}" class="breadcrumb">All Clients</a>
-                            <a class="breadcrumb">Second</a>
-                        </div>
-                    </div>
-                </nav>
             </div>
         </div>
         <div class="row justify-content-md-center">
             <div class="col-12">
-                <h3>{{client.first}} {{client.last}}</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <h3>{{client.first}} {{client.last}}</h3>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Create a new appointment">
+                            <i class="material-icons">add</i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -71,11 +73,11 @@
                     <div class="row">
                         <div class="col-6">
                             <button class="btn waves-effect waves-light">
-                                <a href="{{url_for('edit_client', client_id=client._id)}}">Edit Appointment 
+                                <a href="{{url_for('edit_client', client_id=client._id)}}">Edit Client Info. 
                                     <i class="material-icons right">save_alt</i>
                                 </a>
                             </button>
-                            <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Cancel
+                            <button class="btn waves-effect waves-light modal-trigger" href="#cancel-save-modal">Remove Client
                                 <i class="material-icons right">cancel_presentation</i>
                             </button>
                         </div>
@@ -88,7 +90,7 @@
             <p>Are you sure you wish this remove this client and all associated appointments?</p>
         </div>
         <div class="modal-footer">
-            <a href="{{url_for('get_appointments')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+            <a href="{{url_for('delete_client', client_id=client._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
         </div>
     </div>

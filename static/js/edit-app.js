@@ -52,5 +52,5 @@ function updateSelectOptions(){
         if(optionValue==appointmentDuration){
             $("#appointment_duration-select option").eq(i).attr("selected","selected");
         };
-    }
+    };
 }

@@ -10,69 +10,63 @@
             <div class="col-10">
                 <form action="{{ url_for('update_appointment', appt_id=appointment._id)}}" method="POST">
                     <div class="row">
-                        <div class="col-6">
-                            Client:
-                            <span id="client-id-span" class="display-none">{{appointment.client_id}}</span>
-                        </div>
                         <div class="col-6 input-field">
+                            <span id="client-id-span" class="display-none">{{appointment.client_id}}</span>
                             <select id="client-id-select" name="client_id" required>
                                 <option value="" disabled>Choose Client</option>
                                 {% for client in clients %}
                                 <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
                                 {% endfor %}
                             </select>
+                            <label for="client-id-select">Client Name</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Time:
+                        <div class="col-6 input-field">
                             <span id="modify-appt-start-time" class="display-none">{{appointment.start_time}}</span>
-                        </div>
-                        <div class="col-6 input-field">
-                            <select id="start_time_hour" name="start_time_hour" class="inline-block" required>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
+                            <div class="inline-block input-field">
+                                <select id="start_time_hour" name="start_time_hour" class="inline-block" required>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                </select>
+                                <label for="start_time_hour">Appointment Time</label>
+                            </div>
+                            <div class="inline-block input-field">
+                                <select id="start_time_minute" name="start_time_minute" class="inline-block" required>
+                                    <option value="00" selected>00</option>
+                                    <option value="30">30</option>
+                                </select>
                                 
-                            </select>
-                            <select id="start_time_minute" name="start_time_minute" class="inline-block" required>
-                                <option value="00" selected>00</option>
-                                <option value="30">30</option>
-                            </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Duration:
-                            <span id="appt-duration-span" class="display-none">{{appointment.appointment_duration}}</span>
-                        </div>
                         <div class="col-6 input-field">
+                            <span id="appt-duration-span" class="display-none">{{appointment.appointment_duration}}</span>
                             <select id="appointment_duration-select" name="appointment_duration" required>
                                 <option value="1" selected>30 minutes</option>
                                 <option value="2">1 hour</option>
                             </select>
+                            <label for="appointment_duration-select">Appointment Duration</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Date:
-                        </div>
                         <div class="col-6 input-field">
                             <input id="start_date" name="start_date" type="text" class="datepicker" value="{{appointment.start_date}}" required>
+                            <label for="start_date">Appointment Date</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            Appointment Notes:
-                        </div>
-                        <div class="col-6">
+                        <div class="col-6 input-field">
                             <textarea name="appointment_notes" id="appointment_notes" class="materialize-textarea">{{appointment.appointment_notes}}</textarea>
+                            <label for="appointment_notes">Additional Notes</label>
                         </div>
                     </div>
                     <div class="row">
@@ -94,7 +88,7 @@
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
             <div class="modal-footer">
-                <a href="{{url_for('get_appointments')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{url_for('get_schedule')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
         </div>

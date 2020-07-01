@@ -15,8 +15,8 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-@app.route('/get_apppointments')
-def get_appointments():
+@app.route('/get_schedule')
+def get_schedule():
     return render_template('schedule.html',
                            appointments=mongo.db.appointments.find(),
                            clients=mongo.db.clients.find())
@@ -41,7 +41,7 @@ def insert_appointment():
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
     })
-    return redirect(url_for('get_appointments'))
+    return redirect(url_for('get_schedule'))
 
 
 @app.route('/see_appt_details/<appt_id>')
@@ -76,13 +76,13 @@ def update_appointment(appt_id):
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
     })
-    return redirect(url_for('get_appointments'))
+    return redirect(url_for('get_schedule'))
 
 
 @app.route('/delete_appointment/<appt_id>')
 def delete_appointment(appt_id):
     mongo.db.appointments.remove({'_id': ObjectId(appt_id)})
-    return redirect(url_for('get_appointments'))
+    return redirect(url_for('get_schedule'))
 
 
 @app.route('/get_clients')

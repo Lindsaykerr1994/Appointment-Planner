@@ -89,7 +89,11 @@ function getThisWeeksDate(requestDate){
     var monthTodayString = stringifyMonth(monthToday);
     var yearToday = requestDate[3];
     if(dayToday==0){//Today is Sunday
-        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${dateToday}`);
+        if(dateToday<10){
+            thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${dateToday}`);
+        } else {
+            thisWeeksDate.push(`${yearToday}-${monthTodayString}-${dateToday}`);
+        }
         for(i=1;i<7;i++){
             var nextDate = dateToday+i;
             if (monthToday == 2){//If the month is Feb. and date exceeds 28
@@ -99,7 +103,12 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Feb and date DOES NOT exceed 28.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
+                    
                 }
             } else if(monthToday == 4 || monthToday == 6 || monthToday == 9 || monthToday == 11){//If month is Apr. June. Sept. or Nov. and date exceeeds 30
                 if (nextDate>30){
@@ -108,7 +117,11 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Apr. June. Sept. or Nov. and date DOESN NOT exceed 30.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             } else if(monthToday == 12){//If month is Dec. and date exceeds 31
                 if (nextDate>31){
@@ -117,7 +130,11 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Dec and date DOESN NOT exceed 31.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             } else {//If any other month
                 if (nextDate>31){
@@ -126,44 +143,61 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Dec and date DOESN NOT exceed 31.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             }
         }
     } else if (dayToday==6){//Today is Saturday
-        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${dateToday}`);
+        if(dateToday<10){
+            thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${dateToday}`);
+        } else {
+            thisWeeksDate.push(`${yearToday}-${monthTodayString}-${dateToday}`);
+        }
         for(i=1;i<7;i++){
             var prevDate = dateToday-i;
             if (prevDate<1){//We must go back one month
                 if(monthToday == 3){//If the month is March and the date is less that 1
-                    var prevDateMonth = `0${28 + prevDate}`; //We use '+' because prevDate value will be negative
+                    var prevDateMonth = `${28 + prevDate}`; //We use '+' because prevDate value will be negative
                     var monthPrev = monthToday - 1;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else if (monthToday == 5 || monthToday == 7 || monthToday == 10|| monthToday == 12){//If month is May, July, Oct. or Dec. and date is less than 1
-                    var prevDateMonth = `0${30 + prevDate}`; //We use '+' because prevDate value will be negative
+                    var prevDateMonth = `${30 + prevDate}`; //We use '+' because prevDate value will be negative
                     var monthPrev = monthToday - 1;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else if (monthToday == 1){ //If month is Jan. and date is less than 1
-                    var prevDateMonth = `0${31 + prevDate}`;
+                    var prevDateMonth = `${31 + prevDate}`;
                     var monthPrev = 12;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else {
-                    var prevDateMonth = `0${31 + prevDate}`;
+                    var prevDateMonth = `${31 + prevDate}`;
                     var monthPrev = monthToday - 1;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 }
             } else {
-                thisWeeksDate.unshift(`${yearToday}-${monthTodayString}-${prevDate}`);
+                if (prevDate<10){
+                        thisWeeksDate.unshift(`${yearToday}-${monthTodayString}-0${prevDate}`);
+                } else {
+                        thisWeeksDate.unshift(`${yearToday}-${monthTodayString}-${prevDate}`);
+                }
             }
         }
     } else {//Today is a weekday
-        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${dateToday}`);
+        if(dateToday<10){
+            thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${dateToday}`);
+        } else {
+            thisWeeksDate.push(`${yearToday}-${monthTodayString}-${dateToday}`);
+        }
         for (i=1;i<(dayToday+1);i++){
             var prevDate = dateToday-i;
+            console.log(monthToday)
             if (prevDate<1){//We must go back one month
                 if(monthToday == 3){//If the month is March and the date is less that 1
                     var prevDateMonth = `0${28 + prevDate}`; //We use '+' because prevDate value will be negative
@@ -171,23 +205,29 @@ function getThisWeeksDate(requestDate){
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else if (monthToday == 5 || monthToday == 7 || monthToday == 10|| monthToday == 12){//If month is May, July, Oct. or Dec. and date is less than 1
-                    var prevDateMonth = `0${30 + prevDate}`; //We use '+' because prevDate value will be negative
+                    console.log(prevDate)
+                    var prevDateMonth = `${30 + prevDate}`; //We use '+' because prevDate value will be negative
+                    console.log(prevDateMonth)
                     var monthPrev = monthToday - 1;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else if (monthToday == 1){ //If month is Jan. and date is less than 1
-                    var prevDateMonth = `0${31 + prevDate}`;
+                    var prevDateMonth = `${31 + prevDate}`;
                     var monthPrev = 12;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 } else {
-                    var prevDateMonth = `0${31 + prevDate}`;
+                    var prevDateMonth = `${31 + prevDate}`;
                     var monthPrev = monthToday - 1;
                     var monthPrevString = stringifyMonth(monthPrev);
                     thisWeeksDate.unshift(`${yearToday}-${monthPrevString}-${prevDateMonth}`);
                 }
             } else {
-                thisWeeksDate.unshift(`${yearToday}-${monthTodayString}-${prevDate}`);
+                if (prevDate<10){
+                        thisWeeksDate.unshift(`${yearToday}-${monthTodayString}-0${prevDate}`);
+                } else {
+                        thisWeeksDate.unshift(`${yearToday}-${monthTodayString}-${prevDate}`);
+                }
             }
         }
         for (i=1;i<(7-dayToday);i++){
@@ -199,7 +239,11 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Feb and date DOES NOT exceed 28.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             } else if(monthToday == 4 || monthToday == 6 || monthToday == 9 || monthToday == 11){//If month is Apr. June. Sept. or Nov. and date exceeeds 30
                 if (nextDate>30){
@@ -208,7 +252,11 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Apr. June. Sept. or Nov. and date DOESN NOT exceed 30.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             } else if(monthToday == 12){//If month is Dec. and date exceeds 31
                 if (nextDate>31){
@@ -217,7 +265,11 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Dec and date DOESN NOT exceed 31.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             } else {//If any other month
                 if (nextDate>31){
@@ -226,7 +278,11 @@ function getThisWeeksDate(requestDate){
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
                 } else {//If the month is Dec and date DOESN NOT exceed 31.
-                    thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    if (nextDate<10){
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
+                    } else {
+                        thisWeeksDate.push(`${yearToday}-${monthTodayString}-${nextDate}`);
+                    }
                 }
             }
         }
@@ -321,8 +377,8 @@ function createThisWeeksEvents(eventList){
         var eventBlock = parseInt(eventList[i]["eventDuration"]);
         var cardStyleHeight = setHeight*eventBlock 
         var cardStyle = `style='top:${cardStyleTop}px;height:${cardStyleHeight}px;'`;
-        var cardContent =`<span>${eventStartTime}-${eventEndTime}</span></br><span>${clientName}</span>`;
-        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger" data-target="event-dropdown">${cardContent}</div>`;
+        var cardContent =`<span class="font-12 margin-left-5">${eventStartTime}-${eventEndTime}</span></br><span class="margin-left-5">${clientName}</span>`;
+        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left" data-target="event-dropdown">${cardContent}</div>`;
         $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`)
     }
 }

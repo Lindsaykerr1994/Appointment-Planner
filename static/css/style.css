@@ -1,27 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap');
+@font-face{
+    font-family: Hussar;
+    src: url(fonts/HussarEkologiczne1.otf)
+}
 
+/* Base.html Specifications */
+body{
+    background-color: #fff9f3;
+    font-family: Montserrat, 'sans-serif';
+}
+nav{
+    height:75px;
+    background-color: #414b3b;
+}
+nav .brand-logo{
+    font-family: Hussar, 'sans-serif';
+    text-decoration: underline;
+    color:#ab8742; 
+}
+.brand-logo:hover{
+    color: #c3a365;
+}
+nav ul a{
+    color: #fff9f3;
+}
+nav ul a:hover{
+    color: #d8c39a;
+}
+a {
+    color:#fff9f3;
+    text-decoration: none;
+}
+/* General Styling Specifications */
+
+.uppercase{
+    text-transform: uppercase;
+}
+.font-12{
+    font-size:12px;
+}
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
 /* General Spacing Specifications */
+.row .col{
+    padding-left: 0px;
+    padding-right: 0px;
+}
 .display-none{
     display: none;
 }
 .inline-block{
     display:inline-block;
 }
+.margin-bot-0{
+    margin-bottom:0;
+}
+.margin-left-5{
+    margin-left: 5px;
+}
+.margin-left-25{
+    margin-left: 25px;
+}
+.margin-top-25{
+    margin-top: 25px;
+}
 /* Schedule Styling Specifications */
-.schedule-column-day{
-    border-left:1px solid #000;
-    border-right:1px solid #000;
+#welcome-div{
+    line-height:40px;
+    border: 1px solid #d8c39a;
+    border-radius: 2px;
+    background:#fff;
 }
-.schedule-column-header{
-    height:50px;
-    border-bottom:1px solid #000;
+#schedule-container{
+    max-height: 800px;
+    overflow: scroll;
+    border:4px solid #ab8742;
+    background:#fff;
+    border-radius: 5px;
 }
-#timeline-col li{
+.schedule-column-header, #timeline-col li{
+    border-bottom: 1px solid #8a9c82;
+}
+.schedule-column-header, #timeline-col{
+    background-color: #eddfc5;
+}
+.schedule-column-header, #timeline-col li{
+    line-height:50px;
     height:50px;
-    border-bottom:1px solid #000;
+}
+.day-col:not(:last-child){
+    border-right:1px solid #8a9c82;
 }
 .event-card-unit{
     position: absolute;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    width:auto;
+    color: #fff9f3;
+    background-color: #65765d;
+    border-top: 1px solid #c3a365;
+    border-bottom: 1px solid #c3a365;
+    width:100%;
+}
+.event-card-unit:hover{
+    background-color: #414b3b;
+}
+/* Button Styling Specifications */
+.add-button{
+    background-color: #414b3b;
+    color: #fff9f3;
+}
+.add-button:hover{
+    background-color: #65765d;
 }

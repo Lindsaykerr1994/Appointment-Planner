@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Planner</title>
 </head>
 <body>
+<nav>
+    <div class="nav-wrapper uppercase">
+        <a href="{{url_for('get_schedule')}}" class="brand-logo margin-left-25">Clanker</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{{url_for('get_schedule')}}">Schedule</a></li>
+            <li><a href="">Appointments</a></li>
+            <li><a href="{{url_for('get_clients')}}">Clients</a></li>
+            <li><a href="">Profile</a></li>
+        </ul>
+        </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="{{url_for('get_schedule')}}">Schedule</a></li>
+        <li><a href="">Appointments</a></li>
+        <li><a href="{{url_for('get_clients')}}">Clients</a></li>
+        <li><a href="">Profile</a></li>
+    </ul>
     {% block content %}
     {% endblock %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -31,6 +50,7 @@
             });
             $('.modal').modal();
             $('.dropdown-trigger').dropdown();
+            $('.tooltipped').tooltip();
         });
         
     </script>
