@@ -38,6 +38,7 @@ function updateSelectOptions(){
     };
     var startTimeHour = getStartTimes()[0];
     var startTimeMinutes = getStartTimes()[1];
+    createSelectOptions();
     var count2 = $("#start_time_hour option").length;
     for(i=0;i<count2;i++){
         var optionValue = $("#start_time_hour option").eq(i).val();
@@ -62,6 +63,18 @@ function updateSelectOptions(){
     };
     $("select").css("display","none");
 }
-function changeEventIconsOnHover(){
-
+function createSelectOptions(){
+    var startHour = `${timelineStart[0]}${timelineStart[1]}`;
+    var endHour = `${timelineEnd[0]}${timelineEnd[1]}`;
+    var startHourInt = parseInt(startHour);
+    var endHourInt = parseInt(endHour);
+    for(i=startHourInt;i<=endHourInt;i++){
+        if(i<10){
+            var enterValue = `0${i}`;
+        } else {
+            enterValue = `${i}`;
+        }
+        console.log(enterValue)
+        $("#start_time_hour").append(`<option valeu="${enterValue}">${enterValue}</option>`);
+    }
 }
