@@ -176,6 +176,7 @@ def update_profile(prof_id):
         'profile_pword': request.form.get('profile_pword'),
         'profile_first': request.form.get('profile_first'),
         'profile_last': request.form.get('profile_last'),
+        'profile_email': request.form.get('profile_email'),
         'start_time': request.form.get('start_time'),
         'end_time': request.form.get('end_time')
     })

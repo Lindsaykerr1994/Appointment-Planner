@@ -70,6 +70,9 @@ a.text-green:hover{
 .no-hover:hover{
     text-decoration: none;
 }
+.active-day-col{
+    background-color: rgba(0, 0, 0, 0.1);
+}
 /* General Spacing Specifications */
 .row .col{
     padding-left: 0px;

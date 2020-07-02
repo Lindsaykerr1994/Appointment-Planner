@@ -16,6 +16,7 @@ $(document).ready(function(){
     }
     applyTimeline(timelineStart,timelineEnd);
     applyDatesToSchedule(thisWeeksDate);
+    setActiveDay(getTodaysDate()[1]);
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
     setWelcomeMessage(profileInfo["firstName"]);
@@ -361,7 +362,16 @@ function parseIntOfTime(timeVar){
         timeVarInt = parseInt(timeVar[1])
     }
     return timeVarInt;
-}
+};
+function setActiveDay(todaysDate){
+    if(todaysDate<10){
+        var findDateStr = `0${todaysDate}`;
+    } else {
+        findDateStr = `${todaysDate}`;
+    }
+    $(`.sch-col-header-date:contains(${findDateStr})`).parent().parent().addClass("active-day-col")
+
+};
 //The following functions create the events for the schedule
 function createThisWeeksEvents(eventList){
     for(i=0;i<eventList.length;i++){
@@ -420,4 +430,8 @@ function setWelcomeMessage(firstName){
     var todaysDate = getTodaysDate();
     var welcomeDate = `${dayNames[todaysDate[0]]}, ${todaysDate[1]} ${monthNames[todaysDate[2]]} ${todaysDate[3]}`;
     $("#todays-date-span").text(welcomeDate);
+    findUpcomingAppointment();
+}
+function findUpcomingAppointment(allEventsWithNames, todaysDate){
+    var allFutureEvents = 5;
 }
