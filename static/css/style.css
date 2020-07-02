@@ -61,6 +61,7 @@ a.text-green:hover{
 .text-white{
     color:#fff9f3 !important;
 }
+
 .lh-50{
     line-height: 50px;
 }
@@ -73,6 +74,9 @@ a.text-green:hover{
 .active-day-col{
     background-color: rgba(0, 0, 0, 0.1);
 }
+.active-event-card{
+    border: 4px solid #ab8742;
+}
 /* General Spacing Specifications */
 .row .col{
     padding-left: 0px;
@@ -83,6 +87,9 @@ a.text-green:hover{
 }
 .display-none{
     display: none;
+}
+.display-block{
+    display: block;
 }
 .inline-block{
     display:inline-block;
@@ -134,8 +141,6 @@ a.text-green:hover{
     position: absolute;
     color: #fff9f3;
     background-color: #65765d;
-    border-top: 1px solid #c3a365;
-    border-bottom: 1px solid #c3a365;
     width:100%;
 }
 .event-card-unit:hover{
@@ -160,7 +165,7 @@ a.text-green:hover{
     background-color:#fff;
 }
 .list-container .row{
-    height:50px;
+    min-height:50px;
     margin-bottom:0px;
 }
 .list-container .row:nth-child(even){

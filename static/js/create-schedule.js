@@ -1,9 +1,9 @@
 $(document).ready(function(){
     //First, generate/retrieve all relevant data for events and clients.
-    var profileInfo = getProfileInfo();
+    window.profileInfo = getProfileInfo();
     var allEvents = getAppointmentInfo();
-    var allClients = getClientInfo();
-    var allEventsWithNames = addClientToEventInfo(allEvents,allClients);
+    window.allClients = getClientInfo();
+    window.allEventsWithNames = addClientToEventInfo(allEvents,allClients);
     var thisWeeksDate = getThisWeeksDate(getTodaysDate());
     var thisWeeksEvents = getThisWeeksEvents(allEventsWithNames,thisWeeksDate);
     //Second, create the schedule layout as necessary.
@@ -20,6 +20,8 @@ $(document).ready(function(){
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
     setWelcomeMessage(profileInfo["firstName"]);
+    createSelectOptions();
+    $(".event-card-unit").click(eventDetailDiv);
 })
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
@@ -32,7 +34,8 @@ function getProfileInfo(){
         firstName: profileSingle.shift(),
         lastName: profileSingle.shift(),
         startTime: profileSingle.shift(),
-        endTime: profileSingle.shift()
+        endTime: profileSingle.shift(),
+        profileId: profileSingle.shift()
     };
     return profileInfo;
 };
@@ -428,10 +431,103 @@ function calculateCardTop(eventStart){
 function setWelcomeMessage(firstName){
     $("#welcome-client-name").text(firstName);
     var todaysDate = getTodaysDate();
-    var welcomeDate = `${dayNames[todaysDate[0]]}, ${todaysDate[1]} ${monthNames[todaysDate[2]]} ${todaysDate[3]}`;
+    var welcomeDate = `${dayNames[todaysDate[0]]}, ${todaysDate[1]} ${monthNames[todaysDate[2]-1]} ${todaysDate[3]}`;
     $("#todays-date-span").text(welcomeDate);
     findUpcomingAppointment();
 }
 function findUpcomingAppointment(allEventsWithNames, todaysDate){
     var allFutureEvents = 5;
+}
+//The following functions update the secondary window/column
+function eventDetailDiv(){
+    $(".event-card-unit").removeClass("active-event-card");
+    $(this).addClass("active-event-card");
+    var eventId = $(this).attr("data-event-id");
+    for(i=0;i<allEventsWithNames.length;i++){
+        var eventSingle = allEventsWithNames[i];
+        if(eventId == eventSingle["eventId"]){
+            $(".appointment_id_field").text(eventId);
+            $(".client_name_field").text(eventSingle["clientName"]);
+            $(".client_id_field").text(eventSingle["clientId"])
+            var eventStartTime = eventSingle["eventTime"];
+            $(".event_time_field").text(eventStartTime);
+            var eventDuration = eventSingle["eventDuration"];
+            if(eventDuration == "2"){
+                var eventEndTimeInt = parseInt(`${eventStartTime[0]}${eventStartTime[1]}`)+1;
+                if (eventEndTimeInt<10){
+                    var eventEndTime = `0${eventEndTimeInt}:${eventStartTime[3]}0`;
+                } else {
+                    eventEndTime = `${eventEndTimeInt}:${eventStartTime[3]}0`;
+                }
+                $("#appointment_duration").text("1 Hour");
+            } else {
+                if (`${eventStartTime[3]}`=="3"){
+                    eventEndTimeInt = parseInt(`${eventStartTime[0]}${eventStartTime[1]}`)+1;
+                    if (eventEndTimeInt<10){
+                        var eventEndTime = `0${eventEndTimeInt}:00`;
+                    } else {
+                        eventEndTime = `${eventEndTimeInt}:00`;
+                    }
+                } else {
+                    eventEndTime = `${eventStartTime[0]}${eventStartTime[1]}:30`;
+                }
+                $("#appointment_duration").text("30 Minutes");
+            }
+            $("#appointment_time").text(`${eventStartTime} - ${eventEndTime}`);
+            $("#appointment_date").text(eventSingle["eventDate"]);
+            $()
+            $("#appointment_notes").text(eventSingle["eventNotes"]);
+            break;
+        }
+    }
+    updateSelectOptions();
+    $("#appointment-details #edit-appt-button").click(openEditAppointmentWindow)
+};
+function openEditAppointmentWindow(){
+    $("#appointment-details-container").removeClass("display-block");
+    $("#appointment-details-container").addClass("display-none");
+    $("#edit-appointment-container").removeClass("display-none");
+    $("#edit-appointment-container").addClass("display-block");
+
+};
+function createSelectOptions(){
+    createClientSelectOptions();
+    createTimeSelectOptions();
+    $(".profile_id_field").attr("value",`${profileInfo["profileId"]}`);
+}
+function createClientSelectOptions(){
+    for(i=0;i<allClients.length;i++){
+        var clientName = allClients[i]["fullName"];
+        var clientIdValue = allClients[i]["clientId"];
+        $("#client_id_select").append(`<option value="${clientIdValue}">${clientName}</option>`);
+    }
+}
+function createTimeSelectOptions(){
+    var startHour = `${timelineStart[0]}${timelineStart[1]}`;
+    var endHour = `${timelineEnd[0]}${timelineEnd[1]}`;
+    var startHourInt = parseInt(startHour);
+    var endHourInt = parseInt(endHour);
+    for(i=startHourInt;i<=endHourInt;i++){
+        if(i<10){
+            var enterValue = `0${i}`;
+        } else {
+            enterValue = `${i}`;
+        }
+        $("#start_time_hour select").append(`<option value="${enterValue}">${enterValue}</option>`);
+    }
+}
+function updateSelectOptions(){
+    var eventId = $("#edit-appointment-container .appointment_id_field").text();
+    $("#edit-appointment-form").attr("action",`update_appointment/${eventId}`);
+    var startTime = $(".event_time_field").text();
+    var startTimeHour = `${startTime[0]}${startTime[1]}`;
+    $("#start_time_hour .select-wrapper li").removeClass("selected");
+    $(`.select-wrapper li span:contains(${startTimeHour})`).parent().addClass("selected");
+    var startTimeMinute = `${startTime[3]}${startTime[4]}`;
+    $("#start_time_minute .select-wrapper li").removeClass("selected");
+    $(`.select-wrapper li span:contains(${startTimeMinute})`).parent().addClass("selected");
+    var eventDate = $("#appointment_date").text()
+    $("#start_date_input").val(eventDate);
+    var appointment_notes = $("#appointment_notes").text()
+    $("#appointment_notes_input").text(appointment_notes);
 }

@@ -4,7 +4,7 @@
     <div class="profile-data-container">
         {% for profile in profiles %}
             {% if profile._id|string() == prof_id|string() %}    
-                <div>{{profile.profile_first}} {{profile.profile_last}} {{profile.start_time}} {{profile.end_time}}</div>
+                <div>{{profile.profile_first}} {{profile.profile_last}} {{profile.start_time}} {{profile.end_time}} {{profile._id}}</div>
             {% endif %}
         {% endfor %}
     </div>
@@ -69,6 +69,12 @@
                         <div class="schedule-column-header">Saturday&emsp;<span class="sch-col-header-date"></span></div>
                     </div>
                 </div>
+            </div>
+            <div id="appointment-details-container" class="col-4 display-block">
+                {% include 'appointment.html' %}
+            </div>
+            <div id="edit-appointment-container" class="col-4 display-none">
+                {% include 'test.html' %}
             </div>
         </div>
     </div>

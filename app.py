@@ -59,12 +59,9 @@ def see_appt_details(appt_id):
 
 @app.route('/edit_appointment/<appt_id>')
 def edit_appointment(appt_id):
-    the_appt = mongo.db.appointments.find_one({"_id": ObjectId(appt_id)})
-    all_clients = mongo.db.clients.find()
-    return render_template('edit-app.html',
-                           prof_id="5efd0ac854f682912533cb68",
-                           appointment=the_appt,
-                           clients=all_clients)
+    appointment = mongo.db.appointments.find_one({"_id": ObjectId(appt_id)})
+    clients = mongo.db.clients.find()
+    return appointment, clients
 
 
 @app.route('/update_appointment/<appt_id>', methods=["POST"])

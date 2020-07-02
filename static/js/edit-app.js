@@ -1,80 +1,87 @@
-$(document).ready(function(){
-    $(".event-card-unit").click(updateEventDropdownLinks);
-    updateSelectOptions();
-    $(".event-button").mouseenter(function(){
-        $(".event-button i").text("event");
-    })
-    $(".event-button").mouseleave(function(){
-        $(".event-button i").text("add");
-    })
-    console.log(timelineStart);
-});
-function updateEventDropdownLinks(){
-    var eventId = $(this).attr("data-event-id");
-    var setJinjaModifyLink = `{{url_for('edit-appointment')}}`;
-    $("#event-dropdown #see-app-details a").attr("href",`see_appt_details/${eventId}`);
-    $("#event-dropdown #modify-app a").attr("href",`edit_appointment/${eventId}`);
-    $("#event-dropdown #delete-app a").attr("href",`delete_appointment/${eventId}`)
-    return eventId;
-};
-function getEventId(){
-    var eventId = $("#event-id-span").text();
-    return eventId;
-}
-function getStartTimes(){
-    var startTime = $("#modify-appt-start-time").text();
-    var startTimeHour = `${startTime[0]}${startTime[1]}`;
-    var startTimeMinutes = `${startTime[3]}${startTime[4]}`;
-    return [startTimeHour, startTimeMinutes];
-}
-function updateSelectOptions(){
-    var clientId = $("#client-id-span").text();
-    var count1 = $("#client-id-select option").length;
-    for(i=0;i<count1;i++){
-        var optionValue = $("#client-id-select option").eq(i).val();
-        if(optionValue==clientId){
-            $("#client-id-select option").eq(i).attr("selected","selected");
-        };
-    };
-    var startTimeHour = getStartTimes()[0];
-    var startTimeMinutes = getStartTimes()[1];
-    createSelectOptions();
-    var count2 = $("#start_time_hour option").length;
-    for(i=0;i<count2;i++){
-        var optionValue = $("#start_time_hour option").eq(i).val();
-        if(optionValue==startTimeHour){
-            $("#start_time_hour option").eq(i).attr("selected","selected");
-        };
-    };
-    var count3 = $("#start_time_minute option").length;
-    for(i=0;i<count3;i++){
-        var optionValue = $("#start_time_minute option").eq(i).val();
-        if(optionValue==startTimeMinutes){
-            $("#start_time_minute option").eq(i).attr("selected","selected");
-        };
-    };
-    var appointmentDuration = $("#appt-duration-span").text();
-    var count4 = $("#appointment_duration-select option").length;
-    for(i=0;i<count4;i++){
-        var optionValue = $("#appointment_duration-select option").eq(i).val();
-        if(optionValue==appointmentDuration){
-            $("#appointment_duration-select option").eq(i).attr("selected","selected");
-        };
-    };
-    $("select").css("display","none");
-}
-function createSelectOptions(){
-    var startHour = `${timelineStart[0]}${timelineStart[1]}`;
-    var endHour = `${timelineEnd[0]}${timelineEnd[1]}`;
-    var startHourInt = parseInt(startHour);
-    var endHourInt = parseInt(endHour);
-    for(i=startHourInt;i<=endHourInt;i++){
-        if(i<10){
-            var enterValue = `0${i}`;
-        } else {
-            enterValue = `${i}`;
-        }
-        console.log(enterValue)
-        $("#start_time_hour").append(`<option valeu="${enterValue}">${enterValue}</option>`);
-    }
-}
+<div class="container-fluid">
+    <div class="row justify-content-md-center margin-bot-0">
+        <div class="col">
+            <p class="uppercase margin-left-25">Edit Appointment</p>
+            <span class="display-none appointment_id_field"></span>
+         </div>
+    </div>
+        <div class="row justify-content-md-center">
+            <div class="col form-container padding-tab-15">
+                <form id="edit-appointment-form" action="" method="POST">
+                    <input type="text" name="profile_id" class="profile_id_field display-none">
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field client_id_input">
+                            <span id="client-id-span" class="display-none"></span>
+                            <select id="client_id_select" name="client_id" required>
+                                <option value="" disabled selected>Choose Client</option>
+                                
+                            </select>
+                            <label for="client-id-select">Client Name</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div id="start-time-container" class="col-10 input-field">
+                            <span class="event_time_field display-none"></span>
+                                <div>
+                                    <div id="start_time_hour" class="inline-block">
+                                        <select name="start_time_hour" required>
+                                            <option value="" disabled>HH</option>
+                                        </select>
+                                    </div>:
+                                    <div id="start_time_minute" class="inline-block">
+                                        <select name="start_time_minute" required>
+                                            <option value="" disabled selected>MM</option>
+                                            <option value="00">00</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <label for="start-time-container" class="that-one-label">Appointment Time</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <span id="appt-duration-span" class="display-none">}</span>
+                            <select id="appointment_duration-select" name="appointment_duration" required>
+                                <option value="" disabled selected>Duration</option>
+                                <option value="1" >30 minutes</option>
+                                <option value="2">1 hour</option>
+                            </select>
+                            <label for="appointment_duration-select">Appointment Duration</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <input id="start_date_input" name="start_date" type="text" class="datepicker" value=" " required>
+                            <label for="start_date">Appointment Date</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <textarea name="appointment_notes" id="appointment_notes_input" class="materialize-textarea" >A</textarea>
+                            <label for="appointment_notes">Additional Notes</label>
+                        </div>
+                    </div>
+                    <div class="row lh-85">
+                        <div class="col-6 offset-6 text-right">
+                            <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
+                                <i class="material-icons right">save_alt</i>
+                            </button>
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
+                                <i class="material-icons right">cancel_presentation</i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+<div id="cancel-save-modal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure with you this cancel this action and return to the Home Page?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <a href="" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+            </div>
+</div>
