@@ -3,17 +3,23 @@
 <div class="data-container display-none">
     <div class="profile-data-container">
         {% for profile in profiles %}
-        <div>{{profile.profile_first}} {{profile.profile_last}} {{profile.start_time}} {{profile.end_time}}</div>
+            {% if profile._id|string() == prof_id|string() %}    
+                <div>{{profile.profile_first}} {{profile.profile_last}} {{profile.start_time}} {{profile.end_time}}</div>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="appointment-data-container">
         {% for app in appointments %}
-        <div>{{app._id}} {{app.client_id}} {{app.start_time}} {{app.appointment_duration}} {{app.start_date}} {{app.appointment_notes}}</div>
+            {% if app.profile_id|string() == prof_id|string() %}
+                <div>{{app._id}} {{app.client_id}} {{app.start_time}} {{app.appointment_duration}} {{app.start_date}} {{app.appointment_notes}}</div>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="client-data-container">
         {% for client in clients %}
-        <div>{{client._id}} {{client.first}} {{client.last}} {{client.client_email}} {{client.client_tel}}</div>
+            {% if client.profile_id|string() == prof_id|string() %}
+                <div>{{client._id}} {{client.first}} {{client.last}} {{client.client_email}} {{client.client_tel}}</div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>

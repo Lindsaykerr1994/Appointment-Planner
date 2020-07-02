@@ -3,18 +3,21 @@
     <div class="container-fluid">
         <div class="row margin-top-25">
                     <div class="col-4">
-                        <h5 class="uppercase margin-left-25">Appointment Details</h5>
+                        <h5 class="uppercase margin-left-25">New Appointment</h5>
                     </div> 
         </div>
         <div class="row justify-content-md-center">
             <div class="col-8 form-container padding-tab-15">
                 <form action="{{ url_for('insert_appointment') }}" method="POST">
+                    <input type="text" id="profile_id" name="profile_id" class="display-none" value="{{prof_id}}">
                     <div class="row">
                         <div class="col-6 input-field margin-left-25">
                             <select id="client-id-select" name="client_id" required>
                                 <option value="" disabled>Choose Client</option>
                                 {% for client in clients %}
-                                <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
+                                    {% if client.profile_id|string() == prof_id|string() %}
+                                        <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                             <label for="client-id-select">Client Name</label>

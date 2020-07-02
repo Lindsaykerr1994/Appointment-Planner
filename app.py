@@ -18,6 +18,7 @@ mongo = PyMongo(app)
 @app.route('/get_schedule')
 def get_schedule():
     return render_template('schedule.html',
+                           prof_id="5efd0ac854f682912533cb68",
                            profiles=mongo.db.profiles.find(),
                            appointments=mongo.db.appointments.find(),
                            clients=mongo.db.clients.find())
@@ -26,6 +27,7 @@ def get_schedule():
 @app.route('/create_appointment')
 def create_appointment():
     return render_template('new-app.html',
+                           prof_id="5efd0ac854f682912533cb68",
                            clients=mongo.db.clients.find())
 
 
@@ -36,6 +38,7 @@ def insert_appointment():
     startTimeMinute = request.form.get('start_time_minute')
     startTime = startTimeHour+":"+startTimeMinute
     appointments.insert_one({
+        'profile_id': request.form.get('profile_id'),
         'client_id': request.form.get('client_id'),
         'start_time': startTime,
         'appointment_duration': request.form.get('appointment_duration'),
@@ -59,6 +62,7 @@ def edit_appointment(appt_id):
     the_appt = mongo.db.appointments.find_one({"_id": ObjectId(appt_id)})
     all_clients = mongo.db.clients.find()
     return render_template('edit-app.html',
+                           prof_id="5efd0ac854f682912533cb68",
                            appointment=the_appt,
                            clients=all_clients)
 
@@ -71,6 +75,7 @@ def update_appointment(appt_id):
     startTime = startTimeHour+":"+startTimeMinute
     appointments.update({'_id': ObjectId(appt_id)},
                         {
+        'profile_id': request.form.get('profile_id'),
         'client_id': request.form.get('client_id'),
         'start_time': startTime,
         'appointment_duration': request.form.get('appointment_duration'),
@@ -90,6 +95,7 @@ def delete_appointment(appt_id):
 def get_clients():
     all_clients = mongo.db.clients.find()
     return render_template('all-clients.html',
+                           prof_id="5efd0ac854f682912533cb68",
                            clients=all_clients)
 
 
@@ -97,6 +103,7 @@ def get_clients():
 def see_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('client-details.html',
+                           prof_id="5efd0ac854f682912533cb68",
                            client=the_client,
                            appointments=mongo.db.appointments.find())
 
@@ -118,6 +125,7 @@ def edit_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('edit-client.html',
                            client=the_client,
+                           prof_id="5efd0ac854f682912533cb68",
                            appointments=mongo.db.appointments.find())
 
 
@@ -126,6 +134,7 @@ def update_client(client_id):
     clients = mongo.db.clients
     clients.update({'_id': ObjectId(client_id)},
                    {
+        'profile_id': request.form.get('profile_id'),
         'first': request.form.get('first'),
         'last': request.form.get('last'),
         'age': request.form.get('age'),
@@ -141,6 +150,36 @@ def update_client(client_id):
 def delete_client(client_id):
     mongo.db.clients.remove({'_id': ObjectId(client_id)})
     return redirect(url_for('get_clients'))
+
+
+@app.route('/get_profile/<prof_id>')
+def get_profile(prof_id):
+    prof_id = "5efd0ac854f682912533cb68"
+    the_prof = mongo.db.profiles.find_one({"_id": ObjectId(prof_id)})
+    return render_template('profile.html',
+                           profile=the_prof)
+
+
+@app.route('/edit_profile/<prof_id>')
+def edit_profile(prof_id):
+    the_prof = mongo.db.profiles.find_one({"_id": ObjectId(prof_id)})
+    return render_template('edit-profile.html',
+                           profile=the_prof)
+
+
+@app.route('/update_profile/<prof_id>', methods=["POST"])
+def update_profile(prof_id):
+    profiles = mongo.db.profiles
+    profiles.update({'_id': ObjectId(prof_id)},
+                    {
+        'profile_user': request.form.get('profile_user'),
+        'profile_pword': request.form.get('profile_pword'),
+        'profile_first': request.form.get('profile_first'),
+        'profile_last': request.form.get('profile_last'),
+        'start_time': request.form.get('start_time'),
+        'end_time': request.form.get('end_time')
+    })
+    return redirect(url_for('get_profile', prof_id=prof_id))
 
 
 if __name__ == '__main__':

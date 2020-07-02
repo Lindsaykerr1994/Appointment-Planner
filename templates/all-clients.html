@@ -14,6 +14,7 @@
         <div class="row justify-content-md-center">
             <div class="col-10 list-container padding-tab-15">
                 {% for client in clients %}
+                {% if client.profile_id|string() == prof_id|string() %}
                 <div class="row lh-50">
                     <div class="col-4 font-18 uppercase">
                         <a href="{{url_for('see_client', client_id=client._id)}}" class="text-green">{{client.first}} {{client.last}}</a>
@@ -33,6 +34,7 @@
                         </button>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
