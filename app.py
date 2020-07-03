@@ -35,21 +35,30 @@ def see_app_details(app_id):
 
 @app.route('/create_appointment')
 def create_appointment():
+    timeline_opts = ["09:00", "09:30", "10:00", "10:30",
+                    "11:00", "11:30", "12:00", "12:30",
+                    "13:00", "13:30", "14:00", "14:30",
+                    "15:00", "15:30", "16:00", "16:30",
+                    "17:00", "17:30"]
     return render_template('new-app.html',
                            prof_id="5efd0ac854f682912533cb68",
+                           timeline_opts=timeline_opts,
+                           appointments=mongo.db.appointments.find(),
                            clients=mongo.db.clients.find())
 
 
 @app.route('/insert_appointment', methods=['POST'])
 def insert_appointment():
     appointments = mongo.db.appointments
-    startTimeHour = request.form.get('start_time_hour')
-    startTimeMinute = request.form.get('start_time_minute')
-    startTime = startTimeHour+":"+startTimeMinute
+    client_id = request.form.get('client_id')
+    this_client = mongo.db.clients.find_one({'_id': ObjectId(client_id)})
+    client_name = this_client['first']+" "+this_client['last']
     appointments.insert_one({
         'profile_id': request.form.get('profile_id'),
-        'client_id': request.form.get('client_id'),
-        'start_time': startTime,
+        'client_id': client_id,
+        'client_name': client_name,
+        'start_time': request.form.get('start_time'),
+        'end_time': request.form.get('end_time'),
         'appointment_duration': request.form.get('appointment_duration'),
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
@@ -91,12 +100,12 @@ def update_appointment(app_id):
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
     })
-    return redirect(url_for('get_schedule'))
+    return redirect(url_for('see_app_details/<app_id>'))
 
 
-@app.route('/delete_appointment/<appt_id>')
-def delete_appointment(appt_id):
-    mongo.db.appointments.remove({'_id': ObjectId(appt_id)})
+@app.route('/delete_appointment/<app_id>')
+def delete_appointment(app_id):
+    mongo.db.appointments.remove({'_id': ObjectId(app_id)})
     return redirect(url_for('get_schedule'))
 
 

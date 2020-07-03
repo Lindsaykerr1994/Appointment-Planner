@@ -337,8 +337,8 @@ function createThisWeeksEvents(eventList){
         var eventBlock = parseInt(eventList[i]["eventDuration"]);
         var cardStyleHeight = setHeight*eventBlock 
         var cardStyle = `style='top:${cardStyleTop}px;height:${cardStyleHeight}px;'`;
-        var cardContent =`<a href="/see_app_details/${eventId}"><span class="font-12 margin-left-5">${eventList[i]["startTime"]}-${eventList[i]["endTime"]}</span></br><span class="margin-left-5">${clientName}</span></a>`;
-        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left">${cardContent}</div>`;
+        var cardContent =`<span class="font-12 margin-left-5">${eventList[i]["startTime"]}-${eventList[i]["endTime"]}</span></br><span class="margin-left-5">${clientName}</span>`;
+        var cardElement = `<a href="/see_app_details/${eventId}" class="text-white text-decoration-none"><div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left">${cardContent}</div></a>`;
         $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`)
     }
 }

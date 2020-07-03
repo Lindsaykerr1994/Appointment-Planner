@@ -3,8 +3,7 @@
 <div class="container-fluid">
     <div class="row justify-content-md-center margin-bot-0">
         <div class="col">
-            <p class="uppercase margin-left-25">Edit Appointment</p>
-            <span class="display-none appointment_id_field"></span>
+            <p class="uppercase margin-top-25 underline">Edit Appointment</p>
          </div>
     </div>
         <div class="row justify-content-md-center">
@@ -14,7 +13,7 @@
                     <div class="row justify-content-md-center">
                         <div class="col-10 input-field">
                             <select id="client-info-select" name="client_id" required>
-                                <option value="" disabled selected>Choose Client</option>
+                                <option value="" disabled>Choose Client</option>
                                 {% for client in clients %}
                                     {% if client._id|string() == the_app.client_id|string() %}
                                         <option value="{{client._id}}" selected>{{client.first}} {{client.last}}</option>
@@ -82,7 +81,7 @@
                         </div>
                     </div>
                     <div class="row lh-85">
-                        <div class="col-6 offset-6 text-right">
+                        <div class="col-8 offset-4 text-right">
                             <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
                             </button>
@@ -100,7 +99,7 @@
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
             <div class="modal-footer text-center">
-                <a href="" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{url_for('see_app_details', app_id=the_app._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
 </div>

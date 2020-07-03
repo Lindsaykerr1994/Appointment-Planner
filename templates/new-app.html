@@ -1,69 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container-fluid">
-        <div class="row margin-top-25">
-                    <div class="col-4">
-                        <h5 class="uppercase margin-left-25">New Appointment</h5>
-                    </div> 
-        </div>
+<div class="container-fluid">
+    <div class="row justify-content-md-center margin-bot-0">
+        <div class="col">
+            <p class="uppercase margin-top-25 underline">New Appointment</p>
+         </div>
+    </div>
         <div class="row justify-content-md-center">
-            <div class="col-8 form-container padding-tab-15">
+            <div class="col form-container padding-tab-15">
                 <form action="{{ url_for('insert_appointment') }}" method="POST">
-                    <input type="text" id="profile_id" name="profile_id" class="display-none" value="{{prof_id}}">
-                    <div class="row">
-                        <div class="col-6 input-field margin-left-25">
-                            <select id="client-id-select" name="client_id" required>
-                                <option value="" disabled>Choose Client</option>
+                    <input type="text" name="profile_id" class="profile_id_field display-none" value="{{prof_id}}">
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <select id="client-info-select" name="client_id" required>
+                                <option value="" disabled selected>Choose Client</option>
                                 {% for client in clients %}
-                                    {% if client.profile_id|string() == prof_id|string() %}
-                                        <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
-                                    {% endif %}
+                                    <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
                                 {% endfor %}
                             </select>
                             <label for="client-id-select">Client Name</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div id="start-time-container" class="col-6 input-field margin-left-25">
-                                <div>
-                                    <div class="inline-block">
-                                        <select id="start_time_hour" name="start_time_hour" required>
-                                            
-                                        </select>
-                                    </div>:
-                                    <div class="inline-block">
-                                        <select id="start_time_minute" name="start_time_minute" required>
-                                            <option value="00" selected>00</option>
-                                            <option value="30">30</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <label for="start-time-container" class="that-one-label">Appointment Time</label>
+                    <div class="row justify-content-md-center">
+                        <div class="col-5 input-field">
+                            <select id="start-time-select" name="start_time" required>
+                                <option value="" disabled selected>Start Time</option>
+                                {% for startTime in timeline_opts %}
+                                    <option value="{{startTime}}">{{startTime}}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="start-time-select">Start Time</label>
+                        </div>
+                        <div class="col-5 input-field">
+                            <select id="end-time-select" name="end_time" required>
+                                <option value="" disabled selected>End Time</option>
+                                {% for endTime in timeline_opts %}
+                                    <option value="{{endTime}}">{{endTime}}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="end-time-select">End Time</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6 input-field margin-left-25">
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
                             <select id="appointment_duration-select" name="appointment_duration" required>
-                                <option value="1" selected>30 minutes</option>
-                                <option value="2">1 hour</option>
+                                <option value="" disabled selected>Duration</option>
+                                <option value="1" >30 Minutes</option>
+                                <option value="2" >1 Hour</option>
                             </select>
                             <label for="appointment_duration-select">Appointment Duration</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6 input-field margin-left-25">
-                            <input id="start_date" name="start_date" type="text" class="datepicker" required>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <input id="start_date_input" name="start_date" type="text" class="datepicker" value="" required>
                             <label for="start_date">Appointment Date</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6 input-field margin-left-25">
-                            <textarea name="appointment_notes" id="appointment_notes" class="materialize-textarea"></textarea>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <textarea name="appointment_notes" id="appointment_notes_input" class="materialize-textarea" ></textarea>
                             <label for="appointment_notes">Additional Notes</label>
                         </div>
                     </div>
                     <div class="row lh-85">
-                        <div class="col-6 offset-6 text-right">
+                        <div class="col-8 offset-4 text-right">
                             <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
                             </button>

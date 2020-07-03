@@ -45,20 +45,20 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row margin-top-25">
-            <div id="welcome-div" class="col-4 offset-4">
+            <div id="welcome-div" class="col-6 margin-left-15">
                 <p class="margin-bot-0">
                     Welcome, <span id="welcome-client-name"></span>! Today is <span id="todays-date-span"></span>.<br>
                     Your next appointment is: <span id="welcome-appt-date"></span> at: <span id="welcome-appt-time"></span> with: <span id="welcome-appt-name"></span>
                 </p>
             </div>
-            <div class="col-2 offset-2 text-center">
-                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
+            <div class="col margin-right-15">
+                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button float-right" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
                     <i class="material-icons">add</i>
                 </a>
             </div>
         </div>
         <div class="row justify-content-md-center margin-bot-50">
-            <div class="col-8">
+            <div class="col-8 content-container">
                 <div id="schedule-container" class="row no-gutters text-center uppercase">
                     <div id="timeline-col" class="col-1 day-col">
                         <div class="schedule-column-header">&emsp;</div>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div id="appointment-details-container" class="col-4 display-block">
+            <div id="appointment-details-container" class="col-4 display-block content-container">
                     {% block content %}
                     {% endblock %}
             </div>
@@ -100,8 +100,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{url_for('static', filename='js/create-schedule.js')}}"></script>
-    <script src="{{url_for('static', filename='js/edit-app.js')}}"></script>
-    <script src="{{url_for('static', filename='js/edit-client.js')}}"></script>
     <script>
         $(document).ready(function(){
             $('select').formSelect();

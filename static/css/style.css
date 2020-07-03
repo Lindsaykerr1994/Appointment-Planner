@@ -21,8 +21,12 @@ nav ul a:hover{
     color: #d8c39a;
 }
 a {
-    color:#fff9f3;
     text-decoration: none;
+}
+.content-container>div{
+    border:4px solid #ab8742;
+    background:#fff;
+    border-radius: 5px;
 }
 /* General Styling Specifications */
 .underline{
@@ -52,6 +56,9 @@ a {
 a.text-green:hover{
     color: #515e4a !important;
 }
+.text-black{
+    color: #212529 !important;
+}
 .text-gold{
     color:#ab8742 !important; 
 }
@@ -61,7 +68,9 @@ a.text-green:hover{
 .text-white{
     color:#fff9f3 !important;
 }
-
+a.text-decoration-none{
+    text-decoration: none;
+}
 .lh-50{
     line-height: 50px;
 }
@@ -94,20 +103,30 @@ a.text-green:hover{
 .inline-block{
     display:inline-block;
 }
+.float-right{
+    float:right;
+}
 .margin-bot-0{
     margin-bottom:0;
 }
-.margin-left-5{
-    margin-left: 5px;
-}
-.margin-left-25{
-    margin-left: 25px;
+.margin-bot-50{
+    margin-bottom:50px;
 }
 .margin-top-25{
     margin-top: 25px;
 }
-.margin-bot-50{
-    margin-bottom:50px;
+.margin-left-5{
+    margin-left: 5px;
+}
+.margin-left-15{
+    margin-left: 15px;
+}
+.margin-left-25{
+    margin-left: 25px;
+}
+
+.margin-right-15{
+    margin-right: 15px;
 }
 .padding-tab-15{
     padding: 15px 0;
@@ -118,11 +137,6 @@ a.text-green:hover{
     border: 1px solid #d8c39a;
     border-radius: 2px;
     background:#fff;
-}
-#schedule-container{
-    border:4px solid #ab8742;
-    background:#fff;
-    border-radius: 5px;
 }
 .schedule-column-header, #timeline-col li{
     border-bottom: 1px solid #8a9c82;
@@ -140,14 +154,11 @@ a.text-green:hover{
 .event-card-unit{
     position: absolute;
     color: #fff9f3;
-    background-color: #65765d;
+    background-color: #414b3b;
     width:100%;
 }
 .event-card-unit:hover{
-    background-color: #414b3b;
-}
-.dropdown-content li>a{
-    background-color:#fff9f3;
+    background-color:#65765d;
 }
 /* Button Styling Specifications */
 .clanker-button{

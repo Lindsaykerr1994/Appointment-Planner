@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container-fluid">
-        <div class="row margin-top-25 ">
-                    <div class="col-4">
-                        <h5 class="uppercase margin-left-25">{{client.first}} {{client.last}}</h5>
-                    </div>
-                    <div class="col-2 offset-6 text-center">
-                        <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
-                            <i class="material-icons">add</i>
-                        </a>
-                    </div>
+        <div class="row justify-content-md-center margin-bot-0">
+            <div class="col margin-top-25">
+                <p class="uppercase underline inline-block">{{client.first}} {{client.last}}</p>
+                <button class="btn waves-effect waves-light clanker-button action-button float-right">
+                    <a class="text-white no-hover">New App.
+                        <i class="material-icons right">event</i>
+                    </a>
+                </button>
+            </div>
         </div>
         <div class="row justify-content-md-center">
-            <div class="col-8 list-container padding-tab-15">
+            <div class="col list-container padding-tab-15">
                     <div class="row lh-50">
                         <div class="col-6">
                             Client Name:
@@ -62,9 +62,9 @@
                         </div>
                     </div>
                     <div class="row lh-50">
-                        <div class="col-6 offset-6 text-right">
+                        <div class="col-12 text-right">
                             <button class="btn waves-effect waves-light clanker-button action-button">
-                                <a href="{{url_for('edit_client', client_id=client._id)}}" class="text-white no-hover">Edit 
+                                <a href="{{url_for('edit_client', client_id=client._id)}}" class="text-white no-hover">Edit
                                     <i class="material-icons right">mode_edit</i>
                                 </a>
                             </button>
