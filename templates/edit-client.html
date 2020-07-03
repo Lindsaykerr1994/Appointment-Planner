@@ -1,53 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row margin-top-25">
-            <div class="col-4">
-                        <h5 class="uppercase margin-left-25">Edit Client</h5>
-            </div>   
-    </div>
+    <div class="row justify-content-md-center margin-bot-0">
+            <div class="col margin-top-25">
+                <p class="uppercase underline inline-block">Edit client:</p><p class="uppercase inline-block">&nbsp;{{client.first}} {{client.last}}</p>
+            </div>
+        </div>
     <div class="row justify-content-md-center">
-        <div class="col-8 form-container padding-tab-15">
-            <form action="{{url_for('update_client', client_id=client._id)}}" method="POST">
-            <input type="text" id="profile_id" name="profile_id" class="display-none" value="{{prof_id}}">
-            <div class="row">
-                <div class="col-6 margin-left-25">
+        <div class="col form-container padding-tab-15">
+            <form id="edit-client-form" action="{{url_for('update_client', client_id=client._id)}}" method="POST">
+            <input type="text" name="profile_id" class="profile_id_field display-none" value="{{client.profile_id}}">
+            <div class="row justify-content-md-center">
+                <div class="col-5">
                     <div class="input-field inline-block">
                         <input type="text" id="client_first" name="first" value="{{client.first}}">
                         <label for="client_first">First Name</label>
                     </div>
+                </div>
+                <div class="col-5">
                     <div class="input-field inline-block">
                         <input type="text" id="client_last" name="last" value="{{client.last}}">
                         <label for="client_last">Last Name</label>       
                     </div>   
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="number" id="client_age" name="age" min="1" max="99" value="{{client.age}}">
                     <label for="client_age">Client Age</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="client_location" name="location" value="{{client.location}}">
                     <label for="client_location">Client Location</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="email" id="client_email" name="client_email" value="{{client.client_email}}">
                     <label for="client_email">Email Address</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="client_tel" name="client_tel" value="{{client.client_tel}}">
                     <label for="client_tel">Telephone Number</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <textarea name="additional_notes" id="additional_notes" class="materialize-textarea">{{client.additional_notes}}</textarea>
                     <label for="additional_notes">Additional Notes</label>
                 </div>

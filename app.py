@@ -20,6 +20,7 @@ def get_schedule():
     prof_id = "5efd0ac854f682912533cb68"
     return render_template('schedule.html',
                            prof_id=prof_id,
+                           clients=mongo.db.clients.find(),
                            appointments=mongo.db.appointments.find())
 
 
@@ -69,7 +70,6 @@ def insert_appointment():
 @app.route('/edit_appointment/<app_id>')
 def edit_appointment(app_id):
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
-    clients = mongo.db.clients.find()
     timeline_opts = ["09:00", "09:30", "10:00", "10:30",
                    "11:00", "11:30", "12:00", "12:30",
                    "13:00", "13:30", "14:00", "14:30",
@@ -100,7 +100,7 @@ def update_appointment(app_id):
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
     })
-    return redirect(url_for('see_app_details/<app_id>'))
+    return redirect(url_for('see_app_details', app_id=app_id))
 
 
 @app.route('/delete_appointment/<app_id>')
@@ -161,7 +161,7 @@ def update_client(client_id):
         'client_tel': request.form.get('client_tel'),
         'additional_notes': request.form.get('additional_notes')
     })
-    return redirect(url_for('get_clients'))
+    return redirect(url_for('get_schedule'))
 
 
 @app.route('/delete_client/<client_id>')

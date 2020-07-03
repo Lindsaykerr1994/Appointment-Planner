@@ -10,17 +10,32 @@
     <title>Appointment Planner</title>
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper uppercase">
-        <a href="{{url_for('get_schedule')}}" class="brand-logo margin-left-25 underline text-gold">Clanker</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down text-white">
-            <li><a href="{{url_for('get_schedule')}}">Schedule</a></li>
-            <li><a href="">Appointments</a></li>
-            <li><a href="{{url_for('get_clients')}}">Clients</a></li>
-            <li><a href="{{url_for('get_profile', prof_id='5efd0ac854f682912533cb68')}}">Profile</a></li>
-        </ul>
+    <nav>
+        <div class="nav-wrapper uppercase">
+            <a href="{{url_for('get_schedule')}}" class="brand-logo margin-left-25 underline text-gold">Clanker</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down text-white">
+                <li><a href="{{url_for('get_schedule')}}">Schedule</a></li>
+                <li><a href="">Appointments</a></li>
+                <li class="dropdown-trigger" data-target="dropdown1"><a>Clients</a></li>
+                <li><a href="{{url_for('get_profile', prof_id='5efd0ac854f682912533cb68')}}">Profile</a></li>
+            </ul>
         </div>
+            <ul id="dropdown1" class="dropdown-content">
+                <li><a href="#!">All Clients</a></li>
+                <li><a href="#!">New Client</a></li>
+                <li id="my-collapsible-trigger"><a href="#!">Client List</a></li>
+                <li id="my-collapsible-content" class="display-none">
+                    <ul>
+                        <li class="divider" tabindex="-1"></li>
+                        {% for clientlist in clients %}
+                        <li><a href="{{url_for('see_client', client_id=clientlist._id)}}" class="font-12">{{clientlist.first}} {{clientlist.last}}</a></li>
+
+                        {% endfor %}
+                    </ul>
+                </li>
+                
+            </ul>
     </nav>
     <div class="data-container display-none">
     <div class="appointment-data-container">
@@ -112,8 +127,13 @@
                 close: 'Ok',
                 closeOnSelect: true // Close upon selecting a date,
             });
+            $('.dropdown-trigger').dropdown({
+                alignment: 'right',
+                closeOnClick: false,
+                constrainWidth: false,
+                coverTrigger: false
+            });
             $('.modal').modal();
-            $('.dropdown-trigger').dropdown();
             $('.tooltipped').tooltip();
         });
         

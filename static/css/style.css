@@ -28,12 +28,19 @@ a {
     background:#fff;
     border-radius: 5px;
 }
+#dropdown1 li{
+    width:200px;
+}
 /* General Styling Specifications */
 .underline{
     text-decoration: underline;
 }
 .uppercase{
     text-transform: uppercase;
+}
+
+.dropdown-content li>a.font-12{
+    font-size:12px;
 }
 .font-12{
     font-size:12px;
@@ -191,10 +198,6 @@ a.text-decoration-none{
 }
 .form-container .row:nth-child(even){
     background-color:#f9f9f9;
-}
-.that-one-label{
-    font-size: 0.8rem !important;
-    top: -26px !important;
 }
 .datepicker-modal{
     height:350px;
