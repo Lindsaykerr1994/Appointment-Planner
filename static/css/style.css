@@ -194,8 +194,3 @@ a.text-green:hover{
 .datepicker-cancel, .datepicker-done, .is-today{
     color: #65765d;
 }
-/* Modal Styling Specifications */
-#cancel-save-modal{
-    height: 175px;
-    width: 20%;
-}

@@ -1,95 +1,43 @@
 $(document).ready(function(){
     //First, generate/retrieve all relevant data for events and clients.
-    window.profileInfo = getProfileInfo();
     var allEvents = getAppointmentInfo();
-    window.allClients = getClientInfo();
-    window.allEventsWithNames = addClientToEventInfo(allEvents,allClients);
     var thisWeeksDate = getThisWeeksDate(getTodaysDate());
-    var thisWeeksEvents = getThisWeeksEvents(allEventsWithNames,thisWeeksDate);
+    var thisWeeksEvents = getThisWeeksEvents(allEvents,thisWeeksDate);
     //Second, create the schedule layout as necessary.
-    if(typeof profileInfo["startTime"]==='undefined' || typeof profileInfo["endTime"]==='undefined'){
-        window.timelineStart = "09:00";
-        window.timelineEnd = "17:00";
-    } else {
-       window.timelineStart = profileInfo["startTime"];
-       window.timelineEnd = profileInfo["endTime"]
-    }
+    window.timelineStart = "09:00";
+    window.timelineEnd = "17:00";
     applyTimeline(timelineStart,timelineEnd);
     applyDatesToSchedule(thisWeeksDate);
     setActiveDay(getTodaysDate()[1]);
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
-    setWelcomeMessage(profileInfo["firstName"]);
-    createSelectOptions();
-    $(".event-card-unit").click(eventDetailDiv);
+    setWelcomeMessage("Lindsay Kerr");
 })
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
 var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-function getProfileInfo(){
-    var profileSpan = $(".profile-data-container div").text();
-    var profileSingle = profileSpan.split(" ")
-    var profileInfo = {
-        firstName: profileSingle.shift(),
-        lastName: profileSingle.shift(),
-        startTime: profileSingle.shift(),
-        endTime: profileSingle.shift(),
-        profileId: profileSingle.shift()
-    };
-    return profileInfo;
-};
+//The following functions collects the appointment data imported from Python/app.py
 function getAppointmentInfo(){
-    var count = $(".appointment-data-container div").length;
+    var count = $(".appointment-data-unit").length;
     var allEvents = [];
     for(i=0;i<count;i++){
-        var eventSpan = $(".appointment-data-container div").eq(i).text();
-        var eventSingle = eventSpan.split(" ")
         var addToEvents = {
-            eventId: eventSingle.shift(),
-            clientId: eventSingle.shift(),
-            eventTime: eventSingle.shift(),
-            eventDuration: eventSingle.shift(),
-            eventDate: eventSingle.shift(),
-            eventNotes: eventSingle.toString().replace(/,/g, " ")
+            eventId: $(`.appointment-data-unit:nth-child(${i+1}) .app-id-data-field`).text(),
+            clientId: $(`.appointment-data-unit:nth-child(${i+1}) .app-clientid-data-field`).text(),
+            clientName: $(`.appointment-data-unit:nth-child(${i+1}) .app-clientname-data-field`).text(),
+            startTime: $(`.appointment-data-unit:nth-child(${i+1}) .app-starttime-data-field`).text(),
+            endTime: $(`.appointment-data-unit:nth-child(${i+1}) .app-endtime-data-field`).text(),
+            eventDuration: $(`.appointment-data-unit:nth-child(${i+1}) .app-duration-data-field`).text(),
+            eventDate: $(`.appointment-data-unit:nth-child(${i+1}) .app-startdate-data-field`).text(),
+            eventNotes: $(`.appointment-data-unit:nth-child(${i+1}) .app-notes-data-field`).text()
         }
         allEvents.push(addToEvents)
     }
+    console.log(allEvents)
     return(allEvents)
 }
-function getClientInfo(){
-    var count = $(".client-data-container div").length;
-    var allClients = [];
-    for(i=0;i<count;i++){
-        var clientSpan = $(".client-data-container div").eq(i).text();
-        var clientSingle = clientSpan.split(" ")
-        var addToClients = {
-            clientId: clientSingle[0],
-            firstName: clientSingle[1],
-            lastName: clientSingle[2],
-            fullName: `${clientSingle[1]} ${clientSingle[2]}`,
-            clientEmail: clientSingle[3],
-            clientTel: clientSingle[4]
-        };
-        allClients.push(addToClients);
-    }
-    return(allClients);
-}
-function addClientToEventInfo(allEvents,allClients){
-    var eventInfo = allEvents;
-    var clientInfo = allClients;
-    for (i=0;i<eventInfo.length;i++){
-        var compareId1 = eventInfo[i]["clientId"];
-        for (j=0;j<clientInfo.length;j++){
-            var compareId2 = clientInfo[j]["clientId"];
-            if(compareId1 == compareId2){
-                var clientName = clientInfo[j]["fullName"];
-                eventInfo[i]["clientName"] = `${clientName}`;
-            }
-        }
-    }
-    return(eventInfo);
-}
+
 //The following functions generate DateTime data
 function getTodaysDate(){
     var newDate = new Date
@@ -379,38 +327,18 @@ function setActiveDay(todaysDate){
 function createThisWeeksEvents(eventList){
     for(i=0;i<eventList.length;i++){
         var eventDateFull = eventList[i]["eventDate"];
-        var eventDate = `${eventDateFull[8]}${eventDateFull[9]}`;
-        var eventStartTime = eventList[i]["eventTime"];
-        var eventDuration = eventList[i]["eventDuration"];
-        if(eventDuration == "2"){
-            var eventEndTimeInt = parseInt(`${eventStartTime[0]}${eventStartTime[1]}`)+1;
-            if (eventEndTimeInt<10){
-                var eventEndTime = `0${eventEndTimeInt}:${eventStartTime[3]}0`;
-            } else {
-                eventEndTime = `${eventEndTimeInt}:${eventStartTime[3]}0`;
-            }
-        } else {
-            if (`${eventStartTime[3]}`=="3"){
-                eventEndTimeInt = parseInt(`${eventStartTime[0]}${eventStartTime[1]}`)+1;
-                if (eventEndTimeInt<10){
-                    var eventEndTime = `0${eventEndTimeInt}:00`;
-                } else {
-                    eventEndTime = `${eventEndTimeInt}:00`;
-                }
-            } else {
-                eventEndTime = `${eventStartTime[0]}${eventStartTime[1]}:30`;
-            }
-        }
+        var eventDate = `${eventDateFull[8]}${eventDateFull[9]}`;        
         var clientName = eventList[i]["clientName"];
         var eventId = eventList[i]["eventId"];
         var dataEntry = `data-event-id=${eventId}`;
+        var eventStartTime = eventList[i]["startTime"];
         var cardStyleTop = calculateCardTop(eventStartTime);
         var setHeight = 50;
         var eventBlock = parseInt(eventList[i]["eventDuration"]);
         var cardStyleHeight = setHeight*eventBlock 
         var cardStyle = `style='top:${cardStyleTop}px;height:${cardStyleHeight}px;'`;
-        var cardContent =`<span class="font-12 margin-left-5">${eventStartTime}-${eventEndTime}</span></br><span class="margin-left-5">${clientName}</span>`;
-        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left" data-target="event-dropdown">${cardContent}</div>`;
+        var cardContent =`<a href="/see_app_details/${eventId}"><span class="font-12 margin-left-5">${eventList[i]["startTime"]}-${eventList[i]["endTime"]}</span></br><span class="margin-left-5">${clientName}</span></a>`;
+        var cardElement = `<div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left">${cardContent}</div>`;
         $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`)
     }
 }
@@ -439,95 +367,5 @@ function findUpcomingAppointment(allEventsWithNames, todaysDate){
     var allFutureEvents = 5;
 }
 //The following functions update the secondary window/column
-function eventDetailDiv(){
-    $(".event-card-unit").removeClass("active-event-card");
-    $(this).addClass("active-event-card");
-    var eventId = $(this).attr("data-event-id");
-    for(i=0;i<allEventsWithNames.length;i++){
-        var eventSingle = allEventsWithNames[i];
-        if(eventId == eventSingle["eventId"]){
-            $(".appointment_id_field").text(eventId);
-            $(".client_name_field").text(eventSingle["clientName"]);
-            $(".client_id_field").text(eventSingle["clientId"])
-            var eventStartTime = eventSingle["eventTime"];
-            $(".event_time_field").text(eventStartTime);
-            var eventDuration = eventSingle["eventDuration"];
-            if(eventDuration == "2"){
-                var eventEndTimeInt = parseInt(`${eventStartTime[0]}${eventStartTime[1]}`)+1;
-                if (eventEndTimeInt<10){
-                    var eventEndTime = `0${eventEndTimeInt}:${eventStartTime[3]}0`;
-                } else {
-                    eventEndTime = `${eventEndTimeInt}:${eventStartTime[3]}0`;
-                }
-                $("#appointment_duration").text("1 Hour");
-            } else {
-                if (`${eventStartTime[3]}`=="3"){
-                    eventEndTimeInt = parseInt(`${eventStartTime[0]}${eventStartTime[1]}`)+1;
-                    if (eventEndTimeInt<10){
-                        var eventEndTime = `0${eventEndTimeInt}:00`;
-                    } else {
-                        eventEndTime = `${eventEndTimeInt}:00`;
-                    }
-                } else {
-                    eventEndTime = `${eventStartTime[0]}${eventStartTime[1]}:30`;
-                }
-                $("#appointment_duration").text("30 Minutes");
-            }
-            $("#appointment_time").text(`${eventStartTime} - ${eventEndTime}`);
-            $("#appointment_date").text(eventSingle["eventDate"]);
-            $()
-            $("#appointment_notes").text(eventSingle["eventNotes"]);
-            break;
-        }
-    }
-    updateSelectOptions();
-    $("#appointment-details #edit-appt-button").click(openEditAppointmentWindow)
-};
-function openEditAppointmentWindow(){
-    $("#appointment-details-container").removeClass("display-block");
-    $("#appointment-details-container").addClass("display-none");
-    $("#edit-appointment-container").removeClass("display-none");
-    $("#edit-appointment-container").addClass("display-block");
 
-};
-function createSelectOptions(){
-    createClientSelectOptions();
-    createTimeSelectOptions();
-    $(".profile_id_field").attr("value",`${profileInfo["profileId"]}`);
-}
-function createClientSelectOptions(){
-    for(i=0;i<allClients.length;i++){
-        var clientName = allClients[i]["fullName"];
-        var clientIdValue = allClients[i]["clientId"];
-        $("#client_id_select").append(`<option value="${clientIdValue}">${clientName}</option>`);
-    }
-}
-function createTimeSelectOptions(){
-    var startHour = `${timelineStart[0]}${timelineStart[1]}`;
-    var endHour = `${timelineEnd[0]}${timelineEnd[1]}`;
-    var startHourInt = parseInt(startHour);
-    var endHourInt = parseInt(endHour);
-    for(i=startHourInt;i<=endHourInt;i++){
-        if(i<10){
-            var enterValue = `0${i}`;
-        } else {
-            enterValue = `${i}`;
-        }
-        $("#start_time_hour select").append(`<option value="${enterValue}">${enterValue}</option>`);
-    }
-}
-function updateSelectOptions(){
-    var eventId = $("#edit-appointment-container .appointment_id_field").text();
-    $("#edit-appointment-form").attr("action",`update_appointment/${eventId}`);
-    var startTime = $(".event_time_field").text();
-    var startTimeHour = `${startTime[0]}${startTime[1]}`;
-    $("#start_time_hour .select-wrapper li").removeClass("selected");
-    $(`.select-wrapper li span:contains(${startTimeHour})`).parent().addClass("selected");
-    var startTimeMinute = `${startTime[3]}${startTime[4]}`;
-    $("#start_time_minute .select-wrapper li").removeClass("selected");
-    $(`.select-wrapper li span:contains(${startTimeMinute})`).parent().addClass("selected");
-    var eventDate = $("#appointment_date").text()
-    $("#start_date_input").val(eventDate);
-    var appointment_notes = $("#appointment_notes").text()
-    $("#appointment_notes_input").text(appointment_notes);
-}
+

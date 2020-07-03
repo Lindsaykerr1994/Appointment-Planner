@@ -22,15 +22,81 @@
         </ul>
         </div>
     </nav>
+    <div class="data-container display-none">
+    <div class="appointment-data-container">
+        {% for app in appointments %}
+        {% if app.profile_id|string() == prof_id|string() %}
+            <div class="appointment-data-unit">
+                <span class="app-id-data-field">{{app._id}}</span>
+                <span class="app-clientid-data-field">{{app.client_id}}</span>
+                <span class="app-clientname-data-field">{{app.client_name}}</span>
+                <span class="app-starttime-data-field">{{app.start_time}}</span>
+                <span class="app-endtime-data-field">{{app.end_time}}</span>
+                <span class="app-duration-data-field">{{app.appointment_duration}}</span>
+                <span class="app-startdate-data-field">{{app.start_date}}</span>
+                <span class="app-notes-data-field">{{app.appointment_notes}}</span>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="client-data-container">
+    </div>
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row margin-top-25">
+            <div id="welcome-div" class="col-4 offset-4">
+                <p class="margin-bot-0">
+                    Welcome, <span id="welcome-client-name"></span>! Today is <span id="todays-date-span"></span>.<br>
+                    Your next appointment is: <span id="welcome-appt-date"></span> at: <span id="welcome-appt-time"></span> with: <span id="welcome-appt-name"></span>
+                </p>
+            </div>
+            <div class="col-2 offset-2 text-center">
+                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center margin-bot-50">
+            <div class="col-8">
+                <div id="schedule-container" class="row no-gutters text-center uppercase">
+                    <div id="timeline-col" class="col-1 day-col">
+                        <div class="schedule-column-header">&emsp;</div>
+                        <div>
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div id="sunday-col" class="col day-col">
+                        <div class="schedule-column-header">Sunday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                    <div id="monday-col" class="col day-col">
+                        <div class="schedule-column-header">Monday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                    <div id="tuesday-col" class="col day-col">
+                        <div class="schedule-column-header">Tuesday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                    <div id="wednesday-col" class="col day-col">
+                        <div class="schedule-column-header">Wednesday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                    <div id="thursday-col" class="col day-col">
+                        <div class="schedule-column-header">Thursday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                    <div id="friday-col" class="col day-col">
+                        <div class="schedule-column-header">Friday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                    <div id="saturday-col" class="col day-col">
+                        <div class="schedule-column-header">Saturday&emsp;<span class="sch-col-header-date"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div id="appointment-details-container" class="col-4 display-block">
+                    {% block content %}
+                    {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
 
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="{{url_for('get_schedule')}}">Schedule</a></li>
-        <li><a href="">Appointments</a></li>
-        <li><a href="{{url_for('get_clients')}}">Clients</a></li>
-        <li><a href="">Profile</a></li>
-    </ul>
-    {% block content %}
-    {% endblock %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{url_for('static', filename='js/create-schedule.js')}}"></script>

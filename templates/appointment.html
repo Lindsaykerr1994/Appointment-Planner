@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <div id="appointment-details" class="container-fluid">
     <div class="row justify-content-md-center margin-bot-0">
        <div class="col">
@@ -10,10 +12,10 @@
             <div class="row lh-50">
                         <div class="col-6">
                             Client Name:
-                            <span class="client_id_field display-none"></span>
+                            <span class="client_id_field display-none">{{the_app.client_id}}</span>
                         </div>
                         <div class="col-6">
-                            <span class="client_name_field"></span>                
+                            <span class="client_name_field">{{the_app.client_name}}</span>                
                         </div>
                     </div>
                     <div class="row lh-50">
@@ -21,7 +23,7 @@
                             Appointment Time:
                         </div>
                         <div class="col-6">
-                            <span id="appointment_time"></span>
+                            <span id="appointment_time">{{the_app.start_time}} - {{the_app.end_time}}</span>
                         </div>
                     </div>
                     <div class="row lh-50">
@@ -29,7 +31,12 @@
                             Appointment Duration:
                         </div>
                         <div class="col-6">
-                            <span id="appointment_duration"></span>
+                            {% if the_app.appointment_duration|string() == "1" %}
+                                <span id="appointment_duration">30 Minutes</span>
+                            {% endif %}
+                            {% if the_app.appointment_duration|string() == "2" %}
+                                <span id="appointment_duration">1 Hour</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="row lh-50">
@@ -37,7 +44,7 @@
                             Appointment Date:
                         </div>
                         <div class="col-6">
-                            <span id="appointment_date"></span>
+                            <span id="appointment_date">{{the_app.start_date}}</span>
                         </div>
                     </div>
                     <div class="row lh-50">
@@ -45,7 +52,7 @@
                             Appointment Notes:
                         </div>
                         <div class="col-6">
-                            <span id="appointment_notes"></span>
+                            <span id="appointment_notes">{{the_app.appointment_notes}}</span>
                         </div>
                     </div>
         </div>
@@ -53,9 +60,9 @@
     <div class="row lh-50">
        <div class="col-6 offset-6 text-right">
             <button id="edit-appt-button" class="btn waves-effect waves-light clanker-button action-button">
-                <p class="text-white no-hover">Edit 
+                <a href="{{url_for('edit_appointment', app_id=the_app._id)}}" class="text-white no-hover">Edit 
                     <i class="material-icons right">mode_edit</i>
-                </p>
+                </a>
             </button>
             <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">
                 <a class="text-white">Delete
@@ -65,3 +72,4 @@
         </div>
     </div>
 </div>
+{% endblock %}

@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <div class="container-fluid">
     <div class="row justify-content-md-center margin-bot-0">
         <div class="col">
@@ -7,58 +9,75 @@
     </div>
         <div class="row justify-content-md-center">
             <div class="col form-container padding-tab-15">
-                <form id="edit-appointment-form" action="" method="POST">
-                    <input type="text" name="profile_id" class="profile_id_field display-none">
+                <form id="edit-appointment-form" action="{{url_for('update_appointment', app_id=the_app._id)}}" method="POST">
+                    <input type="text" name="profile_id" class="profile_id_field display-none" value="{{the_app.profile_id}}">
                     <div class="row justify-content-md-center">
-                        <div class="col-10 input-field client_id_input">
-                            <span id="client-id-span" class="display-none"></span>
-                            <select id="client_id_select" name="client_id" required>
+                        <div class="col-10 input-field">
+                            <select id="client-info-select" name="client_id" required>
                                 <option value="" disabled selected>Choose Client</option>
-                                
+                                {% for client in clients %}
+                                    {% if client._id|string() == the_app.client_id|string() %}
+                                        <option value="{{client._id}}" selected>{{client.first}} {{client.last}}</option>
+                                    {% else %}
+                                        <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                             <label for="client-id-select">Client Name</label>
                         </div>
                     </div>
                     <div class="row justify-content-md-center">
-                        <div id="start-time-container" class="col-10 input-field">
-                            <span class="event_time_field display-none"></span>
-                                <div>
-                                    <div id="start_time_hour" class="inline-block">
-                                        <select name="start_time_hour" required>
-                                            <option value="" disabled>HH</option>
-                                        </select>
-                                    </div>:
-                                    <div id="start_time_minute" class="inline-block">
-                                        <select name="start_time_minute" required>
-                                            <option value="" disabled selected>MM</option>
-                                            <option value="00">00</option>
-                                            <option value="30">30</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            <label for="start-time-container" class="that-one-label">Appointment Time</label>
+                        <div class="col-5 input-field">
+                            <select id="start-time-select" name="start_time" required>
+                                <option value="" disabled>Start Time</option>
+                                {% for startTime in timeline_opts %}
+                                    {% if startTime|string() == the_app.start_time|string() %}
+                                        <option value="{{startTime}}" selected>{{startTime}}</option>
+                                    {% else %}
+                                        <option value="{{startTime}}">{{startTime}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <label for="start-time-select">Start Time</label>
+                        </div>
+                        <div class="col-5 input-field">
+                            <select id="end-time-select" name="end_time" required>
+                                <option value="" disabled>End Time</option>
+                                {% for endTime in timeline_opts %}
+                                    {% if endTime|string() == the_app.end_time|string() %}
+                                        <option value="{{endTime}}" selected>{{endTime}}</option>
+                                    {% else %}
+                                        <option value="{{endTime}}">{{endTime}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <label for="end-time-select">End Time</label>
                         </div>
                     </div>
                     <div class="row justify-content-md-center">
                         <div class="col-10 input-field">
-                            <span id="appt-duration-span" class="display-none">}</span>
                             <select id="appointment_duration-select" name="appointment_duration" required>
-                                <option value="" disabled selected>Duration</option>
-                                <option value="1" >30 minutes</option>
-                                <option value="2">1 hour</option>
+                                <option value="" disabled>Duration</option>
+                                {% if the_app.appointment_duration|string() == "1" %}
+                                    <option value="1" selected>30 Minutes</option>
+                                    <option value="2" >1 Hour</option>
+                                {% else %}
+                                    <option value="1" >30 Minutes</option>
+                                    <option value="2" selected>1 Hour</option>
+                                {% endif %}
                             </select>
                             <label for="appointment_duration-select">Appointment Duration</label>
                         </div>
                     </div>
                     <div class="row justify-content-md-center">
                         <div class="col-10 input-field">
-                            <input id="start_date_input" name="start_date" type="text" class="datepicker" value=" " required>
+                            <input id="start_date_input" name="start_date" type="text" class="datepicker" value="{{the_app.start_date}}" required>
                             <label for="start_date">Appointment Date</label>
                         </div>
                     </div>
                     <div class="row justify-content-md-center">
                         <div class="col-10 input-field">
-                            <textarea name="appointment_notes" id="appointment_notes_input" class="materialize-textarea" >A</textarea>
+                            <textarea name="appointment_notes" id="appointment_notes_input" class="materialize-textarea" >{{the_app.appointment_notes}}</textarea>
                             <label for="appointment_notes">Additional Notes</label>
                         </div>
                     </div>
@@ -85,3 +104,4 @@
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
 </div>
+{% endblock %}
