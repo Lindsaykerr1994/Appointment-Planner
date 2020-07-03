@@ -37,10 +37,10 @@ def see_app_details(app_id):
 @app.route('/create_appointment')
 def create_appointment():
     timeline_opts = ["09:00", "09:30", "10:00", "10:30",
-                    "11:00", "11:30", "12:00", "12:30",
-                    "13:00", "13:30", "14:00", "14:30",
-                    "15:00", "15:30", "16:00", "16:30",
-                    "17:00", "17:30"]
+                     "11:00", "11:30", "12:00", "12:30",
+                     "13:00", "13:30", "14:00", "14:30",
+                     "15:00", "15:30", "16:00", "16:30",
+                     "17:00", "17:30"]
     return render_template('new-app.html',
                            prof_id="5efd0ac854f682912533cb68",
                            timeline_opts=timeline_opts,
@@ -71,10 +71,10 @@ def insert_appointment():
 def edit_appointment(app_id):
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
     timeline_opts = ["09:00", "09:30", "10:00", "10:30",
-                   "11:00", "11:30", "12:00", "12:30",
-                   "13:00", "13:30", "14:00", "14:30",
-                   "15:00", "15:30", "16:00", "16:30",
-                   "17:00", "17:30"]
+                     "11:00", "11:30", "12:00", "12:30",
+                     "13:00", "13:30", "14:00", "14:30",
+                     "15:00", "15:30", "16:00", "16:30",
+                     "17:00", "17:30"]
     return render_template('edit-app.html',
                            prof_id="5efd0ac854f682912533cb68",
                            the_app=appointment,
@@ -122,6 +122,7 @@ def see_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('client-details.html',
                            prof_id="5efd0ac854f682912533cb68",
+                           clients=mongo.db.clients.find(),
                            client=the_client,
                            appointments=mongo.db.appointments.find())
 
@@ -142,6 +143,7 @@ def insert_client():
 def edit_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('edit-client.html',
+                           clients=mongo.db.clients.find(),
                            client=the_client,
                            prof_id="5efd0ac854f682912533cb68",
                            appointments=mongo.db.appointments.find())

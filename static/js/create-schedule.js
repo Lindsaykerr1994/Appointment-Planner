@@ -12,7 +12,7 @@ $(document).ready(function(){
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
     setWelcomeMessage("Lindsay Kerr");
-    $("#my-collapsible-trigger").click(showCollapsible);
+    $("#my-collapsible-trigger").click(toggleCollapsible);
 })
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
@@ -368,12 +368,25 @@ function findUpcomingAppointment(allEventsWithNames, todaysDate){
     var allFutureEvents = 5;
 }
 //The following functions construct the clients dropdown menu  as a collapsible
+function toggleCollapsible(){
+    if($("#my-collapsible-content").hasClass("display-block")==true){
+        hideCollapsible();
+    } else {
+        showCollapsible();
+    }
+}
 function showCollapsible(){
     $("#my-collapsible-content").removeClass("display-none");
     $("#my-collapsible-content").addClass("display-block");
     var count = $("#my-collapsible-content ul li").length-1;
     var dropdownHeight = (151+(count*50));
     $("#dropdown1").css("height",`${dropdownHeight}px`);
+    
+}
+function hideCollapsible(){
+    $("#my-collapsible-content").removeClass("display-block");
+    $("#my-collapsible-content").addClass("display-none");
+    $("#dropdown1").css("height",`150px`);
 }
 
 

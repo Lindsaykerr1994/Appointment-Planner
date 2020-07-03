@@ -72,6 +72,9 @@ a.text-green:hover{
 .text-gold:hover{
     color: #c3a365 !important; 
 }
+.hover-gold:hover{
+    color: #c3a365 !important; 
+}
 .text-white{
     color:#fff9f3 !important;
 }

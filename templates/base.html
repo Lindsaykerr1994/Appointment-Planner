@@ -22,14 +22,14 @@
             </ul>
         </div>
             <ul id="dropdown1" class="dropdown-content">
-                <li><a href="#!">All Clients</a></li>
-                <li><a href="#!">New Client</a></li>
-                <li id="my-collapsible-trigger"><a href="#!">Client List</a></li>
+                <li><a href="#!" class="text-black hover-gold">All Clients</a></li>
+                <li><a href="#!" class="text-black hover-gold">New Client</a></li>
+                <li id="my-collapsible-trigger" ><a href="#!" class="text-black hover-gold">Client List</a></li>
                 <li id="my-collapsible-content" class="display-none">
                     <ul>
                         <li class="divider" tabindex="-1"></li>
-                        {% for clientlist in clients %}
-                        <li><a href="{{url_for('see_client', client_id=clientlist._id)}}" class="font-12">{{clientlist.first}} {{clientlist.last}}</a></li>
+                        {% for client in clients %}
+                        <li><a href="{{url_for('see_client', client_id=client._id)}}" class="font-12 text-black hover-gold">{{client.first}} {{client.last}}</a></li>
 
                         {% endfor %}
                     </ul>
