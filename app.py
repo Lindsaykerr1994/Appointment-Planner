@@ -20,9 +20,34 @@ timeline_opts = ["09:00", "09:30", "10:00", "10:30",
                  "17:00", "17:30"]
 
 @app.route('/')
-@app.route('/get_login',  methods=['POST'])
+@app.route('/get_login')
 def get_login():
-    return
+    return render_template('login.html')
+
+
+@app.route('/check_login', methods=['POST'])
+def check_login():
+    error = None
+    resp_wrong_user = "This user does not exist. Please check the username"
+    resp_wrong_pword = "This password does not match the username. Please re-enter your password."
+    resp_no_pword = "Please enter a password"
+    profile_user_input = request.form.get('profile_user')
+    profiles = mongo.db.profiles.find({'profile_user': profile_user_input})
+    profile_pword_input = request.form.get('profile_pword')
+    for profile in profiles:
+        if len(profile)==0:
+            error = resp_wrong_user
+        else:
+            profile_pword = profile["profile_pword"]
+            if len(profile_pword_input)==0:
+                error = resp_no_pword
+            elif str(profile_pword_input)!=str(profile_pword):
+                error = resp_wrong_pword  
+            else:
+                return redirect('get_schedule')
+    return render_template('login.html', error=error)
+    
+    
 
 @app.route('/get_schedule')
 def get_schedule():
