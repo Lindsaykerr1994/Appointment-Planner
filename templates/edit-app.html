@@ -85,22 +85,15 @@
                             <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
                             </button>
-                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
-                                <i class="material-icons right">cancel_presentation</i>
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button">
+                                <a href="{{url_for('get_schedule')}}" class="text-white no-hover">Cancel
+                                    <i class="material-icons right">cancel_presentation</i>
+                                </a>
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-</div>
-<div id="cancel-save-modal" class="modal">
-            <div class="modal-content">
-                <p>Are you sure with you this cancel this action and return to the Home Page?</p>
-            </div>
-            <div class="modal-footer text-center">
-                <a href="{{url_for('see_app_details', app_id=the_app._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
-            </div>
 </div>
 {% endblock %}

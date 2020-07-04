@@ -28,8 +28,8 @@ a {
     background:#fff;
     border-radius: 5px;
 }
-#dropdown1 li{
-    width:200px;
+.dropdown-content li{
+    width:225px;
 }
 /* General Styling Specifications */
 .underline{

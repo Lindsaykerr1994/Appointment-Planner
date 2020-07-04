@@ -12,13 +12,17 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["DATABASE"] = "appointmentPlanner"
 
 mongo = PyMongo(app)
-
+prof_id = "5efd0ac854f682912533cb68"
+timeline_opts = ["09:00", "09:30", "10:00", "10:30",
+                 "11:00", "11:30", "12:00", "12:30",
+                 "13:00", "13:30", "14:00", "14:30",
+                 "15:00", "15:30", "16:00", "16:30",
+                 "17:00", "17:30"]
 
 @app.route('/')
 @app.route('/get_schedule')
 def get_schedule():
-    prof_id = "5efd0ac854f682912533cb68"
-    return render_template('schedule.html',
+    return render_template('base.html',
                            prof_id=prof_id,
                            clientlist=mongo.db.clients.find(),
                            appointments=mongo.db.appointments.find())
@@ -28,21 +32,16 @@ def get_schedule():
 def see_app_details(app_id):
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
     return render_template('appointment.html',
-                           prof_id="5efd0ac854f682912533cb68",
+                           prof_id=prof_id,
                            the_app=appointment,
                            appointments=mongo.db.appointments.find(),
-                           clients=mongo.db.clients.find())
+                           clientlist=mongo.db.clients.find())
 
 
 @app.route('/create_appointment')
 def create_appointment():
-    timeline_opts = ["09:00", "09:30", "10:00", "10:30",
-                     "11:00", "11:30", "12:00", "12:30",
-                     "13:00", "13:30", "14:00", "14:30",
-                     "15:00", "15:30", "16:00", "16:30",
-                     "17:00", "17:30"]
     return render_template('new-app.html',
-                           prof_id="5efd0ac854f682912533cb68",
+                           prof_id=prof_id,
                            timeline_opts=timeline_opts,
                            appointments=mongo.db.appointments.find(),
                            clientlist=mongo.db.clients.find(),
@@ -71,13 +70,8 @@ def insert_appointment():
 @app.route('/edit_appointment/<app_id>')
 def edit_appointment(app_id):
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
-    timeline_opts = ["09:00", "09:30", "10:00", "10:30",
-                     "11:00", "11:30", "12:00", "12:30",
-                     "13:00", "13:30", "14:00", "14:30",
-                     "15:00", "15:30", "16:00", "16:30",
-                     "17:00", "17:30"]
     return render_template('edit-app.html',
-                           prof_id="5efd0ac854f682912533cb68",
+                           prof_id=prof_id,
                            the_app=appointment,
                            appointments=mongo.db.appointments.find(),
                            timeline_opts=timeline_opts,
@@ -115,7 +109,7 @@ def delete_appointment(app_id):
 def see_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('client-details.html',
-                           prof_id="5efd0ac854f682912533cb68",
+                           prof_id=prof_id,
                            clientlist=mongo.db.clients.find(),
                            client=the_client,
                            appointments=mongo.db.appointments.find())
@@ -123,7 +117,10 @@ def see_client(client_id):
 
 @app.route('/create_client')
 def create_client():
-    return render_template('new-client.html')
+    return render_template('new-client.html',
+                           prof_id=prof_id,
+                           clientlist=mongo.db.clients.find(),
+                           appointments=mongo.db.appointments.find())
 
 
 @app.route('/insert_client', methods=['POST'])
@@ -137,10 +134,10 @@ def insert_client():
 def edit_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('edit-client.html',
-                           clientlist=mongo.db.clients.find(),
                            clients=mongo.db.clients.find(),
+                           clientlist=mongo.db.clients.find(),
                            client=the_client,
-                           prof_id="5efd0ac854f682912533cb68",
+                           prof_id=prof_id,
                            appointments=mongo.db.appointments.find())
 
 
@@ -168,17 +165,22 @@ def delete_client(client_id):
 
 @app.route('/get_profile/<prof_id>')
 def get_profile(prof_id):
-    prof_id = "5efd0ac854f682912533cb68"
     the_prof = mongo.db.profiles.find_one({"_id": ObjectId(prof_id)})
     return render_template('profile.html',
-                           profile=the_prof)
+                           prof_id=prof_id,
+                           profile=the_prof,
+                           clientlist=mongo.db.clients.find(),
+                           appointments=mongo.db.appointments.find())
 
 
 @app.route('/edit_profile/<prof_id>')
 def edit_profile(prof_id):
     the_prof = mongo.db.profiles.find_one({"_id": ObjectId(prof_id)})
     return render_template('edit-profile.html',
-                           profile=the_prof)
+                           prof_id=prof_id,
+                           profile=the_prof,
+                           clientlist=mongo.db.clients.find(),
+                           appointments=mongo.db.appointments.find())
 
 
 @app.route('/update_profile/<prof_id>', methods=["POST"])
@@ -191,6 +193,7 @@ def update_profile(prof_id):
         'profile_first': request.form.get('profile_first'),
         'profile_last': request.form.get('profile_last'),
         'profile_email': request.form.get('profile_email'),
+        'profile_tel': request.form.get('profile_tel'),
         'start_time': request.form.get('start_time'),
         'end_time': request.form.get('end_time')
     })

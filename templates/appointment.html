@@ -64,12 +64,13 @@
                     <i class="material-icons right">mode_edit</i>
                 </a>
             </button>
-            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">
-                <a href="{{url_for('delete_appointment', app_id=the_app._id)}}" class="text-white">Delete
+            <button id="edit-appt-button" class="btn waves-effect waves-light clanker-button action-button">
+                <a href="{{url_for('delete_appointment', app_id=the_app._id)}}" class="text-white no-hover">Delete
                     <i class="material-icons right">delete_forever</i>
                 </a>
             </button>
         </div>
     </div>
 </div>
+
 {% endblock %}

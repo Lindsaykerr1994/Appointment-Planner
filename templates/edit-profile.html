@@ -1,42 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row margin-top-25">
-            <div class="col-4">
-                        <h5 class="uppercase margin-left-25">Edit Client</h5>
-            </div>   
-    </div>
+    <div class="row justify-content-md-center margin-bot-0">
+            <div class="col margin-top-25">
+                <p class="uppercase underline inline-block">Edit Profile</p>
+            </div>
+        </div>
     <div class="row justify-content-md-center">
-        <div class="col-8 form-container padding-tab-15">
+        <div class="col form-container padding-tab-15">
             <form action="{{url_for('update_profile', prof_id=profile._id)}}" method="POST">
                 <input type="text" id="profile_user" name="profile_user" value="{{profile.profile_user}}" class="display-none">
                 <input type="text" id="profile_pword" name="profile_pword" value="{{profile.profile_pword}}" class="display-none">
-            <div class="row">
-                <div class="col-6 margin-left-25">
-                    <div class="input-field inline-block">
+            <div class="row justify-content-md-center">
+                <div class="col-5">
+                    <div class="input-field">
                         <input type="text" id="profile_first" name="profile_first" value="{{profile.profile_first}}">
                         <label for="client_first">First Name</label>
                     </div>
-                    <div class="input-field inline-block">
+                </div>
+                <div class="col-5">
+                    <div class="input-field">
                         <input type="text" id="profile_last" name="profile_last" value="{{profile.profile_last}}">
                         <label for="client_last">Last Name</label>       
                     </div>   
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="profile_email" name="profile_email" value="{{profile.profile_email}}">
-                    <label for="profile_email">Profile Email</label>
+                    <label for="profile_email">Email Address</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
+                    <input type="text" id="profile_tel" name="profile_tel" value="{{profile.profile_tel}}">
+                    <label for="profile_tel">Telephone No.</label>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="start_time" name="start_time" value="{{profile.start_time}}">
                     <label for="start_time">Schedule Start Time (hh:mm)</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="end_time" name="end_time" value="{{profile.end_time}}">
                     <label for="end_time">Schedule End Time (hh:mm)</label>
                 </div>

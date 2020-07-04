@@ -12,13 +12,13 @@
             <input type="text" name="profile_id" class="profile_id_field display-none" value="{{client.profile_id}}">
             <div class="row justify-content-md-center">
                 <div class="col-5">
-                    <div class="input-field inline-block">
+                    <div class="input-field">
                         <input type="text" id="client_first" name="first" value="{{client.first}}">
                         <label for="client_first">First Name</label>
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="input-field inline-block">
+                    <div class="input-field">
                         <input type="text" id="client_last" name="last" value="{{client.last}}">
                         <label for="client_last">Last Name</label>       
                     </div>   
@@ -49,12 +49,14 @@
                 </div>
             </div>
                 <div class="row lh-85">
-                        <div class="col-6 offset-6 text-right">
+                        <div class="col-12 text-right">
                             <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
                             </button>
-                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
-                                <i class="material-icons right">cancel_presentation</i>
+                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button">
+                                <a href="{{url_for('get_schedule')}}" class="text-white no-hover">Cancel
+                                    <i class="material-icons right">cancel_presentation</i>
+                                </a>
                             </button>
                         </div>
                 </div>
@@ -70,5 +72,5 @@
                 <a href="{{url_for('see_client', client_id=client._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
-        </div>
+</div>
 {% endblock %}

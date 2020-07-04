@@ -15,102 +15,109 @@
             <a href="{{url_for('get_schedule')}}" class="brand-logo margin-left-25 underline text-gold">Clanker</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down text-white">
-                <li><a href="{{url_for('get_schedule')}}">Schedule</a></li>
-                <li><a href="">Appointments</a></li>
-                <li class="dropdown-trigger" data-target="dropdown1"><a>Clients</a></li>
-                <li><a href="{{url_for('get_profile', prof_id='5efd0ac854f682912533cb68')}}">Profile</a></li>
+                <li class="dropdown-trigger" data-target="dropdown1"><a>Schedule</a></li>
+                <li class="dropdown-trigger" data-target="dropdown2"><a>Clients</a></li>
+                <li class="dropdown-trigger" data-target="dropdown3"><a>Profile</a></li>
             </ul>
         </div>
             <ul id="dropdown1" class="dropdown-content">
+                <li><a href="{{url_for('get_schedule')}}" class="text-black hover-gold">See Schd.<i class="small material-icons">event</i></a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="{{url_for('create_appointment')}}" class="text-black hover-gold">New Appt.<i class="small material-icons">add_box</i></a></li>
+                </li>
+            </ul>
+            <ul id="dropdown2" class="dropdown-content">
                 <li><a href="{{url_for('create_client')}}" class="text-black hover-gold">New Client<i class="material-icons">person_add</i></a></li>
                 <li class="divider" tabindex="-1"></li>
-                <li id="my-collapsible-trigger" ><a href="#!" class="text-black hover-gold">Client List<i class="material-icons">people</i></a></li>
-                <li id="my-collapsible-content" class="display-none">
+                <li><a href="#!" class="text-black hover-gold">Client List<i class="material-icons">people</i></a></li>
+                <li>
                     <ul>
-                        <li class="divider" tabindex="-1"></li>
                         {% for clientfield in clientlist %}
                         <li><a href="{{url_for('see_client', client_id=clientfield._id)}}" class="font-12 text-black hover-gold">{{clientfield.first}} {{clientfield.last}}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
-                
+            </ul>
+            <ul id="dropdown3" class="dropdown-content">
+                <li><a href="{{url_for('get_profile', prof_id=prof_id)}}" class="text-black hover-gold">See Prof.<i class="material-icons">portrait</i></a></li>
+                <li class="divider" tabindex="-1"></li>
+                <li><a href="#!" class="text-black hover-gold">Sign Out<i class="material-icons">power_settings_new</i></a></li>
             </ul>
     </nav>
     <div class="data-container display-none">
-    <div class="appointment-data-container">
-        {% for app in appointments %}
-        {% if app.profile_id|string() == prof_id|string() %}
-            <div class="appointment-data-unit">
-                <span class="app-id-data-field">{{app._id}}</span>
-                <span class="app-clientid-data-field">{{app.client_id}}</span>
-                <span class="app-clientname-data-field">{{app.client_name}}</span>
-                <span class="app-starttime-data-field">{{app.start_time}}</span>
-                <span class="app-endtime-data-field">{{app.end_time}}</span>
-                <span class="app-duration-data-field">{{app.appointment_duration}}</span>
-                <span class="app-startdate-data-field">{{app.start_date}}</span>
-                <span class="app-notes-data-field">{{app.appointment_notes}}</span>
-            </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="client-data-container">
-    </div>
-</div>
-<div class="main-content">
-    <div class="container-fluid">
-        <div class="row margin-top-25">
-            <div id="welcome-div" class="col-6 margin-left-15">
-                <p class="margin-bot-0">
-                    Welcome, <span id="welcome-client-name"></span>! Today is <span id="todays-date-span"></span>.<br>
-                    Your next appointment is: <span id="welcome-appt-date"></span> at: <span id="welcome-appt-time"></span> with: <span id="welcome-appt-name"></span>
-                </p>
-            </div>
-            <div class="col margin-right-15">
-                <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button float-right" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
-                    <i class="material-icons">add</i>
-                </a>
-            </div>
+        <div class="appointment-data-container">
+            {% for app in appointments %}
+            {% if app.profile_id|string() == prof_id|string() %}
+                <div class="appointment-data-unit">
+                    <span class="app-id-data-field">{{app._id}}</span>
+                    <span class="app-clientid-data-field">{{app.client_id}}</span>
+                    <span class="app-clientname-data-field">{{app.client_name}}</span>
+                    <span class="app-starttime-data-field">{{app.start_time}}</span>
+                    <span class="app-endtime-data-field">{{app.end_time}}</span>
+                    <span class="app-duration-data-field">{{app.appointment_duration}}</span>
+                    <span class="app-startdate-data-field">{{app.start_date}}</span>
+                    <span class="app-notes-data-field">{{app.appointment_notes}}</span>
+                </div>
+            {% endif %}
+            {% endfor %}
         </div>
-        <div class="row justify-content-md-center margin-bot-50">
-            <div class="col-8 content-container">
-                <div id="schedule-container" class="row no-gutters text-center uppercase">
-                    <div id="timeline-col" class="col-1 day-col">
-                        <div class="schedule-column-header">&emsp;</div>
-                        <div>
-                            <ul></ul>
-                        </div>
-                    </div>
-                    <div id="sunday-col" class="col day-col">
-                        <div class="schedule-column-header">Sunday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
-                    <div id="monday-col" class="col day-col">
-                        <div class="schedule-column-header">Monday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
-                    <div id="tuesday-col" class="col day-col">
-                        <div class="schedule-column-header">Tuesday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
-                    <div id="wednesday-col" class="col day-col">
-                        <div class="schedule-column-header">Wednesday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
-                    <div id="thursday-col" class="col day-col">
-                        <div class="schedule-column-header">Thursday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
-                    <div id="friday-col" class="col day-col">
-                        <div class="schedule-column-header">Friday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
-                    <div id="saturday-col" class="col day-col">
-                        <div class="schedule-column-header">Saturday&emsp;<span class="sch-col-header-date"></span></div>
-                    </div>
+        <div class="client-data-container">
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row margin-top-25">
+                <div id="welcome-div" class="col-6 margin-left-15">
+                    <p class="margin-bot-0">
+                        Welcome, <span id="welcome-client-name"></span>! Today is <span id="todays-date-span"></span>.<br>
+                        Your next appointment is: <span id="welcome-appt-date"></span> at: <span id="welcome-appt-time"></span> with: <span id="welcome-appt-name"></span>
+                    </p>
+                </div>
+                <div class="col margin-right-15">
+                    <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button float-right" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
+                        <i class="material-icons">add</i>
+                    </a>
                 </div>
             </div>
-            <div id="appointment-details-container" class="col-4 display-block content-container">
-                    {% block content %}
-                    {% endblock %}
+            <div class="row justify-content-md-center margin-bot-50">
+                <div class="col-8 content-container">
+                    <div id="schedule-container" class="row no-gutters text-center uppercase">
+                        <div id="timeline-col" class="col-1 day-col">
+                            <div class="schedule-column-header">&emsp;</div>
+                            <div>
+                                <ul class="margin-bot-0"></ul>
+                            </div>
+                        </div>
+                        <div id="sunday-col" class="col day-col">
+                            <div class="schedule-column-header">Sunday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                        <div id="monday-col" class="col day-col">
+                            <div class="schedule-column-header">Monday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                        <div id="tuesday-col" class="col day-col">
+                            <div class="schedule-column-header">Tuesday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                        <div id="wednesday-col" class="col day-col">
+                            <div class="schedule-column-header">Wednesday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                        <div id="thursday-col" class="col day-col">
+                            <div class="schedule-column-header">Thursday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                        <div id="friday-col" class="col day-col">
+                            <div class="schedule-column-header">Friday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                        <div id="saturday-col" class="col day-col">
+                            <div class="schedule-column-header">Saturday&emsp;<span class="sch-col-header-date"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="appointment-details-container" class="col-4 display-block content-container">
+                        {% block content %}
+                        {% endblock %}
+                </div>
             </div>
         </div>
     </div>
-</div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{url_for('static', filename='js/create-schedule.js')}}"></script>
@@ -132,10 +139,7 @@
                 constrainWidth: false,
                 coverTrigger: false
             });
-            $('.modal').modal();
-            $('.tooltipped').tooltip();
         });
-        
     </script>
 </body>
 </html>
