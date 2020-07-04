@@ -52,7 +52,7 @@ def check_login():
     return render_template('login.html', error=error)
 
 
-@app.route('/get_schedule')
+@app.route('/get_schedule/<prof_id>')
 def get_schedule():
     prof_id = "5efd0ac854f682912533cb68"
     return render_template('base.html',
@@ -61,7 +61,7 @@ def get_schedule():
                            appointments=mongo.db.appointments.find())
 
 
-@app.route('/see_app_details/<app_id>')
+@app.route('/see_app_details/<prof_id>/<app_id>')
 def see_app_details(app_id):
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
     return render_template('appointment.html',
