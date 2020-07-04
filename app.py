@@ -20,7 +20,7 @@ def get_schedule():
     prof_id = "5efd0ac854f682912533cb68"
     return render_template('schedule.html',
                            prof_id=prof_id,
-                           clients=mongo.db.clients.find(),
+                           clientlist=mongo.db.clients.find(),
                            appointments=mongo.db.appointments.find())
 
 
@@ -45,6 +45,7 @@ def create_appointment():
                            prof_id="5efd0ac854f682912533cb68",
                            timeline_opts=timeline_opts,
                            appointments=mongo.db.appointments.find(),
+                           clientlist=mongo.db.clients.find(),
                            clients=mongo.db.clients.find())
 
 
@@ -80,6 +81,7 @@ def edit_appointment(app_id):
                            the_app=appointment,
                            appointments=mongo.db.appointments.find(),
                            timeline_opts=timeline_opts,
+                           clientlist=mongo.db.clients.find(),
                            clients=mongo.db.clients.find())
 
 
@@ -109,20 +111,12 @@ def delete_appointment(app_id):
     return redirect(url_for('get_schedule'))
 
 
-@app.route('/get_clients')
-def get_clients():
-    all_clients = mongo.db.clients.find()
-    return render_template('all-clients.html',
-                           prof_id="5efd0ac854f682912533cb68",
-                           clients=all_clients)
-
-
 @app.route('/see_client/<client_id>')
 def see_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('client-details.html',
                            prof_id="5efd0ac854f682912533cb68",
-                           clients=mongo.db.clients.find(),
+                           clientlist=mongo.db.clients.find(),
                            client=the_client,
                            appointments=mongo.db.appointments.find())
 
@@ -143,6 +137,7 @@ def insert_client():
 def edit_client(client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('edit-client.html',
+                           clientlist=mongo.db.clients.find(),
                            clients=mongo.db.clients.find(),
                            client=the_client,
                            prof_id="5efd0ac854f682912533cb68",
@@ -157,7 +152,6 @@ def update_client(client_id):
         'profile_id': request.form.get('profile_id'),
         'first': request.form.get('first'),
         'last': request.form.get('last'),
-        'age': request.form.get('age'),
         'location': request.form.get('location'),
         'client_email': request.form.get('client_email'),
         'client_tel': request.form.get('client_tel'),

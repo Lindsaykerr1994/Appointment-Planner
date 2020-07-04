@@ -1,52 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row margin-top-25">
-            <div class="col-4">
-                        <h5 class="uppercase margin-left-25">Edit Client</h5>
-            </div>   
+    <div class="row justify-content-md-center margin-bot-0">
+        <div class="col">
+            <p class="uppercase margin-top-25 underline">New Appointment</p>
+         </div>
     </div>
     <div class="row justify-content-md-center">
-        <div class="col-8 form-container padding-tab-15">
+        <div class="col form-container padding-tab-15">
             <form action="{{url_for('insert_client')}}" method="POST">
-            <div class="row">
-                <div class="col-6 margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-5">
                     <div class="input-field inline-bloc k">
                         <input type="text" id="client_first" name="first" required>
                         <label for="client_first">First Name</label>
                     </div>
+                </div>
+                <div class="col-5">
                     <div class="input-field inline-block">
                         <input type="text" id="client_last" name="last">
                         <label for="client_last">Last Name</label>       
                     </div>   
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
-                    <input type="number" id="client_age" name="age" min="1" max="99">
-                    <label for="client_age">Client Age</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="client_location" name="location">
                     <label for="client_location">Client Location</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="email" id="client_email" name="client_email" required>
                     <label for="client_email">Email Address</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <input type="text" id="client_tel" name="client_tel">
                     <label for="client_tel">Client Location</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 input-field margin-left-25">
+            <div class="row justify-content-md-center">
+                <div class="col-10 input-field">
                     <textarea name="additional_notes" id="additional_notes" class="materialize-textarea"></textarea>
                     <label for="additional_notes">Additional Notes</label>
                 </div>
@@ -70,7 +66,7 @@
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
             <div class="modal-footer">
-                <a href="{{url_for('get_clients')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{url_for('get_schedule')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
     </div>

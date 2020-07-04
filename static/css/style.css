@@ -78,6 +78,9 @@ a.text-green:hover{
 .text-white{
     color:#fff9f3 !important;
 }
+.dropdown-content li>span{
+    color: #212529;
+}
 a.text-decoration-none{
     text-decoration: none;
 }

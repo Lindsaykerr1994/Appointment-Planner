@@ -379,14 +379,14 @@ function showCollapsible(){
     $("#my-collapsible-content").removeClass("display-none");
     $("#my-collapsible-content").addClass("display-block");
     var count = $("#my-collapsible-content ul li").length-1;
-    var dropdownHeight = (151+(count*50));
+    var dropdownHeight = (101+(count*50));
     $("#dropdown1").css("height",`${dropdownHeight}px`);
     
 }
 function hideCollapsible(){
     $("#my-collapsible-content").removeClass("display-block");
     $("#my-collapsible-content").addClass("display-none");
-    $("#dropdown1").css("height",`150px`);
+    $("#dropdown1").css("height",`100px`);
 }
 
 
