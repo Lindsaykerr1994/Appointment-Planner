@@ -12,7 +12,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.config["DATABASE"] = "appointmentPlanner"
 
 mongo = PyMongo(app)
-prof_id = "5efd0ac854f682912533cb68"
+prof_id = ""
 timeline_opts = ["09:00", "09:30", "10:00", "10:30",
                  "11:00", "11:30", "12:00", "12:30",
                  "13:00", "13:30", "14:00", "14:30",
@@ -44,6 +44,10 @@ def check_login():
             elif str(profile_pword_input)!=str(profile_pword):
                 error = resp_wrong_pword  
             else:
+                global prof_id
+                profile_id = profile["_id"]
+                prof_id = profile_id
+                print(prof_id)
                 return redirect('get_schedule')
     return render_template('login.html', error=error)
     
@@ -51,6 +55,7 @@ def check_login():
 
 @app.route('/get_schedule')
 def get_schedule():
+    print(prof_id)
     return render_template('base.html',
                            prof_id=prof_id,
                            clientlist=mongo.db.clients.find(),
