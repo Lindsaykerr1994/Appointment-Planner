@@ -20,6 +20,10 @@ timeline_opts = ["09:00", "09:30", "10:00", "10:30",
                  "17:00", "17:30"]
 
 @app.route('/')
+@app.route('/get_login',  methods=['POST'])
+def get_login():
+    return
+
 @app.route('/get_schedule')
 def get_schedule():
     return render_template('base.html',

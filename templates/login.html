@@ -10,6 +10,11 @@
     <title>Appointment Planner</title>
 </head>
 <body>
+    <div class="login-container">
+        <form id="get-login-form" action="{{url_for('get_login')}}" method="POST">
+
+        </form>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{url_for('static', filename='js/create-schedule.js')}}"></script>
