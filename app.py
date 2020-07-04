@@ -17,8 +17,9 @@ timeline_opts = ["09:00", "09:30", "10:00", "10:30",
                  "13:00", "13:30", "14:00", "14:30",
                  "15:00", "15:30", "16:00", "16:30",
                  "17:00", "17:30"]
-prof_id = ""                 
+prof_id = ""
 profquery = { "profile_id": "%s" % prof_id}
+
 
 @app.route('/')
 @app.route('/get_login')
@@ -36,28 +37,27 @@ def check_login():
     profiles = mongo.db.profiles.find({'profile_user': profile_user_input})
     profile_pword_input = request.form.get('profile_pword')
     for profile in profiles:
-        if len(profile)==0:
+        if len(profile) == 0:
             error = resp_wrong_user
         else:
             profile_pword = profile["profile_pword"]
-            if len(profile_pword_input)==0:
+            if len(profile_pword_input) == 0:
                 error = resp_no_pword
-            elif str(profile_pword_input)!=str(profile_pword):
-                error = resp_wrong_pword  
+            elif str(profile_pword_input) != str(profile_pword):
+                error = resp_wrong_pword
             else:
                 global prof_id
                 prof_id = profile["_id"]
-                return redirect('get_schedule')
+                return redirect('get_schedule', prof_id=prof_id)
     return render_template('login.html', error=error)
-    
-    
+
 
 @app.route('/get_schedule')
 def get_schedule():
-    print(profquery)
+    prof_id = "5efd0ac854f682912533cb68"
     return render_template('base.html',
                            prof_id=prof_id,
-                           clientlist=mongo.db.clients.find(profquery),
+                           clientlist=mongo.db.clients.find(),
                            appointments=mongo.db.appointments.find())
 
 
