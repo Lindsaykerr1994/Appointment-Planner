@@ -3,7 +3,18 @@
     font-family: Hussar;
     src: url(fonts/HussarEkologiczne1.otf)
 }
-
+/* login.html Specifcations */
+.login-container{
+    margin-top:100px;
+    background-color: #414b3b;
+}
+.logo-container{
+    height:200px;
+    background-image: url("../images/clanker-logo.jpeg")
+}
+.login-form-container{
+    background-color: #fff9f3
+}
 /* Base.html Specifications */
 body{
     background-color: #fff9f3;

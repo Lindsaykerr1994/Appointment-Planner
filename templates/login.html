@@ -10,35 +10,40 @@
     <title>Appointment Planner</title>
 </head>
 <body>
-    <div class="login-container container">
+    <div class=" container">
         <div class="row justify-content-md-center">
-        <div class="col-6">
+        <div class="col-6 login-container">
+            <div class="row justify-content-md-center">
+                <div class="col-10 logo-container">
+                    
+                </div>    
+            </div>
             <div class="row justify-content-md-center">
                 <div class="col-10">
                     {{error}}
                 </div>    
             </div>
-        <form id="get-login-form" action="{{url_for('check_login')}}" method="POST">
-            <div class="row justify-content-md-center">
-                <div class="col-10 input-field">
-                    <input type="text" id="profile_user" name="profile_user">
-                    <label for="profile_pword">Username</label>
-                </div>    
-            </div>
-            <div class="row justify-content-md-center">
-                <div class="col-10 input-field">
-                    <input type="text" id="profile_user" name="profile_pword">
-                    <label for="profile_pword">Password</label>
-                </div>    
-            </div>
-            <div class="row justify-content-md-center">
-                <div class="col-10 input-field">
-                    <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
-                        <i class="material-icons right">save_alt</i>
-                    </button>
-                </div>    
-            </div>
-        </form>
+            <form class="login-form-container" id="get-login-form" action="{{url_for('check_login')}}" method="POST">
+                <div class="row justify-content-md-center">
+                    <div class="col-10 input-field">
+                        <input type="text" id="profile_user" name="profile_user">
+                        <label for="profile_pword">Username</label>
+                    </div>    
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-10 input-field">
+                        <input type="text" id="profile_user" name="profile_pword">
+                        <label for="profile_pword">Password</label>
+                    </div>    
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-10 input-field text-center">
+                        <button class="btn waves-effect waves-light clanker-button action-button" type="submit">sign in
+                            <i class="material-icons right">play_arrow</i>
+                        </button>
+                    </div>    
+                </div>
+            </form>
         </div>
         </div>
     </div>
