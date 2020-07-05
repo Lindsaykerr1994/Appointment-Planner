@@ -20,13 +20,13 @@
             </div>
             <form class="login-form-container" id="get-login-form" action="{{url_for('check_login')}}" method="POST">
                 <div class="row justify-content-md-center">
-                    <div class="col-10 input-field">
+                    <div class="col-8 input-field">
                         <input type="text" id="profile_user" name="profile_user">
                         <label for="profile_user">Username</label>
                     </div>    
                 </div>
                 <div class="row justify-content-md-center">
-                    <div class="col-10 input-field">
+                    <div class="col-8 input-field">
                         <input type="password" id="profile_pword" name="profile_pword">
                         <label for="profile_pword">Password</label>
                         {{error}}
@@ -40,8 +40,8 @@
                     </div>
                     <div class="col-5 input-field text-center">
                         <button class="btn waves-effect waves-light clanker-button action-button" type="">
-                            <a href="{{url_for('new_account')}}">create account
-                            <i class="material-icons right">play_arrow</i>
+                            <a href="{{url_for('new_account')}}" class="text-white text-decoration-none">create account
+                                <i class="material-icons right">play_arrow</i>
                             </a>
                         </button>
                     </div>    

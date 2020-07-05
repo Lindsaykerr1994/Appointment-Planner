@@ -65,7 +65,7 @@ def new_account():
 def insert_account():
     profiles = mongo.db.profiles
     profiles.insert_one(request.form.to_dict())
-    return render_template('login.html')
+    return redirect(url_for('get_login'))
 
 
 @app.route('/get_schedule/<prof_id>')

@@ -98,8 +98,25 @@ function validEmail(){
     var emailValid = mailformat.test(emailAddress);
     return emailValid
 }
+function checkFormValid(){
+    var formValid = false;
+    var userValid = $("#create-user-input").checkValidity();
+    var firstpWordValid = $("#first-pword-input").checkValidity();
+    var secondpWordValid = $("#second-pword-input").checkValidity();
+    var firstNameValid = $("#profile_first").checkValidity();
+    var lastNameValid = $("#profile_last").checkValidity();
+    var emailAddressValid = $("#profile-email-input").checkValidity();
+    if (userValid==true&&firstpWordValid==true&&secondpWordValid==true&&firstNameValid==true&&lastNameValid==true&&emailAddressValid==true){
+        formValid = true;
+    }
+    return formValid;
+}
 function submitForm(){
-    if(checkUsername()==false && checkPasswordCriteria()==true && confirmPassword()==true && allowEmaill()==true){
-        $("#create-account-form").submit()
+    if(checkFormValid()==true){
+        if(checkUsername()==false && checkPasswordCriteria()==true && confirmPassword()==true && allowEmaill()==true){
+                $("#create-account-form").submit()
+            }
+    } else {
+        return;
     }
 };
