@@ -49,7 +49,11 @@
                 <div class="appointment-data-unit">
                     <span class="app-id-data-field">{{app._id}}</span>
                     <span class="app-profid-data-field">{{app.profile_id}}</span>
+                    {% for possclient in clientlist %}
+                    {% if app.client_id|str()==possclient._id|str() %}
                     <span class="app-clientid-data-field">{{app.client_id}}</span>
+                    {% endif %}
+                    {% endfor %}
                     <span class="app-clientname-data-field">{{app.client_name}}</span>
                     <span class="app-starttime-data-field">{{app.start_time}}</span>
                     <span class="app-endtime-data-field">{{app.end_time}}</span>
