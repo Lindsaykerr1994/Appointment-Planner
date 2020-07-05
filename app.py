@@ -53,7 +53,9 @@ def check_login():
 def new_account():
     profiles = mongo.db.profiles.find()
     profile_users = []
+    profile_emails = []
     for profile in profiles:
+        profile_emails.append(profile['profile_email'])
         profile_users.append(profile['profile_user'])
     return render_template('new-account.html',
                            profile_users=profile_users)

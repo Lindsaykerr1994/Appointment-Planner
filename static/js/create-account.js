@@ -1,10 +1,16 @@
 $(document).ready(function(){
     window.userList = getListOfUsers()
+    window.emailList = getEmailsOfUsers()
 })
 function getListOfUsers(){
-    var rawUserList = $(".profile-data-unit").text()
+    var rawUserList = $(".profile-user-data-unit").text()
     var userList = rawUserList.replace("[","").replace("]","").replace(/'/g,"").split(", ")
     return userList
+}
+function getEmailsOfUsers(){
+    var rawUserList = $(".profile-email-data-unit").text()
+    var emailList = rawUserList.replace("[","").replace("]","").replace(/'/g,"").split(", ")
+    return emailList
 }
 function checkUsername(){
     var usernameTaken = false;
@@ -59,6 +65,33 @@ function checkPasswordCriteria(){
     }
     return passwordValid
 };
+function checkEmail(){
+    var allowEmail = false;
+    var emailTaken = false;
+    var emailInput = $("#profile-email-input").val()
+    for(i=0;i<emailList.length;i++){
+        var checkEmail = emailList[i];
+        if(emailInput==checkEmail){
+            $("#email-input-response").text(`This email has already been used to create an account.`);
+            emailTaken = true;
+            break;
+        } else {
+            var emailValid = validEmail();
+            if (emailValid = true){
+                $("#email-input-response").text("Email address is not valid");
+            } else {
+                $("#email-input-response").text("");
+            }
+        }
+    }
+    if (emailTaken==false && emailValid==false){
+        allowEmail = true;
+    }
+    return allowEmail
+};
+//This function to check the validity of emails was resources from:
+// https://www.w3resource.com/javascript/form/email-validation.php
+// And then adapted to further fit my forms specifications.
 function validEmail(){
     var emailAddress = $("#profile-email-input").val();
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -66,7 +99,7 @@ function validEmail(){
     return emailValid
 }
 function submitForm(){
-    if(checkUsername()==false && checkPasswordCriteria()==true && confirmPassword()==true && validEmail()==false){
+    if(checkUsername()==false && checkPasswordCriteria()==true && confirmPassword()==true && allowEmaill()==true){
         $("#create-account-form").submit()
     }
 };
