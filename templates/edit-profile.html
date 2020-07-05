@@ -37,18 +37,6 @@
                     <label for="profile_tel">Telephone No.</label>
                 </div>
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col-10 input-field">
-                    <input type="text" id="start_time" name="start_time" value="{{profile.start_time}}">
-                    <label for="start_time">Schedule Start Time (hh:mm)</label>
-                </div>
-            </div>
-            <div class="row justify-content-md-center">
-                <div class="col-10 input-field">
-                    <input type="text" id="end_time" name="end_time" value="{{profile.end_time}}">
-                    <label for="end_time">Schedule End Time (hh:mm)</label>
-                </div>
-            </div>
             <div class="row lh-85">
                 <div class="col-6 offset-6 text-right">
                             <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
@@ -63,13 +51,5 @@
         </div>
     </div>
 </div>
-<div id="cancel-save-modal" class="modal">
-            <div class="modal-content">
-                <p>Are you sure with you this cancel this action and return to the Home Page?</p>
-            </div>
-            <div class="modal-footer text-center">
-                <a href="{{url_for('get_profile', prof_id=profile._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
-            </div>
-        </div>
+
 {% endblock %}

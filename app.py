@@ -125,7 +125,7 @@ def insert_appointment(prof_id):
     client_id = request.form.get('client_id')
     this_client = mongo.db.clients.find_one({'_id': ObjectId(client_id)})
     client_name = this_client['first']+" "+this_client['last']
-    appointments.insert_one({
+    app_id = appointments.insert_one({
         'profile_id': prof_id,
         'client_id': client_id,
         'client_name': client_name,
@@ -135,7 +135,9 @@ def insert_appointment(prof_id):
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
     })
-    return redirect(url_for('get_schedule', prof_id=prof_id))
+    return redirect(url_for('see_app_details',
+                            prof_id=prof_id,
+                            app_id=app_id.inserted_id))
 
 
 @app.route('/edit_appointment/<prof_id>/<app_id>')
