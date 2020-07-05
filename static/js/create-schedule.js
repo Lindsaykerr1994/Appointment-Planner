@@ -24,6 +24,7 @@ function getAppointmentInfo(){
     for(i=0;i<count;i++){
         var addToEvents = {
             eventId: $(`.appointment-data-unit:nth-child(${i+1}) .app-id-data-field`).text(),
+            profileId: $(`.appointment-data-unit:nth-child(${i+1}) .app-profid-data-field`).text(),
             clientId: $(`.appointment-data-unit:nth-child(${i+1}) .app-clientid-data-field`).text(),
             clientName: $(`.appointment-data-unit:nth-child(${i+1}) .app-clientname-data-field`).text(),
             startTime: $(`.appointment-data-unit:nth-child(${i+1}) .app-starttime-data-field`).text(),
@@ -330,6 +331,7 @@ function createThisWeeksEvents(eventList){
         var eventDate = `${eventDateFull[8]}${eventDateFull[9]}`;        
         var clientName = eventList[i]["clientName"];
         var eventId = eventList[i]["eventId"];
+        var profileId = eventList[i]["profileId"]
         var dataEntry = `data-event-id=${eventId}`;
         var eventStartTime = eventList[i]["startTime"];
         var cardStyleTop = calculateCardTop(eventStartTime);
@@ -338,7 +340,7 @@ function createThisWeeksEvents(eventList){
         var cardStyleHeight = setHeight*eventBlock 
         var cardStyle = `style='top:${cardStyleTop}px;height:${cardStyleHeight}px;'`;
         var cardContent =`<span class="font-12 margin-left-5">${eventList[i]["startTime"]}-${eventList[i]["endTime"]}</span></br><span class="margin-left-5">${clientName}</span>`;
-        var cardElement = `<a href="/see_app_details/${eventId}" class="text-white text-decoration-none"><div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left">${cardContent}</div></a>`;
+        var cardElement = `<a href="/see_app_details/${profileId}/${eventId}" class="text-white text-decoration-none"><div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left">${cardContent}</div></a>`;
         $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`)
     }
 }

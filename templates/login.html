@@ -18,22 +18,18 @@
                     
                 </div>    
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col-10">
-                    {{error}}
-                </div>    
-            </div>
             <form class="login-form-container" id="get-login-form" action="{{url_for('check_login')}}" method="POST">
                 <div class="row justify-content-md-center">
                     <div class="col-10 input-field">
                         <input type="text" id="profile_user" name="profile_user">
-                        <label for="profile_pword">Username</label>
+                        <label for="profile_user">Username</label>
                     </div>    
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-10 input-field">
-                        <input type="text" id="profile_user" name="profile_pword">
+                        <input type="password" id="profile_pword" name="profile_pword">
                         <label for="profile_pword">Password</label>
+                        {{error}}
                     </div>    
                 </div>
                 <div class="row justify-content-md-center">

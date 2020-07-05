@@ -8,13 +8,12 @@
     </div>
         <div class="row justify-content-md-center">
             <div class="col form-container padding-tab-15">
-                <form action="{{ url_for('insert_appointment') }}" method="POST">
-                    <input type="text" name="profile_id" class="profile_id_field display-none" value="{{prof_id}}">
+                <form action="{{ url_for('insert_appointment', prof_id=prof_id) }}" method="POST">
                     <div class="row justify-content-md-center">
                         <div class="col-10 input-field">
                             <select id="client-info-select" name="client_id" required>
                                 <option value="" disabled selected>Choose Client</option>
-                                {% for client in clients %}
+                                {% for client in allclients %}
                                     <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
                                 {% endfor %}
                             </select>
@@ -82,7 +81,7 @@
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
             <div class="modal-footer text-center">
-                <a href="{{url_for('get_schedule')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{url_for('get_schedule', prof_id=prof_id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
         </div>

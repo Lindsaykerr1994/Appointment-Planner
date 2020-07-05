@@ -12,7 +12,7 @@
 <body>
     <nav>
         <div class="nav-wrapper uppercase">
-            <a href="{{url_for('get_schedule')}}" class="brand-logo margin-left-25 underline text-gold">Clanker</a>
+            <a href="{{url_for('get_schedule', prof_id=prof_id)}}" class="brand-logo margin-left-25 underline text-gold">Clanker</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down text-white">
                 <li class="dropdown-trigger" data-target="dropdown1"><a>Schedule</a></li>
@@ -21,19 +21,18 @@
             </ul>
         </div>
             <ul id="dropdown1" class="dropdown-content">
-                <li><a href="{{url_for('get_schedule')}}" class="text-black hover-gold">See Schd.<i class="small material-icons">event</i></a></li>
+                <li><a href="{{url_for('get_schedule', prof_id=prof_id)}}" class="text-black hover-gold">See Schd.<i class="small material-icons">event</i></a></li>
                 <li class="divider" tabindex="-1"></li>
-                <li><a href="{{url_for('create_appointment')}}" class="text-black hover-gold">New Appt.<i class="small material-icons">add_box</i></a></li>
-                </li>
+                <li><a href="{{url_for('create_appointment', prof_id=prof_id)}}" class="text-black hover-gold">New Appt.<i class="small material-icons">add_box</i></a></li>
             </ul>
             <ul id="dropdown2" class="dropdown-content">
-                <li><a href="{{url_for('create_client')}}" class="text-black hover-gold">New Client<i class="material-icons">person_add</i></a></li>
+                <li><a href="{{url_for('create_client', prof_id=prof_id)}}" class="text-black hover-gold">New Client<i class="material-icons">person_add</i></a></li>
                 <li class="divider" tabindex="-1"></li>
                 <li><a href="#!" class="text-black hover-gold">Client List<i class="material-icons">people</i></a></li>
                 <li>
                     <ul>
                         {% for clientfield in clientlist %}
-                        <li><a href="{{url_for('see_client', client_id=clientfield._id)}}" class="font-12 text-black hover-gold">{{clientfield.first}} {{clientfield.last}}</a></li>
+                        <li><a href="{{url_for('see_client', prof_id=prof_id, client_id=clientfield._id)}}" class="font-12 text-black hover-gold">{{clientfield.first}} {{clientfield.last}}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -47,9 +46,9 @@
     <div class="data-container display-none">
         <div class="appointment-data-container">
             {% for app in appointments %}
-            {% if app.profile_id|string() == prof_id|string() %}
                 <div class="appointment-data-unit">
                     <span class="app-id-data-field">{{app._id}}</span>
+                    <span class="app-profid-data-field">{{app.profile_id}}</span>
                     <span class="app-clientid-data-field">{{app.client_id}}</span>
                     <span class="app-clientname-data-field">{{app.client_name}}</span>
                     <span class="app-starttime-data-field">{{app.start_time}}</span>
@@ -58,7 +57,6 @@
                     <span class="app-startdate-data-field">{{app.start_date}}</span>
                     <span class="app-notes-data-field">{{app.appointment_notes}}</span>
                 </div>
-            {% endif %}
             {% endfor %}
         </div>
         <div class="client-data-container">
@@ -74,7 +72,7 @@
                     </p>
                 </div>
                 <div class="col margin-right-15">
-                    <a href="{{url_for('create_appointment')}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button float-right" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
+                    <a href="{{url_for('create_appointment', prof_id=prof_id)}}" class="btn-floating btn waves-effect waves-light tooltipped clanker-button event-button float-right" data-position="left" data-tooltip="SCHEDULE A NEW APPOINTMENT">
                         <i class="material-icons">add</i>
                     </a>
                 </div>

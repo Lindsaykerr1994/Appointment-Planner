@@ -39,7 +39,7 @@ a {
     background:#fff;
     border-radius: 5px;
 }
-.dropdown-content li{
+nav .dropdown-content li{
     width:225px;
 }
 /* General Styling Specifications */

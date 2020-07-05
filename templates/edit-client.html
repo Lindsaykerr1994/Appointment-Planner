@@ -8,7 +8,7 @@
         </div>
     <div class="row justify-content-md-center">
         <div class="col form-container padding-tab-15">
-            <form id="edit-client-form" action="{{url_for('update_client', client_id=client._id)}}" method="POST">
+            <form id="edit-client-form" action="{{url_for('update_client', prof_id=prof_id, client_id=client._id)}}" method="POST">
             <input type="text" name="profile_id" class="profile_id_field display-none" value="{{client.profile_id}}">
             <div class="row justify-content-md-center">
                 <div class="col-5">
@@ -54,7 +54,7 @@
                                 <i class="material-icons right">save_alt</i>
                             </button>
                             <button class="btn waves-effect waves-light modal-trigger clanker-button action-button">
-                                <a href="{{url_for('get_schedule')}}" class="text-white no-hover">Cancel
+                                <a href="{{url_for('get_schedule', prof_id=prof_id)}}" class="text-white no-hover">Cancel
                                     <i class="material-icons right">cancel_presentation</i>
                                 </a>
                             </button>
@@ -69,7 +69,7 @@
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
             <div class="modal-footer text-center">
-                <a href="{{url_for('see_client', client_id=client._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{url_for('see_client', prof_id=prof_id, client_id=client._id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
 </div>
