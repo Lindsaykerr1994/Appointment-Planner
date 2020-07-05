@@ -44,10 +44,26 @@ def check_login():
             elif str(profile_pword_input) != str(profile_pword):
                 error = resp_wrong_pword
             else:
-                global prof_id
                 prof_id = profile["_id"]
                 return redirect(url_for('get_schedule', prof_id=prof_id))
     return render_template('login.html', error=error)
+
+
+@app.route('/new_account')
+def new_account():
+    profiles = mongo.db.profiles.find()
+    profile_users = []
+    for profile in profiles:
+        profile_users.append(profile['profile_user'])
+    return render_template('new-account.html',
+                           profile_users=profile_users)
+
+
+@app.route('/insert_account', methods=['POST'])
+def insert_account():
+    profiles = mongo.db.profiles
+    profiles.insert_one(request.form.to_dict())
+    return render_template('login.html')
 
 
 @app.route('/get_schedule/<prof_id>')

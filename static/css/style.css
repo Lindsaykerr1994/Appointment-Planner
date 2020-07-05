@@ -10,7 +10,11 @@
 }
 .logo-container{
     height:200px;
-    background-image: url("../images/clanker-logo.jpeg")
+    background-image: url("../images/clanker-logo.jpeg");
+}
+.header-container{
+    height:100px;
+    background-image: url("../images/clanker-logo-min.png")
 }
 .login-form-container{
     background-color: #fff9f3
@@ -52,6 +56,9 @@ nav .dropdown-content li{
 
 .dropdown-content li>a.font-12{
     font-size:12px;
+}
+.font-10{
+    font-size:10px;
 }
 .font-12{
     font-size:12px;

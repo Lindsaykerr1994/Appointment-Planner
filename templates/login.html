@@ -33,9 +33,16 @@
                     </div>    
                 </div>
                 <div class="row justify-content-md-center">
-                    <div class="col-10 input-field text-center">
+                    <div class="col-5 input-field text-center">
                         <button class="btn waves-effect waves-light clanker-button action-button" type="submit">sign in
                             <i class="material-icons right">play_arrow</i>
+                        </button>
+                    </div>
+                    <div class="col-5 input-field text-center">
+                        <button class="btn waves-effect waves-light clanker-button action-button" type="">
+                            <a href="{{url_for('new_account')}}">create account
+                            <i class="material-icons right">play_arrow</i>
+                            </a>
                         </button>
                     </div>    
                 </div>
@@ -49,21 +56,6 @@
     <script>
         $(document).ready(function(){
             $('select').formSelect();
-            $('.datepicker').datepicker({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year,
-                format: 'yyyy-mm-dd',
-                today: 'Today',
-                clear: 'Clear',
-                close: 'Ok',
-                closeOnSelect: true // Close upon selecting a date,
-            });
-            $('.dropdown-trigger').dropdown({
-                alignment: 'right',
-                closeOnClick: false,
-                constrainWidth: false,
-                coverTrigger: false
-            });
         });
     </script>
 </body>
