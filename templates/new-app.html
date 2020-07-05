@@ -14,7 +14,11 @@
                             <select id="client-info-select" name="client_id" required>
                                 <option value="" disabled selected>Choose Client</option>
                                 {% for client in allclients %}
-                                    <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
+                                    {% if client_id|string()==client._id|string() %}
+                                        <option value="{{client._id}}" selected>{{client.first}} {{client.last}}</option>
+                                    {% else %}
+                                        <option value="{{client._id}}">{{client.first}} {{client.last}}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                             <label for="client-id-select">Client Name</label>

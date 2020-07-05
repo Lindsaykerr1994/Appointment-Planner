@@ -8,16 +8,17 @@
     </div>
     <div class="row justify-content-md-center">
         <div class="col form-container padding-tab-15">
-            <form action="{{url_for('insert_client')}}" method="POST">
+            <form action="{{url_for('insert_client', prof_id=prof_id)}}" method="POST">
+                <input type="text" id="profile_id" name="profile_id" value="{{prof_id}}" class="display-none" required >
             <div class="row justify-content-md-center">
                 <div class="col-5">
-                    <div class="input-field inline-bloc k">
+                    <div class="input-field">
                         <input type="text" id="client_first" name="first" required>
                         <label for="client_first">First Name</label>
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="input-field inline-block">
+                    <div class="input-field">
                         <input type="text" id="client_last" name="last">
                         <label for="client_last">Last Name</label>       
                     </div>   
@@ -38,7 +39,7 @@
             <div class="row justify-content-md-center">
                 <div class="col-10 input-field">
                     <input type="text" id="client_tel" name="client_tel">
-                    <label for="client_tel">Client Location</label>
+                    <label for="client_tel">Telephone Number</label>
                 </div>
             </div>
             <div class="row justify-content-md-center">
@@ -66,7 +67,7 @@
                 <p>Are you sure with you this cancel this action and return to the Home Page?</p>
             </div>
             <div class="modal-footer">
-                <a href="{{url_for('get_schedule')}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{url_for('get_schedule', prof_id=prof_id)}}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
             </div>
     </div>

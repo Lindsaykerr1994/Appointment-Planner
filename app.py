@@ -17,8 +17,6 @@ timeline_opts = ["09:00", "09:30", "10:00", "10:30",
                  "13:00", "13:30", "14:00", "14:30",
                  "15:00", "15:30", "16:00", "16:30",
                  "17:00", "17:30"]
-prof_id = ""
-profquery = { "profile_id": "%s" % prof_id}
 
 
 @app.route('/')
@@ -48,17 +46,19 @@ def check_login():
             else:
                 global prof_id
                 prof_id = profile["_id"]
-                return redirect(url_for('get_schedule', prof_id))
+                return redirect(url_for('get_schedule', prof_id=prof_id))
     return render_template('login.html', error=error)
 
 
 @app.route('/get_schedule/<prof_id>')
 def get_schedule(prof_id):
     clients = mongo.db.clients.find({'profile_id': prof_id})
+    clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('base.html',
                            prof_id=prof_id,
-                           clientlist=clients,
+                           clientlist=clientlist,
+                           clients=clients,
                            appointments=appointments)
 
 
@@ -81,6 +81,20 @@ def create_appointment(prof_id):
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('new-app.html',
                            prof_id=prof_id,
+                           timeline_opts=timeline_opts,
+                           appointments=appointments,
+                           clientlist=clientlist,
+                           allclients=allclients)
+
+
+@app.route('/create_appointment_with_client/<prof_id>/<client_id>')
+def create_appointment_with_client(prof_id, client_id):
+    clientlist = mongo.db.clients.find({'profile_id': prof_id})
+    allclients = mongo.db.clients.find({'profile_id': prof_id})
+    appointments = mongo.db.appointments.find({'profile_id': prof_id})
+    return render_template('new-app.html',
+                           prof_id=prof_id,
+                           client_id=client_id,
                            timeline_opts=timeline_opts,
                            appointments=appointments,
                            clientlist=clientlist,
@@ -153,13 +167,14 @@ def see_client(prof_id, client_id):
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('client-details.html',
                            prof_id=prof_id,
+                           client_id=client_id,
                            clientlist=clientlist,
                            client=the_client,
                            appointments=appointments)
 
 
 @app.route('/create_client/<prof_id>')
-def create_client():
+def create_client(prof_id):
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('new-client.html',
@@ -169,10 +184,12 @@ def create_client():
 
 
 @app.route('/insert_client/<prof_id>', methods=['POST'])
-def insert_client():
+def insert_client(prof_id):
     clients = mongo.db.clients
-    clients.insert_one(request.form.to_dict())
-    return redirect(url_for('get_schedule', prof_id=prof_id))
+    client_id = clients.insert_one(request.form.to_dict())
+    return redirect(url_for('see_client',
+                            prof_id=prof_id,
+                            client_id=client_id.inserted_id))
 
 
 @app.route('/edit_client/<prof_id>/<client_id>')
@@ -202,7 +219,12 @@ def update_client(prof_id, client_id):
         'client_tel': request.form.get('client_tel'),
         'additional_notes': request.form.get('additional_notes')
     })
-    return redirect(url_for('get_schedule', prof_id))
+    client_name = request.form.get('first')+" "+request.form.get('last')
+    mongo.db.appointments.update_many(
+        {'client_id': client_id},
+        {'$set':
+            {'client_name': client_name}})
+    return redirect(url_for('get_schedule', prof_id=prof_id))
 
 
 @app.route('/delete_client/<prof_id>/<client_id>')
@@ -251,6 +273,11 @@ def update_profile(prof_id):
         'end_time': request.form.get('end_time')
     })
     return redirect(url_for('get_profile', prof_id=prof_id))
+
+
+@app.route('/sign_out')
+def sign_out():
+    return redirect(url_for('get_login'))
 
 
 if __name__ == '__main__':
