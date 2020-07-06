@@ -92,6 +92,12 @@ Logo was created using the [Canva](https://www.canva.com/) tool.
 
 Wireframing was created using [Moqups](https://moqups.com/).
 
+Finally, there are two individual snippets of code that I resourced from external sources. These were both used in 'create-account.js' as a method to check the validation of my create account form.
+
+These are: the form validator code, gotten from: <https://www.w3resource.com/javascript/form/email-validation.php>.
+
+Secondly: the code to check if a string contains a number, gotten from: https://www.reddit.com/r/javascript/comments/2hhq1n/how_can_i_check_if_a_string_contains_a_number/
+
 # Testing
 
 All code was run through appropriate validators for testing. This includes:
@@ -120,6 +126,14 @@ Secondly, I created a Procfile to declare a process type through the command "ec
 If you wish to clone this respository:
 * Follow the respository link above to the GitHub Dashboard, and click "Clone or Download.
 * Use the "Clipboard Icon" to copy the URL and paste in the directory of your chosen Integrated Development Environment.
+
+# Credits
+
+I wanted to thank anyone who supported me during this project:
+My brother and my mentor, both for their sage advice.
+My friends for participating in manual tests of the web page.
+To CodeInstitute for their lessons and material in preparing me.
+And most noticably, my girlfriend, who I almost drove insane with my moaning about broken code.
 
 
 
