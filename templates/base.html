@@ -74,13 +74,13 @@
                     </p>
                 </div>
                 <div class="col margin-right-15">
-                    <a href="{{url_for('create_appointment', prof_id=prof_id)}}" class="btn-floating btn waves-effect waves-light clanker-button event-button float-right">
+                    <a href="{{url_for('create_appointment', prof_id=prof_id)}}" class="btn-floating btn waves-effect waves-light clanker-button new-app-button float-right">
                         <i class="material-icons">add</i>
                     </a>
                 </div>
             </div>
             <div class="row justify-content-md-center margin-bot-50">
-                <div class="col-8 content-container">
+                <div class="col-xl-8 content-container">
                     <div id="schedule-container" class="row no-gutters text-center uppercase">
                         <div id="timeline-col" class="col-1 day-col">
                             <div class="schedule-column-header">&emsp;</div>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="appointment-details-container" class="col-4 display-block content-container">
+                <div id="appointment-details-container" class="col-xl-4 display-block content-container">
                         {% block content %}
                         {% endblock %}
                         {% block history %}
