@@ -12,42 +12,42 @@
 <body>
     <div class=" container">
         <div class="row justify-content-md-center">
-        <div class="col-6 login-container">
-            <div class="row justify-content-md-center">
-                <div class="col-10 logo-container">
-                    
-                </div>    
-            </div>
-            <form class="login-form-container" id="get-login-form" action="{{url_for('check_login')}}" method="POST">
+            <div class="col-lg-6 login-container">
                 <div class="row justify-content-md-center">
-                    <div class="col-8 input-field">
-                        <input type="text" id="profile_user" name="profile_user">
-                        <label for="profile_user">Username</label>
+                    <div class="col-10 logo-container">
+                        
                     </div>    
                 </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-8 input-field">
-                        <input type="password" id="profile_pword" name="profile_pword">
-                        <label for="profile_pword">Password</label>
-                        {{error}}
-                    </div>    
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-5 input-field text-center">
-                        <button class="btn waves-effect waves-light clanker-button action-button" type="submit">sign in
-                            <i class="material-icons right">play_arrow</i>
-                        </button>
+                <form class="login-form-container" id="get-login-form" action="{{url_for('check_login')}}" method="POST">
+                    <div class="row justify-content-md-center">
+                        <div class="col-8 input-field">
+                            <input type="text" id="profile_user" name="profile_user">
+                            <label for="profile_user">Username</label>
+                        </div>    
                     </div>
-                    <div class="col-5 input-field text-center">
-                        <button class="btn waves-effect waves-light clanker-button action-button" type="">
-                            <a href="{{url_for('new_account')}}" class="text-white text-decoration-none">create account
-                                <i class="material-icons right">perm_identity</i>
-                            </a>
-                        </button>
-                    </div>    
-                </div>
-            </form>
-        </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-8 input-field">
+                            <input type="password" id="profile_pword" name="profile_pword">
+                            <label for="profile_pword">Password</label>
+                            {{error}}
+                        </div>    
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-5 input-field text-center">
+                            <button class="btn waves-effect waves-light clanker-button action-button" type="submit">sign in
+                                <i class="material-icons right">play_arrow</i>
+                            </button>
+                        </div>
+                        <div class="col-5 input-field text-center">
+                            <button class="btn waves-effect waves-light clanker-button action-button" type="">
+                                <a href="{{url_for('new_account')}}" class="text-white text-decoration-none">create account
+                                    <i class="material-icons right">perm_identity</i>
+                                </a>
+                            </button>
+                        </div>    
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
