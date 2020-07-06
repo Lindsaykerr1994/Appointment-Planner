@@ -250,7 +250,21 @@ a.text-decoration-none{
     color: #65765d;
 }
 @media (max-width: 1600px){
-    .schedule-column-header{
+    #schedule-container{
         font-size:12px;
+    }
+    .font-12{
+        font-size:10px;
+    }
+}
+@media (max-width: 800px){
+    .new-app-button{
+        display: none;
+    }
+    #schedule-container{
+        font-size:8px;
+    }
+    .font-12{
+        font-size:8px;
     }
 }
