@@ -19,63 +19,63 @@
     </div>
     <div class="container">
         <div class="row justify-content-md-center">
-        <div class="col-lg-6 login-container">
-            <div class="row justify-content-md-center">
-                <div class="col-10 header-container margin-top-25">
-                    
-                </div>    
+            <div class="col-lg-6 login-container">
+                <div class="row justify-content-md-center">
+                    <div class="col-10 header-container margin-top-25">
+                        
+                    </div>    
+                </div>
+                <form class="login-form-container" id="create-account-form" action="{{url_for('insert_account')}}" method="POST">
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <input type="text" id="create-user-input" name="profile_user" oninput="checkUsername()" required>
+                            <label for="profile_user">Enter Username</label>
+                            <p id="user-input-response" class="font-10"></p>
+                        </div>    
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <input type="password" id="first-pword-input" name="profile_pword" required oninput="checkPasswordCriteria()">
+                            <label for="profile_pword">Enter Password</label>
+                            <p id="pword-criteria-response" class="font-10"></p>
+                        </div>    
+                        <div class="col-10 input-field">
+                            <input type="password" id="second-pword-input" name="confirm_pword" oninput="confirmPassword()" required>
+                            <label for="confirm_pword">Confirm Password</label>
+                            <p id="pword-match-response" class="font-10"></p>
+                        </div> 
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-5 input-field">
+                            <input type="text" id="profile_first" name="profile_first" required>
+                            <label for="profile_first">First Name</label>
+                        </div> 
+                        <div class="col-5 input-field">
+                            <input type="text" id="profile_last" name="profile_last" required>
+                            <label for="profile_last">Last Name</label>
+                        </div>     
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <input type="email" id="profile-email-input" name="profile_email" required>
+                            <label for="profile_first">Email Address</label>
+                        </div>     
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field">
+                            <input type="email" id="profile-tel-input" name="profile_tel" required>
+                            <label for="profile_first">Telephone Number</label>
+                        </div>     
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-10 input-field text-center">
+                            <button class="btn waves-effect waves-light clanker-button action-button" onclick="submitForm()">create account
+                                <i class="material-icons right">play_arrow</i>
+                            </button>
+                        </div>    
+                    </div>
+                </form>
             </div>
-            <form class="login-form-container" id="create-account-form" action="{{url_for('insert_account')}}" method="POST">
-                <div class="row justify-content-md-center">
-                    <div class="col-10 input-field">
-                        <input type="text" id="create-user-input" name="profile_user" oninput="checkUsername()" required>
-                        <label for="profile_user">Enter Username</label>
-                        <p id="user-input-response" class="font-10"></p>
-                    </div>    
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-10 input-field">
-                        <input type="password" id="first-pword-input" name="profile_pword" required oninput="checkPasswordCriteria()">
-                        <label for="profile_pword">Enter Password</label>
-                        <p id="pword-criteria-response" class="font-10"></p>
-                    </div>    
-                    <div class="col-10 input-field">
-                        <input type="password" id="second-pword-input" name="confirm_pword" oninput="confirmPassword()" required>
-                        <label for="confirm_pword">Confirm Password</label>
-                        <p id="pword-match-response" class="font-10"></p>
-                    </div> 
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-5 input-field">
-                        <input type="text" id="profile_first" name="profile_first" required>
-                        <label for="profile_first">First Name</label>
-                    </div> 
-                    <div class="col-5 input-field">
-                        <input type="text" id="profile_last" name="profile_last" required>
-                        <label for="profile_last">Last Name</label>
-                    </div>     
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-10 input-field">
-                        <input type="email" id="profile-email-input" name="profile_email" required>
-                        <label for="profile_first">Email Address</label>
-                    </div>     
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-10 input-field">
-                        <input type="email" id="profile-tel-input" name="profile_tel" required>
-                        <label for="profile_first">Telephone Number</label>
-                    </div>     
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-10 input-field text-center">
-                        <button class="btn waves-effect waves-light clanker-button action-button" onclick="submitForm()">create account
-                            <i class="material-icons right">play_arrow</i>
-                        </button>
-                    </div>    
-                </div>
-            </form>
-        </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

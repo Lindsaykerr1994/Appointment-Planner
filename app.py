@@ -29,7 +29,8 @@ def get_login():
 def check_login():
     error = None
     resp_wrong_user = "This user does not exist. Please check the username"
-    resp_wrong_pword = "This password does not match the username. Please re-enter your password."
+    resp_wrong_pword = "This password does not match the username.\
+                        Please re-enter your password."
     resp_no_pword = "Please enter a password"
     profile_user_input = request.form.get('profile_user')
     profiles = mongo.db.profiles.find({'profile_user': profile_user_input})
@@ -325,4 +326,4 @@ def sign_out():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
