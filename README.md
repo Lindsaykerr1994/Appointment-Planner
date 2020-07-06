@@ -90,6 +90,8 @@ Fonts were resourced from [Google fonts](https://fonts.google.com/) and [Windows
 
 Logo was created using the [Canva](https://www.canva.com/) tool. 
 
+Wireframing was created using [Moqups](https://moqups.com/).
+
 # Testing
 
 All code was run through appropriate validators for testing. This includes:
@@ -110,6 +112,7 @@ I set my Config Vars to:
 * IP : 0.0.0.0
 * PORT: 5000
 * MONGO_URI, and MONGO_DBNAME
+
 My repository can be found on [GitHub](https://github.com/Lindsaykerr1994/Milestone-3-Appointment-Planner)
 As mentioned in my Technologies section, I used a number of Python Packages, all of which can be found in the requirements.txt, created with the command "pip3 freeze --local > requirements.txt" in the CLI.
 Secondly, I created a Procfile to declare a process type through the command "echo web: python run.py > Procfile"

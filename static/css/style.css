@@ -11,10 +11,18 @@
 .logo-container{
     height:200px;
     background-image: url("../images/clanker-logo.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .header-container{
+    background-image: url("../images/clanker-logo-min.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
     height:100px;
-    background-image: url("../images/clanker-logo-min.png")
+
 }
 .login-form-container{
     background-color: #fff9f3
@@ -240,4 +248,9 @@ a.text-decoration-none{
 }
 .datepicker-cancel, .datepicker-done, .is-today{
     color: #65765d;
+}
+@media (max-width: 1600px){
+    .schedule-column-header{
+        font-size:12px;
+    }
 }

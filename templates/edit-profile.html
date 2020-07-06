@@ -39,12 +39,12 @@
             </div>
             <div class="row lh-85">
                 <div class="col-6 offset-6 text-right">
-                            <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
+                        <button class="btn waves-effect waves-light clanker-button action-button" type="submit">Save
                                 <i class="material-icons right">save_alt</i>
-                            </button>
-                            <button class="btn waves-effect waves-light modal-trigger clanker-button action-button" href="#cancel-save-modal">Cancel
-                                <i class="material-icons right">cancel_presentation</i>
-                            </button>
+                        </button>
+                        <a href="{{url_for('get_schedule', prof_id=prof_id)}}" class="text-white no-hover btn waves-effect waves-light modal-trigger clanker-button action-button">Cancel
+                                    <i class="material-icons right">cancel_presentation</i>
+                                </a>
                 </div>
             </div>
             </form>

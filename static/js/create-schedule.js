@@ -3,7 +3,6 @@ $(document).ready(function(){
     var allEvents = getAppointmentInfo();
     var todaysDate = getTodaysDate();
     window.upcomingEvents = getUpcomingAppointments(todaysDate, allEvents);
-    console.log(upcomingEvents)
     var thisWeeksDate = getThisWeeksDate(todaysDate);
     var thisWeeksEvents = getThisWeeksEvents(allEvents,thisWeeksDate);
     //Second, create the schedule layout as necessary.
@@ -15,11 +14,11 @@ $(document).ready(function(){
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
     setWelcomeMessage();
-})
+});
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
-var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 //The following functions collects the appointment data imported from Python/app.py
 function getAppointmentInfo(){
     var count = $(".appointment-data-unit").length;
@@ -35,27 +34,27 @@ function getAppointmentInfo(){
             eventDuration: $(`.appointment-data-unit:nth-child(${i+1}) .app-duration-data-field`).text(),
             eventDate: $(`.appointment-data-unit:nth-child(${i+1}) .app-startdate-data-field`).text(),
             eventNotes: $(`.appointment-data-unit:nth-child(${i+1}) .app-notes-data-field`).text()
-        }
-        allEvents.push(addToEvents)
+        };
+        allEvents.push(addToEvents);
     }
-    return(allEvents)
+    return(allEvents);
 }
 function getUpcomingAppointments(todaysDate, allEvents){
     var upcomingEvents = [];
     if (todaysDate[1]<10){
         if (todaysDate[2]<10){
-            var todaysDateStr = `${todaysDate[3]}0${todaysDate[2]}0${todaysDate[1]}`
+            var todaysDateStr = `${todaysDate[3]}0${todaysDate[2]}0${todaysDate[1]}`;
         } else {
-            todaysDateStr = `${todaysDate[3]}${todaysDate[2]}0${todaysDate[1]}`
+            todaysDateStr = `${todaysDate[3]}${todaysDate[2]}0${todaysDate[1]}`;
         }
     } else if (todaysDate[2]<10){
-        todaysDateStr = `${todaysDate[3]}0${todaysDate[2]}${todaysDate[1]}`
+        todaysDateStr = `${todaysDate[3]}0${todaysDate[2]}${todaysDate[1]}`;
     } else {
-        todaysDateStr = `${todaysDate[3]}${todaysDate[2]}${todaysDate[1]}`
+        todaysDateStr = `${todaysDate[3]}${todaysDate[2]}${todaysDate[1]}`;
     }
     var DateFloat = parseFloat(todaysDateStr);
     for (i=0;i<allEvents.length;i++){
-        var checkDate = allEvents[i]['eventDate'].replace(/-/g,"")
+        var checkDate = allEvents[i].eventDate.replace(/-/g,"")
         var checkDateFloat = parseFloat(checkDate)
         if (checkDateFloat>=DateFloat){
             upcomingEvents.push(allEvents[i]);
@@ -65,7 +64,7 @@ function getUpcomingAppointments(todaysDate, allEvents){
 }
 //The following functions generate DateTime data
 function getTodaysDate(){
-    var newDate = new Date
+    var newDate = new Date();
     var dayToday = newDate.getDay();
     var dateToday = newDate.getDate();
     var monthToday = newDate.getMonth()+1;
@@ -81,7 +80,7 @@ function stringifyMonth(month){
     return monthString;
 }
 function getThisWeeksDate(requestDate){
-    var thisWeeksDate = []
+    var thisWeeksDate = [];
     var dayToday = requestDate[0];
     var dateToday = requestDate[1];
     var monthToday = requestDate[2];
@@ -333,47 +332,47 @@ function applyTimeline(startTime,endTime){
 //This function has an input of a string format of time, and returns the integer of that hour.
 function parseIntOfTime(timeVar){
     if(timeVar[0]=="1"){
-        var timeVarInt = parseInt(`${timeVar[0]}${timeVar[1]}`)
+        var timeVarInt = parseInt(`${timeVar[0]}${timeVar[1]}`);
     } else {
         timeVarInt = parseInt(timeVar[1])
     }
     return timeVarInt;
-};
+}
 function setActiveDay(todaysDate){
     if(todaysDate<10){
         var findDateStr = `0${todaysDate}`;
     } else {
         findDateStr = `${todaysDate}`;
     }
-    $(`.sch-col-header-date:contains(${findDateStr})`).parent().parent().addClass("active-day-col")
+    $(`.sch-col-header-date:contains(${findDateStr})`).parent().parent().addClass("active-day-col");
 
-};
+}
 //The following functions create the events for the schedule
 function createThisWeeksEvents(eventList){
     for(i=0;i<eventList.length;i++){
-        var eventDateFull = eventList[i]["eventDate"];
+        var eventDateFull = eventList[i].eventDate;
         var eventDate = `${eventDateFull[8]}${eventDateFull[9]}`;        
-        var clientName = eventList[i]["clientName"];
-        var eventId = eventList[i]["eventId"];
-        var profileId = eventList[i]["profileId"]
+        var clientName = eventList[i].clientName;
+        var eventId = eventList[i].eventId;
+        var profileId = eventList[i].profileId;
         var dataEntry = `data-event-id=${eventId}`;
-        var eventStartTime = eventList[i]["startTime"];
+        var eventStartTime = eventList[i].startTime;
         var cardStyleTop = calculateCardTop(eventStartTime);
         var setHeight = 50;
-        var eventBlock = parseInt(eventList[i]["eventDuration"]);
-        var cardStyleHeight = setHeight*eventBlock 
+        var eventBlock = parseInt(eventList[i].eventDuration);
+        var cardStyleHeight = setHeight*eventBlock ;
         var cardStyle = `style='top:${cardStyleTop}px;height:${cardStyleHeight}px;'`;
-        var cardContent =`<span class="font-12 margin-left-5">${eventList[i]["startTime"]}-${eventList[i]["endTime"]}</span></br><span class="margin-left-5">${clientName}</span>`;
+        var cardContent =`<span class="font-12 margin-left-5">${eventList[i]["startTime"]}-${eventList[i].endTime}</span></br><span class="margin-left-5">${clientName}</span>`;
         var cardElement = `<a href="/see_app_details/${profileId}/${eventId}" class="text-white text-decoration-none"><div ${cardStyle} ${dataEntry} class="event-card-unit dropdown-trigger text-left">${cardContent}</div></a>`;
-        $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`)
+        $(`.sch-col-header-date:contains(${eventDate})`).parent().after(`${cardElement}`);
     }
 }
 function calculateCardTop(eventStart){
-    var eventStartFloat = parseInt(`${eventStart[0]}${eventStart[1]}`)
+    var eventStartFloat = parseInt(`${eventStart[0]}${eventStart[1]}`);
     if (eventStart[3]=="3"){
         eventStartFloat += 0.5;
     }
-    var timelineStartFloat = parseInt(`${timelineStart[0]}${timelineStart[1]}`)
+    var timelineStartFloat = parseInt(`${timelineStart[0]}${timelineStart[1]}`);
     if (timelineStart[3]=="3"){
         timelineStartFloat += 0.5;
     }
@@ -389,9 +388,9 @@ function setWelcomeMessage(){
     $("#todays-date-span").text(welcomeDate);
     var arrayIndex = upcomingEvents.length-1;
     console.log(arrayIndex);
-    $("#welcome-appt-name").text(upcomingEvents[arrayIndex]["clientName"])
-    $("#welcome-appt-time").text(upcomingEvents[arrayIndex]["startTime"])
-    $("#welcome-appt-date").text(upcomingEvents[arrayIndex]["eventDate"])
+    $("#welcome-appt-name").text(upcomingEvents[arrayIndex].clientName);
+    $("#welcome-appt-time").text(upcomingEvents[arrayIndex].startTime);
+    $("#welcome-appt-date").text(upcomingEvents[arrayIndex].eventDate);
 }
 
 

@@ -135,13 +135,22 @@ def insert_appointment(prof_id):
     client_id = request.form.get('client_id')
     this_client = mongo.db.clients.find_one({'_id': ObjectId(client_id)})
     client_name = this_client['first']+" "+this_client['last']
+    start_time = request.form.get('start_time')
+    start_time_float = float(start_time[0, 2])
+    if start_time[3] == "3":
+        start_time_float += 0.5
+    end_time = request.form.get('end_time')
+    end_time_float = float(end_time[0, 2])
+    if end_time[3] == "3":
+        end_time_float += 0.5
+    appointment_duration = (end_time_float-start_time_float)*2
     app_id = appointments.insert_one({
         'profile_id': prof_id,
         'client_id': client_id,
         'client_name': client_name,
-        'start_time': request.form.get('start_time'),
-        'end_time': request.form.get('end_time'),
-        'appointment_duration': request.form.get('appointment_duration'),
+        'start_time': start_time,
+        'end_time': end_time,
+        'appointment_duration': appointment_duration,
         'start_date': request.form.get('start_date'),
         'appointment_notes': request.form.get('appointment_notes')
     })
