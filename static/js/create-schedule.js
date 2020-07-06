@@ -1,7 +1,10 @@
 $(document).ready(function(){
     //First, generate/retrieve all relevant data for events and clients.
     var allEvents = getAppointmentInfo();
-    var thisWeeksDate = getThisWeeksDate(getTodaysDate());
+    var todaysDate = getTodaysDate();
+    window.upcomingEvents = getUpcomingAppointments(todaysDate, allEvents);
+    console.log(upcomingEvents)
+    var thisWeeksDate = getThisWeeksDate(todaysDate);
     var thisWeeksEvents = getThisWeeksEvents(allEvents,thisWeeksDate);
     //Second, create the schedule layout as necessary.
     window.timelineStart = "09:00";
@@ -11,7 +14,7 @@ $(document).ready(function(){
     setActiveDay(getTodaysDate()[1]);
     //Third, apply events to schedule.
     createThisWeeksEvents(thisWeeksEvents);
-    setWelcomeMessage("Lindsay Kerr");
+    setWelcomeMessage();
 })
 var timelineStart = "09:00";
 var timelineEnd = "17:00";
@@ -35,10 +38,31 @@ function getAppointmentInfo(){
         }
         allEvents.push(addToEvents)
     }
-    console.log(allEvents)
     return(allEvents)
 }
-
+function getUpcomingAppointments(todaysDate, allEvents){
+    var upcomingEvents = [];
+    if (todaysDate[1]<10){
+        if (todaysDate[2]<10){
+            var todaysDateStr = `${todaysDate[3]}0${todaysDate[2]}0${todaysDate[1]}`
+        } else {
+            todaysDateStr = `${todaysDate[3]}${todaysDate[2]}0${todaysDate[1]}`
+        }
+    } else if (todaysDate[2]<10){
+        todaysDateStr = `${todaysDate[3]}0${todaysDate[2]}${todaysDate[1]}`
+    } else {
+        todaysDateStr = `${todaysDate[3]}${todaysDate[2]}${todaysDate[1]}`
+    }
+    var DateFloat = parseFloat(todaysDateStr);
+    for (i=0;i<allEvents.length;i++){
+        var checkDate = allEvents[i]['eventDate'].replace(/-/g,"")
+        var checkDateFloat = parseFloat(checkDate)
+        if (checkDateFloat>=DateFloat){
+            upcomingEvents.push(allEvents[i]);
+        }
+    }
+    return upcomingEvents;
+}
 //The following functions generate DateTime data
 function getTodaysDate(){
     var newDate = new Date
@@ -358,15 +382,16 @@ function calculateCardTop(eventStart){
 
 }
 //The following functions set the welcome message at the top of schedule.html
-function setWelcomeMessage(firstName){
-    $("#welcome-client-name").text(firstName);
+function setWelcomeMessage(){
+    console.log(upcomingEvents);
     var todaysDate = getTodaysDate();
     var welcomeDate = `${dayNames[todaysDate[0]]}, ${todaysDate[1]} ${monthNames[todaysDate[2]-1]} ${todaysDate[3]}`;
     $("#todays-date-span").text(welcomeDate);
-    findUpcomingAppointment();
+    var arrayIndex = upcomingEvents.length-1;
+    console.log(arrayIndex);
+    $("#welcome-appt-name").text(upcomingEvents[arrayIndex]["clientName"])
+    $("#welcome-appt-time").text(upcomingEvents[arrayIndex]["startTime"])
+    $("#welcome-appt-date").text(upcomingEvents[arrayIndex]["eventDate"])
 }
-function findUpcomingAppointment(allEventsWithNames, todaysDate){
-    var allFutureEvents = 5;
-}
-//The following functions construct the clients dropdown menu  as a collapsible
+
 

@@ -70,10 +70,13 @@ def insert_account():
 
 @app.route('/get_schedule/<prof_id>')
 def get_schedule(prof_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clients = mongo.db.clients.find({'profile_id': prof_id})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
+    appointments.sort([('start_date', -1), ('start_time', -1)])
     return render_template('base.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            clientlist=clientlist,
                            clients=clients,
@@ -82,10 +85,12 @@ def get_schedule(prof_id):
 
 @app.route('/see_app_details/<prof_id>/<app_id>')
 def see_app_details(prof_id, app_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clients = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
     return render_template('appointment.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            the_app=appointment,
                            appointments=appointments,
@@ -94,10 +99,12 @@ def see_app_details(prof_id, app_id):
 
 @app.route('/create_appointment/<prof_id>')
 def create_appointment(prof_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     allclients = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('new-app.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            timeline_opts=timeline_opts,
                            appointments=appointments,
@@ -107,10 +114,12 @@ def create_appointment(prof_id):
 
 @app.route('/create_appointment_with_client/<prof_id>/<client_id>')
 def create_appointment_with_client(prof_id, client_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     allclients = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('new-app.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            client_id=client_id,
                            timeline_opts=timeline_opts,
@@ -142,10 +151,12 @@ def insert_appointment(prof_id):
 
 @app.route('/edit_appointment/<prof_id>/<app_id>')
 def edit_appointment(prof_id, app_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     appointment = mongo.db.appointments.find_one({"_id": ObjectId(app_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     allclients = mongo.db.clients.find({'profile_id': prof_id})
     return render_template('edit-app.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            the_app=appointment,
                            appointments=mongo.db.appointments.find(),
@@ -182,22 +193,29 @@ def delete_appointment(prof_id, app_id):
 
 @app.route('/see_client/<prof_id>/<client_id>')
 def see_client(prof_id, client_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
+    client_appointments = mongo.db.appointments.find({'client_id': client_id})
+    client_appointments.sort([('start_date', -1), ('start_time', -1)])
     return render_template('client-details.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            client_id=client_id,
                            clientlist=clientlist,
                            client=the_client,
-                           appointments=appointments)
+                           appointments=appointments,
+                           client_appointments=client_appointments)
 
 
 @app.route('/create_client/<prof_id>')
 def create_client(prof_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('new-client.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            clientlist=clientlist,
                            appointments=appointments)
@@ -214,11 +232,13 @@ def insert_client(prof_id):
 
 @app.route('/edit_client/<prof_id>/<client_id>')
 def edit_client(prof_id, client_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     allclients = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     the_client = mongo.db.clients.find_one({"_id": ObjectId(client_id)})
     return render_template('edit-client.html',
+                           my_profile=my_profile,
                            allclients=allclients,
                            clientlist=clientlist,
                            client=the_client,
@@ -256,10 +276,12 @@ def delete_client(prof_id, client_id):
 
 @app.route('/get_profile/<prof_id>')
 def get_profile(prof_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     the_prof = mongo.db.profiles.find_one({"_id": ObjectId(prof_id)})
     return render_template('profile.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            profile=the_prof,
                            clientlist=clientlist,
@@ -268,10 +290,12 @@ def get_profile(prof_id):
 
 @app.route('/edit_profile/<prof_id>')
 def edit_profile(prof_id):
+    my_profile = mongo.db.profiles.find({"_id": ObjectId(prof_id)})
     the_prof = mongo.db.profiles.find_one({"_id": ObjectId(prof_id)})
     clientlist = mongo.db.clients.find({'profile_id': prof_id})
     appointments = mongo.db.appointments.find({'profile_id': prof_id})
     return render_template('edit-profile.html',
+                           my_profile=my_profile,
                            prof_id=prof_id,
                            profile=the_prof,
                            clientlist=clientlist,
@@ -289,8 +313,6 @@ def update_profile(prof_id):
         'profile_last': request.form.get('profile_last'),
         'profile_email': request.form.get('profile_email'),
         'profile_tel': request.form.get('profile_tel'),
-        'start_time': request.form.get('start_time'),
-        'end_time': request.form.get('end_time')
     })
     return redirect(url_for('get_profile', prof_id=prof_id))
 

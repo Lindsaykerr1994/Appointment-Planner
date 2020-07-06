@@ -67,8 +67,10 @@
             <div class="row margin-top-25">
                 <div id="welcome-div" class="col-6 margin-left-15">
                     <p class="margin-bot-0">
-                        Welcome, <span id="welcome-client-name"></span>! Today is <span id="todays-date-span"></span>.<br>
-                        Your next appointment is: <span id="welcome-appt-date"></span> at: <span id="welcome-appt-time"></span> with: <span id="welcome-appt-name"></span>
+                        {% for myprofile in my_profile %}
+                        Welcome, {{myprofile.profile_first}}! Today is <span id="todays-date-span"></span>.<br>
+                        Your next appointment is with <span id="welcome-appt-name"></span> at <span id="welcome-appt-time"></span>, <span id="welcome-appt-date"></span>
+                        {% endfor %}
                     </p>
                 </div>
                 <div class="col margin-right-15">
@@ -111,6 +113,8 @@
                 </div>
                 <div id="appointment-details-container" class="col-4 display-block content-container">
                         {% block content %}
+                        {% endblock %}
+                        {% block history %}
                         {% endblock %}
                 </div>
             </div>

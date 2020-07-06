@@ -12,9 +12,9 @@
             </div>
         </div>
         <div class="row justify-content-md-center">
-            <div class="col list-container padding-tab-15">
+            <div class="col list-container padding-tab-15 weight-200">
                     <div class="row lh-50">
-                        <div class="col-6">
+                        <div class="col-6 uppercase">
                             Client Name:
                         </div>
                         <div class="col-6">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="row lh-50">
-                        <div class="col-6">
+                        <div class="col-6 uppercase">
                             Client Location:
                         </div>
                         <div class="col-6">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row lh-50">
-                        <div class="col-6">
+                        <div class="col-6 uppercase">
                             Client Email:
                         </div>
                         <div class="col-6">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="row lh-50">
-                        <div class="col-6">
+                        <div class="col-6 uppercase">
                             Client Telephone:
                         </div>
                         <div class="col-6">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="row lh-50">
-                        <div class="col-6">
+                        <div class="col-6 uppercase">
                             Additional Information:
                         </div>
                         <div class="col-6">
@@ -70,4 +70,36 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block history %}
+    <div class="container-fluid">
+        <div class="row justify-content-md-center margin-bot-0">
+            <div class="col margin-top-25">
+                <p class="uppercase underline inline-block">Appointment History</p>
+            </div>
+        </div>
+        <div class="row justify-content-md-center margin-bot-0">
+            <div class="col list-container padding-tab-15">
+                <table>
+                    <tr class="uppercase">
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Notes</th>
+                    </tr>
+                    {% for clapp in client_appointments %}
+                    <tr class="weight-200">
+                            <td>
+                                <a href="{{url_for('see_app_details', prof_id=prof_id, app_id=clapp._id)}}" class="text-black text-decoration-none">{{clapp.start_date}}</a>
+                            </td>
+                            <td>
+                                <a href="{{url_for('see_app_details', prof_id=prof_id, app_id=clapp._id)}}" class="text-black text-decoration-none">{{clapp.start_time}} - {{clapp.end_time}}</a>
+                            </td>
+                            <td>
+                                <a href="{{url_for('see_app_details', prof_id=prof_id, app_id=clapp._id)}}" class="text-black text-decoration-none">{{clapp.appointment_notes}}</a>
+                            </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 {% endblock %}
