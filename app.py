@@ -8,7 +8,7 @@ if os.path.exists("env.py"):
 
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["MONGO_URI"] =  # This needs filling in.
 app.config["DATABASE"] = "appointmentPlanner"
 
 mongo = PyMongo(app)
@@ -36,6 +36,7 @@ def check_login():
     profiles = mongo.db.profiles.find({'profile_user': profile_user_input})
     profile_pword_input = request.form.get('profile_pword')
     for profile in profiles:
+        print(profile)
         if len(profile) == 0:
             error = resp_wrong_user
         else:
@@ -136,11 +137,12 @@ def insert_appointment(prof_id):
     this_client = mongo.db.clients.find_one({'_id': ObjectId(client_id)})
     client_name = this_client['first']+" "+this_client['last']
     start_time = request.form.get('start_time')
-    start_time_float = float(start_time[0, 2])
+    print(start_time)
+    start_time_float = float(start_time[0:2])
     if start_time[3] == "3":
         start_time_float += 0.5
     end_time = request.form.get('end_time')
-    end_time_float = float(end_time[0, 2])
+    end_time_float = float(end_time[0:2])
     if end_time[3] == "3":
         end_time_float += 0.5
     appointment_duration = (end_time_float-start_time_float)*2
@@ -335,4 +337,4 @@ def sign_out():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)
