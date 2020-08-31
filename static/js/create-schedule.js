@@ -72,7 +72,7 @@ function getTodaysDate(){
     return [dayToday,dateToday,monthToday,yearToday];
 }
 function stringifyMonth(month){
-    if(month<9){
+    if(month<=9){
         var monthString = `0${month}`;
     } else{
         monthString = `${month}`;
@@ -195,6 +195,7 @@ function getThisWeeksDate(requestDate){
         }
         for (i=1;i<(dayToday+1);i++){
             var prevDate = dateToday-i;
+            console.log(prevDate);
             if (prevDate<1){//We must go back one month
                 if(monthToday == 3){//If the month is March and the date is less that 1
                     var prevDateMonth = `0${28 + prevDate}`; //We use '+' because prevDate value will be negative
@@ -272,7 +273,7 @@ function getThisWeeksDate(requestDate){
                     var monthNext = monthToday + 1;
                     var monthNextString = stringifyMonth(monthNext);
                     thisWeeksDate.push(`${yearToday}-${monthNextString}-${nextDateMonth}`);
-                } else {//If the month is Dec and date DOESN NOT exceed 31.
+                } else {//If the month is Dec and date DOES NOT exceed 31.
                     if (nextDate<10){
                         thisWeeksDate.push(`${yearToday}-${monthTodayString}-0${nextDate}`);
                     } else {
@@ -282,6 +283,7 @@ function getThisWeeksDate(requestDate){
             }
         }
     }
+    console.log(thisWeeksDate);
     return(thisWeeksDate);
 }
 function getThisWeeksEvents(eventDict,weeksDate){
@@ -300,6 +302,7 @@ function getThisWeeksEvents(eventDict,weeksDate){
 function applyDatesToSchedule(weeksDates){
     for(i=0;i<7;i++){
         var applyDates = weeksDates[i];
+        console.log(applyDates);
         var applyDateSingle = `${applyDates[8]}${applyDates[9]}`;
         $(".sch-col-header-date").eq(i).text(applyDateSingle);
     }
@@ -382,15 +385,17 @@ function calculateCardTop(eventStart){
 }
 //The following functions set the welcome message at the top of schedule.html
 function setWelcomeMessage(){
-    console.log(upcomingEvents);
     var todaysDate = getTodaysDate();
     var welcomeDate = `${dayNames[todaysDate[0]]}, ${todaysDate[1]} ${monthNames[todaysDate[2]-1]} ${todaysDate[3]}`;
     $("#todays-date-span").text(welcomeDate);
-    var arrayIndex = upcomingEvents.length-1;
-    console.log(arrayIndex);
-    $("#welcome-appt-name").text(upcomingEvents[arrayIndex].clientName);
-    $("#welcome-appt-time").text(upcomingEvents[arrayIndex].startTime);
-    $("#welcome-appt-date").text(upcomingEvents[arrayIndex].eventDate);
+    if(upcomingEvents.length == 0){
+        $("#welcome-message").text("You have no upcoming appointments.")
+    } else {
+        var arrayIndex = upcomingEvents.length-1; 
+        $("#welcome-appt-name").text(upcomingEvents[arrayIndex].clientName);
+        $("#welcome-appt-time").text(upcomingEvents[arrayIndex].startTime);
+        $("#welcome-appt-date").text(upcomingEvents[arrayIndex].eventDate);
+    }
 }
 
 

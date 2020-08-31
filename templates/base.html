@@ -67,8 +67,8 @@
                 <div id="welcome-div" class="col-md-6 margin-left-15">
                     <p class="margin-bot-0">
                         {% for myprofile in my_profile %}
-                        Welcome, {{myprofile.profile_first}}! Today is <span id="todays-date-span"></span>.<br>
-                        Your next appointment is with <span id="welcome-appt-name"></span> at <span id="welcome-appt-time"></span>, <span id="welcome-appt-date"></span>
+                        Welcome, {{myprofile.profile_first}}! Today is <span id="todays-date-span"></span>.<br><span id="welcome-message">
+                        Your next appointment is with <span id="welcome-appt-name"></span> at <span id="welcome-appt-time"></span>, <span id="welcome-appt-date"></span></span>
                         {% endfor %}
                     </p>
                 </div>
