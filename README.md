@@ -127,6 +127,8 @@ If you wish to clone this respository:
 * Follow the respository link above to the GitHub Dashboard, and click "Clone or Download.
 * Use the "Clipboard Icon" to copy the URL and paste in the directory of your chosen Integrated Development Environment.
 
+*This project has been redeployed to Heroku and resubmitted for assessment on 31-08-2020*
+
 # Credits
 
 I wanted to thank anyone who supported me during this project:
